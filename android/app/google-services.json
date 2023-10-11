@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1066442986736",
+    "project_id": "gps-baby-care",
+    "storage_bucket": "gps-baby-care.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1066442986736:android:d3d56543d833bc3f579e35",
+        "android_client_info": {
+          "package_name": "com.babycare.gps_baby_care"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2tFMfulVgpQSNUDJRRtj84WvKjXw_d2g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
