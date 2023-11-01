@@ -2,8 +2,8 @@ import 'firestoreController.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gps_baby_care/Modelos/institutoModel.dart';
 
-class usuarioController {
-  static Future<void> insertUsuario(Instituto i) async {
+class InstitutoController {
+  static Future<void> insertInstituto(Instituto i) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
     await DB.collection('Instituto').add(i.toMap());
   }

@@ -34,8 +34,8 @@ class _BienvenidaState extends State<Bienvenida> {
                   },
                   child:
                   CircleAvatar(
-                    child: Icon(Icons.chevron_right,color: Color(0xFFE2746B), size: 90,),
-                    backgroundColor: Color(0xFfC0D0E8),
+                    child: Icon(Icons.chevron_right,color: Color(0xFFFAF2E7), size: 90,),
+                    backgroundColor: Color(0xFFE2746B),
                     radius: 45,
 
                   ),),
