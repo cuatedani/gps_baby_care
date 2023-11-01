@@ -36,7 +36,7 @@ class _Menu_principalState extends State<Menu_principal> {
               child: Column(
                 children: [
                   CircleAvatar(
-                    backgroundImage: AssetImage("assets/images/peril.png"),
+                    backgroundImage: AssetImage("assets/images/perfil.png"),
                     backgroundColor: Color(0xffffffff),
                     radius: 39,
                     child: Text(

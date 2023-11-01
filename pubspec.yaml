@@ -86,7 +86,7 @@ flutter:
     - assets/images/img_17.png
     - assets/images/img_18.png
     - assets/images/img_19.png
-    - assets/images/peril.png
+    - assets/images/perfil.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
