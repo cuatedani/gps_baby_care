@@ -1,27 +1,37 @@
 class Instituto {
-  String? idinstituto;
-  String nombre;
-  String telefono;
-  String direccion;
-  String descripcion;
+  String? idinstitute;
+  String name;
+  String phone;
+  String address;
+  String description;
   String? logo;
 
   Instituto({
-    this.idinstituto,
-    required this.nombre,
-    required this.telefono,
-    required this.direccion,
-    required this.descripcion,
+    this.idinstitute,
+    required this.name,
+    required this.phone,
+    required this.address,
+    required this.description,
     this.logo,
   });
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> Registrar() {
     return {
-      'nombre': nombre,
-      'telefono': telefono,
-      'direccion': direccion,
-      'descripcion': descripcion,
+      'name': name,
+      'phone': 'SinEspecificar',
+      'address': 'SinEspecificar',
+      'description': 'SinEspecificar',
+      'logo': 'SinRecurso'
     };
   }
-  
+
+  Map<String, dynamic> Actualizar() {
+    return {
+      'name': name,
+      'phone': phone,
+      'address': address,
+      'description': description,
+      'logo': logo
+    };
+  }
 }

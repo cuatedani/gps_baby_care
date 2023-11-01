@@ -6,6 +6,7 @@ class Usuario {
   String phone;
   String address;
   bool? isProf;
+  bool? isAdmin;
   String? picture;
 
   Usuario({
@@ -16,6 +17,7 @@ class Usuario {
     required this.phone,
     required this.address,
     this.isProf,
+    this.isAdmin,
     this.picture,
   });
 
@@ -27,7 +29,8 @@ class Usuario {
       'phone': 'SinEspecificar',
       'address': 'SinEspecificar',
       'isProf': false,
-      'picture': 'SinFoto',
+      'isAdmin': false,
+      'picture': 'SinRecurso',
     };
   }
 
@@ -39,6 +42,7 @@ class Usuario {
       'phone': phone,
       'address': address,
       'isProf': isProf,
+      'isAdmin': isAdmin,
       'picture': picture
     };
   }

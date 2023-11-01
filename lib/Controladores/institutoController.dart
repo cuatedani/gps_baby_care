@@ -5,12 +5,12 @@ import 'package:gps_baby_care/Modelos/institutoModel.dart';
 class InstitutoController {
   static Future<void> insertInstituto(Instituto i) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
-    await DB.collection('Instituto').add(i.toMap());
+    await DB.collection('Instituto').add(i.Registrar());
   }
 
   static Future<void> updateInstituto(Instituto i) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
-    await DB.collection('Instituto').doc(i.idinstituto).set(i.toMap());
+    await DB.collection('Instituto').doc(i.idinstitute).set(i.Actualizar());
   }
 
   static Future<List<Instituto>> getallInstituto() async {
@@ -20,11 +20,11 @@ class InstitutoController {
 
     await Future.forEach(querySnapshot.docs, (documento) async {
       Instituto oneInstituto = Instituto(
-        idinstituto: documento.id,
-        nombre: documento['nombre'],
-        telefono: documento['telefono'],
-        direccion: documento['direccion'],
-        descripcion: documento['descripcion'],
+        idinstitute: documento.id,
+        name: documento['name'],
+        phone: documento['phone'],
+        address: documento['address'],
+        description: documento['description'],
         logo: documento['logo'],
       );
 
@@ -36,6 +36,6 @@ class InstitutoController {
 
   static Future<void> deleteInstituto(Instituto i) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
-    await DB.collection('Instituto').doc(i.idinstituto).delete();
+    await DB.collection('Instituto').doc(i.idinstitute).delete();
   }
 }
