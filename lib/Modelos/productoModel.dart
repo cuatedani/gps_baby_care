@@ -1,21 +1,25 @@
+import 'categoriaModel.dart';
+
 class Producto {
   String? idproduct;
   String name;
   double price;
   String description;
-  String? gallery;
-  String quantity;
+  List<String>? gallery;
+  List<Categoria> category;
+  int quantity;
 
   Producto({
     this.idproduct,
     required this.name,
     required this.price,
     required this.description,
+    required this.category,
     this.gallery,
     required this.quantity,
   });
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> Registrar() {
     return {
       'nombre': name,
       'precio': price,
@@ -25,4 +29,14 @@ class Producto {
     };
   }
 
+  Map<String, dynamic> Actualizar() {
+    return {
+      'idproduct': idproduct,
+      'nombre': name,
+      'precio': price,
+      'descripcion': description,
+      'galeria':gallery,
+      'cantidad': quantity,
+    };
+  }
 }

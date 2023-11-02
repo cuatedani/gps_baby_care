@@ -1,25 +1,42 @@
+import 'package:gps_baby_care/Modelos/categoriaModel.dart';
+
 class Articulo {
   String? idarticle;
   String idprof;
   DateTime date;
   String title;
-  String category;
-  String gallery;
+  String content;
+  List<Categoria> category;
+  List<String>? gallery;
 
   Articulo({
     this.idarticle,
     required this.idprof,
     required this.date,
     required this.title,
+    required this.content,
     required this.category,
-    required this.gallery,
+    this.gallery,
   });
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> Registrar() {
     return {
       'idprof': idprof,
       'date': date,
       'title': title,
+      'content': content,
+      'category': category,
+      'gallery': gallery,
+    };
+  }
+
+  Map<String, dynamic> Actualizar() {
+    return {
+      'idarticle': idarticle,
+      'idprof': idprof,
+      'date': date,
+      'title': title,
+      'content': content,
       'category': category,
       'gallery': gallery,
     };
