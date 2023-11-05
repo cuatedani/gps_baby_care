@@ -41,12 +41,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children:[
-            Image.asset("assets/images/logo_sinbg.png",width: MediaQuery.of(context).size.width/2,height: 200, ),
-            Icon(Icons.edit, size: 80, color: Colors.white
-            ),
-            SizedBox(height: 20,),
-            Text("BabyCare", 
-            style: TextStyle(fontStyle: FontStyle.italic, color: Colors.white, fontSize: 32),),
+            Image.asset("assets/images/logonobg.png",width: MediaQuery.of(context).size.width/2,height: 450, ),
           ]
         )
       ),
