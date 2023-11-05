@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:gps_baby_care/Vistas/splash_screen.dart';
 import 'firebase_options.dart';
 import 'Vistas/bienvenida.dart';
 
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Bienvenida(),
+     // home: Bienvenida(),
+      home: SplashScreen(),
     );
   }
 }
