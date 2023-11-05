@@ -59,11 +59,13 @@ class UsuarioController {
       Usuario oneInstituto = Usuario(
           iduser: documento.id,
           name: documento['name'],
+          lastname: documento['lastname'],
           email: documento['email'],
           password: documento['password'],
           phone: documento['phone'],
           address: documento['address'],
           isProf: documento['isProf'],
+          isAdmin: documento['isAdmin'],
           picture: documento['picture']);
 
       listaUsuario.add(oneInstituto);
@@ -72,8 +74,9 @@ class UsuarioController {
     return listaUsuario;
   }
 
-  static Future<void> deleteInstituto(Usuario u) async {
+  static Future<void> deleteUsuario(Usuario u) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
     await DB.collection('Usuario').doc(u.iduser).delete();
   }
+
 }

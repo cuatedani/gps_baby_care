@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login.dart';
-import 'bienvenida.dart';
+import 'BienvenidaView.dart';
 import 'menu_principal.dart';
 import 'store.dart';
 

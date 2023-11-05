@@ -1,10 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Usuario {
   String? iduser;
   String name;
+  String lastname;
   String email;
   String password;
-  String phone;
-  String address;
+  String? phone;
+  GeoPoint? address;
   bool? isProf;
   bool? isAdmin;
   String? picture;
@@ -12,10 +15,11 @@ class Usuario {
   Usuario({
     this.iduser,
     required this.name,
+    required this.lastname,
     required this.email,
     required this.password,
-    required this.phone,
-    required this.address,
+    this.phone,
+    this.address,
     this.isProf,
     this.isAdmin,
     this.picture,
@@ -24,6 +28,7 @@ class Usuario {
   Map<String, dynamic> Registrar() {
     return {
       'name': name,
+      'lastname': lastname,
       'email': email,
       'password': password,
       'phone': 'SinEspecificar',
@@ -37,6 +42,7 @@ class Usuario {
   Map<String, dynamic> Actualizar() {
     return {
       'name': name,
+      'lastname': lastname,
       'email': email,
       'password': password,
       'phone': phone,
@@ -45,6 +51,11 @@ class Usuario {
       'isAdmin': isAdmin,
       'picture': picture
     };
+  }
+
+  //Metodo Pendiente
+  String getAddress() {
+    return 'Direccion obtenida desde geopoint';
   }
 }
 

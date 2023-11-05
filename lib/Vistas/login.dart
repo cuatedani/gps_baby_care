@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'Registro.dart';
+import 'RegistroView.dart';
 import 'menu_principal.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
+
   @override
   State<Login> createState() => _LoginState();
 }
@@ -94,7 +95,7 @@ class _LoginState extends State<Login> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => RegistrationPage()));
+                              builder: (context) => RegistroView()));
                     },
                     style: ButtonStyle(
                       backgroundColor:
