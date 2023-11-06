@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'RegistroView.dart';
+import '../Componente/botonInicio.dart';
 import 'login.dart';
 
 class Bienvenida extends StatefulWidget {
@@ -14,20 +16,51 @@ class _BienvenidaState extends State<Bienvenida> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Color(0xFFFAF2E7),
-        child: Stack(
-          children: <Widget>[
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/inicio.jpeg'),
+            fit: BoxFit.cover, // Ajusta la imagen al tamaño del contenedor
+          ),
+        ),
+        //color: Color(0xFFFAF2E7) COLOR BASE
+        child:
             Column(
-
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 50,),
-                Center(
-                  child: Image.asset("assets/images/logo.png",width: MediaQuery.of(context).size.width/2,height: 200, ),
+                SizedBox(height: 180),
+                Flexible(flex: 1, child: Container(
+                  margin: EdgeInsets.only(right: 100.0),
+                  child: Center(
+                    child: Image.asset("assets/images/img_19r.png", width: MediaQuery.of(context).size.width / 1.5),
+                  ),
+                )),
+                Flexible(flex: 1,
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: Row(
+                      children: [
+                         Expanded(
+                          child: WelcomeButton(
+                            buttonText: 'Registrarte',
+                            onTap: RegistroView(),
+                            color: Colors.transparent,
+                            textColor: Color(0xFFE2746B),
+                          ),
+                        ),
+                        Expanded(
+                          child: WelcomeButton(
+                            buttonText: 'Iniciar Sesión',
+                            onTap:  Login(),
+                            color: Color(0xFFE2746B),
+                            textColor: Color(0xFFFAF2E7),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                SizedBox(height: 20,),
-                Text("Bienvenido a", style: TextStyle(color: Colors.brown,fontSize: 40,fontWeight: FontWeight.bold)),
-                Text("BabyCare", style: TextStyle(color: Colors.brown,fontSize: 40,fontWeight: FontWeight.bold)),
-                SizedBox(height: 50,),
+
+               /* SizedBox(height: 230,),
                 GestureDetector(
                   onTap:() {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => Login()),);
@@ -38,12 +71,11 @@ class _BienvenidaState extends State<Bienvenida> {
                     backgroundColor: Color(0xFFE2746B),
                     radius: 45,
 
-                  ),),
+                  ),),*/
               ],
-            )
-          ],
-        ),
-      ),
+
+            ),
+    ),
     );
   }
 }

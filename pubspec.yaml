@@ -67,6 +67,7 @@ flutter:
     - assets/images/img_inicio.png
     - assets/images/logo.png
     - assets/images/logonobg.png
+    - assets/images/inicio.jpeg
     - assets/images/img.png
     - assets/images/img_1.png
     - assets/images/img_2.png
@@ -86,7 +87,7 @@ flutter:
     - assets/images/img_16.png
     - assets/images/img_17.png
     - assets/images/img_18.png
-    - assets/images/img_19.png
+    - assets/images/img_19r.png
     - assets/images/perfil.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
