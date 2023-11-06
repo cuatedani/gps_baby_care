@@ -15,6 +15,11 @@ class _RegistroViewState extends State<RegistroView> {
   final password1 = TextEditingController();
   final password2 = TextEditingController();
 
+  bool validEmail = true;
+
+  AutovalidateMode _autovalidateMode = AutovalidateMode
+      .disabled; // Inicialmente, la validación no se realiza automáticamente
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,33 +39,41 @@ class _RegistroViewState extends State<RegistroView> {
           padding: EdgeInsets.all(16.0),
           child: Form(
             key: _formKey,
+            autovalidateMode:
+                _autovalidateMode, // Define el modo de validación automática
             child: Column(
               children: <Widget>[
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Nombre(s)'),
                   controller: name,
                 ),
+                SizedBox(height: 5,),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Apellido(s)'),
                   controller: lastname,
                 ),
+                SizedBox(height: 5,),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Correo Electrónico'),
                   keyboardType: TextInputType.emailAddress,
                   controller: email,
+                  validator: validateEmail, // Validación de correo electrónico
                 ),
+                SizedBox(height: 5,),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Contraseña'),
                   obscureText: true,
                   controller: password1,
+                  validator: validatePassword,
                 ),
+                SizedBox(height: 5,),
                 TextFormField(
-                  decoration:
-                      InputDecoration(labelText: 'Confirmar Contraseña'),
+                  decoration: InputDecoration(labelText: 'Confirma Contraseña'),
                   obscureText: true,
                   controller: password2,
+                  validator: confirmPassword,
                 ),
-                SizedBox(height: 16.0),
+                SizedBox(height: 5,),
                 ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor:
@@ -68,7 +81,15 @@ class _RegistroViewState extends State<RegistroView> {
                   ),
                   child: Text('Registrarse'),
                   onPressed: () async {
-                    FuncRegistrar();
+                    bool isEmailValid = await UsuarioController.verifEmailUsuario(email.text);
+                    setState(() {
+                      validEmail = isEmailValid;
+                      // Habilita la validación automática al enviar el formulario
+                      _autovalidateMode = AutovalidateMode.onUserInteraction;
+                    });
+                    if (_formKey.currentState!.validate()) {
+                      FuncRegistrar();
+                    }
                   },
                 ),
               ],
@@ -79,37 +100,73 @@ class _RegistroViewState extends State<RegistroView> {
     );
   }
 
+  //Funcion para el boton Registrar
   void FuncRegistrar() async {
-    if (password1.text != password2.text) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("LA CONTRASEÑAS NO COINCIDEN")));
-      setState(() {
-        password1.clear();
-        password2.clear();
-      });
-    } else {
-      bool validEmail = await UsuarioController.verifEmailUsuario(email.text);
-      if (validEmail == false) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("ESE EMAIL YA ESTA REGISTRADO")));
-        setState(() {
-          email.clear();
-        });
-      } else {
-        Usuario u = Usuario(
-            name: name.text,
-            lastname: lastname.text,
-            email: email.text,
-            password: password1.text);
+    Usuario u = Usuario(
+        name: name.text,
+        lastname: lastname.text,
+        email: email.text,
+        password: password1.text);
 
-        await UsuarioController.insertUsuario(u);
+    await UsuarioController.insertUsuario(u);
 
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("REGISTRADO CON EXITO")));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text("REGISTRADO CON EXITO")));
 
-        Navigator.pop(context);
-      }
+    Navigator.pop(context);
+  }
+
+  // Función para validar el correo electrónico de manera asíncrona
+  String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Por favor, ingresa un correo electrónico.';
     }
 
+    if (!value.contains('@')) {
+      return 'Por favor ingresa un correo electrónico válido';
+    }
+
+    if (validEmail == false) {
+      return 'Ese correo electrónico ya está registrado';
+    }
+
+    return null;
+  }
+
+  // Función para validar la contraseña
+  String? confirmPassword(String? value) {
+    if (value != password1.text) {
+      return '¡Las contraseñas no coinciden!.';
+    }
+    return null; // La contraseñas coinciden
+  }
+
+  // Función para validar la contraseña
+  String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Por favor, ingresa una contraseña.';
+    }
+
+    // Comprueba la longitud
+    if (value.length < 8) {
+      return 'La contraseña debe tener al menos 8 caracteres.';
+    }
+
+    /*// Comprueba si contiene al menos un número
+    if (!value.contains(RegExp(r'\d'))) {
+      return 'La contraseña debe contener al menos un número.';
+    }
+
+    // Comprueba si contiene al menos una mayúscula
+    if (!value.contains(RegExp(r'[A-Z]'))) {
+      return 'La contraseña debe contener al menos una letra mayúscula.';
+    }
+
+    // Comprueba si contiene al menos un carácter especial
+    if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+      return 'La contraseña debe contener al menos un carácter especial.';
+    }*/
+
+    return null; // La contraseña cumple con todos los requisitos
   }
 }
