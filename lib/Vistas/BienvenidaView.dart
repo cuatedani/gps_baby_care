@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'RegistroView.dart';
 import '../Componente/botonInicio.dart';
-import 'login.dart';
+import 'LoginView.dart';
 
 class Bienvenida extends StatefulWidget {
   const Bienvenida({Key? key}) : super(key: key);
@@ -31,7 +31,7 @@ class _BienvenidaState extends State<Bienvenida> {
                 Flexible(flex: 1, child: Container(
                   margin: EdgeInsets.only(right: 100.0),
                   child: Center(
-                    child: Image.asset("assets/images/img_19r.png", width: MediaQuery.of(context).size.width / 1.5),
+                    child: Image.asset("assets/images/img_19.png", width: MediaQuery.of(context).size.width / 1.5),
                   ),
                 )),
                 Flexible(flex: 1,
@@ -50,7 +50,7 @@ class _BienvenidaState extends State<Bienvenida> {
                         Expanded(
                           child: WelcomeButton(
                             buttonText: 'Iniciar Sesión',
-                            onTap:  Login(),
+                            onTap:  LoginView(),
                             color: Color(0xFFE2746B),
                             textColor: Color(0xFFFAF2E7),
                           ),
@@ -63,7 +63,7 @@ class _BienvenidaState extends State<Bienvenida> {
                /* SizedBox(height: 230,),
                 GestureDetector(
                   onTap:() {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Login()),);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginView()),);
                   },
                   child:
                   CircleAvatar(

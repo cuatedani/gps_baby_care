@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'menu_principal.dart';
+import 'MenuPrincipalView.dart';
 
 class Lobby extends StatefulWidget {
   const Lobby({Key? key}) : super(key: key);

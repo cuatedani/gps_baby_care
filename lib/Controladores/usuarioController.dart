@@ -56,7 +56,7 @@ class UsuarioController {
     List<Usuario> listaUsuario = [];
 
     await Future.forEach(querySnapshot.docs, (documento) async {
-      Usuario oneInstituto = Usuario(
+      Usuario oneUser = Usuario(
           iduser: documento.id,
           name: documento['name'],
           lastname: documento['lastname'],
@@ -68,15 +68,38 @@ class UsuarioController {
           isAdmin: documento['isAdmin'],
           picture: documento['picture']);
 
-      listaUsuario.add(oneInstituto);
+      listaUsuario.add(oneUser);
     });
 
     return listaUsuario;
+  }
+
+  static Future<Usuario> getOneUsuario(String email, String password) async {
+    FirebaseFirestore DB = await firestoreController.abrirFireStore();
+    QuerySnapshot querySnapshot = await DB
+        .collection('Usuario')
+        .where('email', isEqualTo: email)
+        .where('password', isEqualTo: password)
+        .get();
+
+      final documento = querySnapshot.docs.first;
+
+      return Usuario(
+        iduser: documento.id,
+        name: documento['name'],
+        lastname: documento['lastname'],
+        email: documento['email'],
+        password: documento['password'],
+        phone: documento['phone'],
+        address: documento['address'],
+        isProf: documento['isProf'],
+        isAdmin: documento['isAdmin'],
+        picture: documento['picture'],
+      );
   }
 
   static Future<void> deleteUsuario(Usuario u) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
     await DB.collection('Usuario').doc(u.iduser).delete();
   }
-
 }

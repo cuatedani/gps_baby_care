@@ -7,14 +7,14 @@ class Persona {
 
   Persona({required this.nombre, required this.ocupacion, required this.imagen, required this.direccion});
 }
-class Profesional extends StatefulWidget {
-  const Profesional({Key? key}) : super(key: key);
+class ProfesionalView extends StatefulWidget {
+  const ProfesionalView({Key? key}) : super(key: key);
 
   @override
-  State<Profesional> createState() => _ProfesionalState();
+  State<ProfesionalView> createState() => _ProfesionalViewState();
 }
 
-class _ProfesionalState extends State<Profesional> {
+class _ProfesionalViewState extends State<ProfesionalView> {
   List<Persona> personas = [
     Persona(nombre: 'Dr. Juan Antonio', ocupacion: 'Psicologo', imagen: 'assets/images/juan.jpg', direccion: 'Colosio #30'),
     Persona(nombre: 'Dra. María Elena', ocupacion: 'Pediatra', imagen: 'assets/images/maria.jpg',direccion: 'Av. mexico #30'),

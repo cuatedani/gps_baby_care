@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'login.dart';
+import 'LoginView.dart';
 import 'BienvenidaView.dart';
-import 'menu_principal.dart';
+import 'MenuPrincipalView.dart';
 import 'store.dart';
 
 
@@ -25,7 +25,7 @@ class _PrincipalState extends State<Principal> {
          return Bienvenida();
       }
       case 2:{
-        return Login();
+        return LoginView();
       }
       
     }

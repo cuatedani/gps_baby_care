@@ -8,13 +8,13 @@ class RegistroView extends StatefulWidget {
 }
 
 class _RegistroViewState extends State<RegistroView> {
-  final _formKey = GlobalKey<FormState>();
   final name = TextEditingController();
   final lastname = TextEditingController();
   final email = TextEditingController();
   final password1 = TextEditingController();
   final password2 = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
   bool validEmail = true;
 
   AutovalidateMode _autovalidateMode = AutovalidateMode
@@ -47,33 +47,43 @@ class _RegistroViewState extends State<RegistroView> {
                   decoration: InputDecoration(labelText: 'Nombre(s)'),
                   controller: name,
                 ),
-                SizedBox(height: 5,),
+                SizedBox(
+                  height: 5,
+                ),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Apellido(s)'),
                   controller: lastname,
                 ),
-                SizedBox(height: 5,),
+                SizedBox(
+                  height: 5,
+                ),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Correo Electrónico'),
                   keyboardType: TextInputType.emailAddress,
                   controller: email,
                   validator: validateEmail, // Validación de correo electrónico
                 ),
-                SizedBox(height: 5,),
+                SizedBox(
+                  height: 5,
+                ),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Contraseña'),
                   obscureText: true,
                   controller: password1,
                   validator: validatePassword,
                 ),
-                SizedBox(height: 5,),
+                SizedBox(
+                  height: 5,
+                ),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Confirma Contraseña'),
                   obscureText: true,
                   controller: password2,
                   validator: confirmPassword,
                 ),
-                SizedBox(height: 5,),
+                SizedBox(
+                  height: 5,
+                ),
                 ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor:
@@ -81,7 +91,8 @@ class _RegistroViewState extends State<RegistroView> {
                   ),
                   child: Text('Registrarse'),
                   onPressed: () async {
-                    bool isEmailValid = await UsuarioController.verifEmailUsuario(email.text);
+                    bool isEmailValid =
+                        await UsuarioController.verifEmailUsuario(email.text);
                     setState(() {
                       validEmail = isEmailValid;
                       // Habilita la validación automática al enviar el formulario
@@ -103,6 +114,7 @@ class _RegistroViewState extends State<RegistroView> {
   //Funcion para el boton Registrar
   void FuncRegistrar() async {
     Usuario u = Usuario(
+        iduser: 'SinAsignar',
         name: name.text,
         lastname: lastname.text,
         email: email.text,

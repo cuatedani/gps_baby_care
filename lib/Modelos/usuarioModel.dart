@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Usuario {
-  String? iduser;
+  String iduser;
   String name;
   String lastname;
   String email;
@@ -13,7 +15,7 @@ class Usuario {
   String? picture;
 
   Usuario({
-    this.iduser,
+    required this.iduser,
     required this.name,
     required this.lastname,
     required this.email,
@@ -32,7 +34,7 @@ class Usuario {
       'email': email,
       'password': password,
       'phone': 'SinEspecificar',
-      'address': 'SinEspecificar',
+      'address': null,
       'isProf': false,
       'isAdmin': false,
       'picture': 'SinRecurso',
@@ -53,9 +55,26 @@ class Usuario {
     };
   }
 
-  //Metodo Pendiente
-  String getAddress() {
-    return 'Direccion obtenida desde geopoint';
+  Future<String?> getAddressFromGeoPoint(GeoPoint? geoPoint) async {
+    if (geoPoint == null) {
+      return null;
+    }
+
+    final apiKey = 'TU_API_KEY'; // Reemplaza con tu clave de API de Google Maps
+
+    final response = await http.get(Uri.parse(
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${geoPoint.latitude},${geoPoint.longitude}&key=$apiKey'));
+
+    if (response.statusCode == 200) {
+      final decodedResponse = json.decode(response.body);
+      final results = decodedResponse['results'] as List<dynamic>;
+      if (results.isNotEmpty) {
+        final formattedAddress = results[0]['formatted_address'] as String;
+        return formattedAddress;
+      }
+    }
+
+    return null;
   }
 }
 

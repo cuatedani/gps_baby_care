@@ -3,17 +3,32 @@ import 'consejos.dart';
 import 'store.dart';
 import 'donar.dart';
 import 'lobby.dart';
-import 'profesional.dart';
+import 'package:gps_baby_care/Vistas/ProfesionalView.dart';
+import 'package:gps_baby_care/Modelos/profesionalModel.dart';
+import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 
-class Menu_principal extends StatefulWidget {
-  const Menu_principal({Key? key}) : super(key: key);
+class MenuProffView extends StatefulWidget {
+  final Profesional Proff;
+  final Usuario User;
+
+  const MenuProffView({Key? key, required this.Proff, required this.User}) : super(key: key);
 
   @override
-  State<Menu_principal> createState() => _Menu_principalState();
+  State<MenuProffView> createState() => _MenuProffViewState();
 }
 
-class _Menu_principalState extends State<Menu_principal> {
+class _MenuProffViewState extends State<MenuProffView> {
+  late Profesional Proff;
+  late Usuario User;
   int _index = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    Proff = widget.Proff;
+    User = widget.User;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +63,7 @@ class _Menu_principalState extends State<Menu_principal> {
                     height: 5,
                   ),
                   Text(
-                    "Ramon Herrera",
+                    "${User.name}",
                     style: TextStyle(fontSize: 25),
                     textAlign: TextAlign.center,
                   ),
@@ -79,11 +94,9 @@ class _Menu_principalState extends State<Menu_principal> {
                 ],
               ),
             ),
-            ElementoMenu("inicio", 4, Icons.home),
-            ElementoMenu("Ser buen padre: primeros pasos", 1, Icons.book),
-            ElementoMenu("Tienda en linea", 2, Icons.shopping_cart),
-            ElementoMenu("Donación", 3, Icons.favorite),
-            ElementoMenu("Consulta a un experto", 4, Icons.help_outline),
+            ElementoMenu("Inicio", 1, Icons.home),
+            ElementoMenu("Creciendo Juntos: Consejos y Cuidados", 2, Icons.baby_changing_station),
+            ElementoMenu("Mis Articulos", 3, Icons.library_books_outlined),
             SizedBox(
               height: 50,
             ),
@@ -129,7 +142,7 @@ class _Menu_principalState extends State<Menu_principal> {
         }
       case 4:
         {
-          return Profesional();
+          return ProfesionalView();
         }
       default:
         {
