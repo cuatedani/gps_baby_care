@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'consejos.dart';
-import 'store.dart';
-import 'donar.dart';
-import 'lobby.dart';
-import 'package:gps_baby_care/Vistas/ProfesionalView.dart';
+import 'package:gps_baby_care/Vistas/Usuario/consejos.dart';
+import 'package:gps_baby_care/Vistas/Usuario/store.dart';
+import 'package:gps_baby_care/Vistas/Usuario/donar.dart';
+import 'package:gps_baby_care/Vistas/Usuario/LobbyView.dart';
+import 'package:gps_baby_care/Vistas/Usuario/ProfesionalesView.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 
 class MenuAdminView extends StatefulWidget {
@@ -139,11 +139,11 @@ class _MenuAdminViewState extends State<MenuAdminView> {
         }
       case 4:
         {
-          return ProfesionalView();
+          return ProfesionalesView();
         }
       default:
         {
-          return Lobby();
+          return LobbyView();
         }
     }
   }

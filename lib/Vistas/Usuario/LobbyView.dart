@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'MenuPrincipalView.dart';
 
-class Lobby extends StatefulWidget {
-  const Lobby({Key? key}) : super(key: key);
+class LobbyView extends StatefulWidget {
+  const LobbyView({Key? key}) : super(key: key);
 
   @override
-  State<Lobby> createState() => _LobbyState();
+  State<LobbyView> createState() => _LobbyViewState();
 }
 
-class _LobbyState extends State<Lobby> {
+class _LobbyViewState extends State<LobbyView> {
   @override
   Widget build(BuildContext context) {
     return Container(

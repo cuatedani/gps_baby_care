@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class Persona {
   final String nombre;
   final String ocupacion;
@@ -7,14 +8,15 @@ class Persona {
 
   Persona({required this.nombre, required this.ocupacion, required this.imagen, required this.direccion});
 }
-class ProfesionalView extends StatefulWidget {
-  const ProfesionalView({Key? key}) : super(key: key);
+
+class ProfesionalesView extends StatefulWidget {
+  const ProfesionalesView({Key? key}) : super(key: key);
 
   @override
-  State<ProfesionalView> createState() => _ProfesionalViewState();
+  State<ProfesionalesView> createState() => _ProfesionalesViewState();
 }
 
-class _ProfesionalViewState extends State<ProfesionalView> {
+class _ProfesionalesViewState extends State<ProfesionalesView> {
   List<Persona> personas = [
     Persona(nombre: 'Dr. Juan Antonio', ocupacion: 'Psicologo', imagen: 'assets/images/juan.jpg', direccion: 'Colosio #30'),
     Persona(nombre: 'Dra. María Elena', ocupacion: 'Pediatra', imagen: 'assets/images/maria.jpg',direccion: 'Av. mexico #30'),

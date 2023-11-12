@@ -1,34 +1,21 @@
 import 'package:flutter/material.dart';
-import 'consejos.dart';
-import 'store.dart';
-import 'donar.dart';
-import 'lobby.dart';
-import 'package:gps_baby_care/Vistas/ProfesionalView.dart';
 import 'package:gps_baby_care/Modelos/profesionalModel.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
+import 'package:gps_baby_care/Vistas/Usuario/consejos.dart';
+import 'package:gps_baby_care/Vistas/Usuario/store.dart';
+import 'package:gps_baby_care/Vistas/Usuario/donar.dart';
+import 'package:gps_baby_care/Vistas/Usuario/LobbyView.dart';
+import 'package:gps_baby_care/Vistas/Usuario/ProfesionalesView.dart';
 
-class MenuProffView extends StatefulWidget {
-  final Profesional Proff;
-  final Usuario User;
-
-  const MenuProffView({Key? key, required this.Proff, required this.User}) : super(key: key);
+class MenuPrincipalView extends StatefulWidget {
+  const MenuPrincipalView({Key? key}) : super(key: key);
 
   @override
-  State<MenuProffView> createState() => _MenuProffViewState();
+  State<MenuPrincipalView> createState() => _MenuPrincipalViewState();
 }
 
-class _MenuProffViewState extends State<MenuProffView> {
-  late Profesional Proff;
-  late Usuario User;
+class _MenuPrincipalViewState extends State<MenuPrincipalView> {
   int _index = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    Proff = widget.Proff;
-    User = widget.User;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +50,7 @@ class _MenuProffViewState extends State<MenuProffView> {
                     height: 5,
                   ),
                   Text(
-                    "${User.name}",
+                    "Ramon Herrera",
                     style: TextStyle(fontSize: 25),
                     textAlign: TextAlign.center,
                   ),
@@ -94,9 +81,11 @@ class _MenuProffViewState extends State<MenuProffView> {
                 ],
               ),
             ),
-            ElementoMenu("Inicio", 1, Icons.home),
-            ElementoMenu("Creciendo Juntos: Consejos y Cuidados", 2, Icons.baby_changing_station),
-            ElementoMenu("Mis Articulos", 3, Icons.library_books_outlined),
+            ElementoMenu("inicio", 4, Icons.home),
+            ElementoMenu("Ser buen padre: primeros pasos", 1, Icons.book),
+            ElementoMenu("Tienda en linea", 2, Icons.shopping_cart),
+            ElementoMenu("Donación", 3, Icons.favorite),
+            ElementoMenu("Consulta a un experto", 4, Icons.help_outline),
             SizedBox(
               height: 50,
             ),
@@ -142,11 +131,11 @@ class _MenuProffViewState extends State<MenuProffView> {
         }
       case 4:
         {
-          return ProfesionalView();
+          return ProfesionalesView();
         }
       default:
         {
-          return Lobby();
+          return LobbyView();
         }
     }
   }

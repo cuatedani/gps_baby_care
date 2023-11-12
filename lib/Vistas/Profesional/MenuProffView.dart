@@ -1,21 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:gps_baby_care/Vistas/Profesional/LobbyProffView.dart';
+import 'package:gps_baby_care/Vistas/Profesional/PerfilProffView.dart';
+import 'package:gps_baby_care/Vistas/Profesional/ArticulosProffView.dart';
+import 'package:gps_baby_care/Vistas/Generales/BienvenidaView.dart';
 import 'package:gps_baby_care/Modelos/profesionalModel.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
-import 'consejos.dart';
-import 'store.dart';
-import 'donar.dart';
-import 'lobby.dart';
-import 'ProfesionalView.dart';
 
-class MenuPrincipalView extends StatefulWidget {
-  const MenuPrincipalView({Key? key}) : super(key: key);
+class MenuProffView extends StatefulWidget {
+  final Profesional Proff;
+  final Usuario User;
+
+  const MenuProffView({Key? key, required this.Proff, required this.User}) : super(key: key);
 
   @override
-  State<MenuPrincipalView> createState() => _MenuPrincipalViewState();
+  State<MenuProffView> createState() => _MenuProffViewState();
 }
 
-class _MenuPrincipalViewState extends State<MenuPrincipalView> {
+class _MenuProffViewState extends State<MenuProffView> {
+  late Profesional Proff;
+  late Usuario User;
   int _index = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    Proff = widget.Proff;
+    User = widget.User;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +62,7 @@ class _MenuPrincipalViewState extends State<MenuPrincipalView> {
                     height: 5,
                   ),
                   Text(
-                    "Ramon Herrera",
+                    "${User.name}",
                     style: TextStyle(fontSize: 25),
                     textAlign: TextAlign.center,
                   ),
@@ -81,24 +93,13 @@ class _MenuPrincipalViewState extends State<MenuPrincipalView> {
                 ],
               ),
             ),
-            ElementoMenu("inicio", 4, Icons.home),
-            ElementoMenu("Ser buen padre: primeros pasos", 1, Icons.book),
-            ElementoMenu("Tienda en linea", 2, Icons.shopping_cart),
-            ElementoMenu("Donación", 3, Icons.favorite),
-            ElementoMenu("Consulta a un experto", 4, Icons.help_outline),
+            ElementoMenu("Inicio", 0, Icons.home),
+            ElementoMenu("Creciendo Juntos: \n Consejos y Cuidados", 1, Icons.baby_changing_station),
+            ElementoMenu("Mis Articulos", 2, Icons.library_books_outlined),
             SizedBox(
               height: 50,
             ),
             Divider(),
-            ListTile(
-              hoverColor: Colors.grey,
-              leading: Icon(Icons.phone),
-              title: Text(
-                'Contactanos',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-              ),
-              onTap: () {},
-            ),
             ListTile(
               hoverColor: Colors.grey,
               leading: Icon(Icons.logout),
@@ -106,7 +107,8 @@ class _MenuPrincipalViewState extends State<MenuPrincipalView> {
                 'Cerrar sesión',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
-              onTap: () {},
+              onTap: () {Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => BienvenidaView()));},
             ),
           ],
         ),
@@ -119,23 +121,15 @@ class _MenuPrincipalViewState extends State<MenuPrincipalView> {
     switch (_index) {
       case 1:
         {
-          return Consejos();
+          return PerfilProffView(Proff: Proff, User: User);
         }
       case 2:
         {
-          return Store();
-        }
-      case 3:
-        {
-          return Donar();
-        }
-      case 4:
-        {
-          return ProfesionalView();
+          return ArticulosProffView(Proff: Proff, User: User);
         }
       default:
         {
-          return Lobby();
+          return LobbyProffView(Proff: Proff, User: User);
         }
     }
   }

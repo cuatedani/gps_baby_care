@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'RegistroView.dart';
-import '../Componente/botonInicio.dart';
+import '../../Componente/botonInicio.dart';
 import 'LoginView.dart';
 
-class Bienvenida extends StatefulWidget {
-  const Bienvenida({Key? key}) : super(key: key);
+class BienvenidaView extends StatefulWidget {
+  const BienvenidaView({Key? key}) : super(key: key);
 
   @override
-  State<Bienvenida> createState() => _BienvenidaState();
+  State<BienvenidaView> createState() => _BienvenidaViewState();
 }
 
-class _BienvenidaState extends State<Bienvenida> {
+class _BienvenidaViewState extends State<BienvenidaView> {
   Color colorFondo = Colors.black;
   @override
   Widget build(BuildContext context) {

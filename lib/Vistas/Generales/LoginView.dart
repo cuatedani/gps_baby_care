@@ -3,10 +3,10 @@ import 'package:gps_baby_care/Controladores/usuarioController.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 import 'package:gps_baby_care/Controladores/profesionalController.dart';
 import 'package:gps_baby_care/Modelos/profesionalModel.dart';
-import 'package:gps_baby_care/Vistas/MenuProffView.dart';
+import 'package:gps_baby_care/Vistas/Profesional/MenuProffView.dart';
 import 'RegistroView.dart';
-import 'MenuPrincipalView.dart';
-import 'package:gps_baby_care/Vistas/ProfesionalView.dart';
+import '../Usuario/MenuPrincipalView.dart';
+import 'package:gps_baby_care/Vistas/Usuario/ProfesionalesView.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);

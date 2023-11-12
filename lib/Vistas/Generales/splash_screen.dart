@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'BienvenidaView.dart';
+import 'package:gps_baby_care/Vistas/Generales/BienvenidaView.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
     Future.delayed(Duration(seconds: 2), (){
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (_) => const Bienvenida(),
+        builder: (_) => const BienvenidaView(),
       ));
     });
   }
