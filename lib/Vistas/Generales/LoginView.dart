@@ -175,9 +175,8 @@ class _LoginViewState extends State<LoginView> {
           context, MaterialPageRoute(builder: (context) => MenuAdminView(User)));*/
       }else{
         //Aqui se manda a los usuarios normales con un elemento Usuario
-        //MaterialPageRoute(builder: (context) => MenuPrincipalView(User))
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MenuPrincipalView())); //Aqui debe de mandar el usuario
+            context, MaterialPageRoute(builder: (context) => MenuPrincipalView(User: User))); //Aqui debe de mandar el usuario
       }
     }
   }

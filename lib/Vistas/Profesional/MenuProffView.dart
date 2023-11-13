@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:gps_baby_care/Vistas/Profesional/LobbyProffView.dart';
 import 'package:gps_baby_care/Vistas/Profesional/PerfilProffView.dart';
 import 'package:gps_baby_care/Vistas/Profesional/ArticulosProffView.dart';
+import 'package:gps_baby_care/Vistas/Usuario/consejos.dart';
 import 'package:gps_baby_care/Vistas/Generales/BienvenidaView.dart';
 import 'package:gps_baby_care/Modelos/profesionalModel.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
+
 
 class MenuProffView extends StatefulWidget {
   final Profesional Proff;
@@ -121,7 +123,7 @@ class _MenuProffViewState extends State<MenuProffView> {
     switch (_index) {
       case 1:
         {
-          return PerfilProffView(Proff: Proff, User: User);
+          return Consejos();
         }
       case 2:
         {

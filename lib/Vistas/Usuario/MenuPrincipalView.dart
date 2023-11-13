@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gps_baby_care/Modelos/profesionalModel.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 import 'package:gps_baby_care/Vistas/Usuario/consejos.dart';
 import 'package:gps_baby_care/Vistas/Usuario/store.dart';
@@ -8,14 +7,23 @@ import 'package:gps_baby_care/Vistas/Usuario/LobbyView.dart';
 import 'package:gps_baby_care/Vistas/Usuario/ProfesionalesView.dart';
 
 class MenuPrincipalView extends StatefulWidget {
-  const MenuPrincipalView({Key? key}) : super(key: key);
+  final Usuario User;
+  const MenuPrincipalView({Key? key, required this.User}) : super(key: key);
 
   @override
   State<MenuPrincipalView> createState() => _MenuPrincipalViewState();
 }
 
 class _MenuPrincipalViewState extends State<MenuPrincipalView> {
+  late Usuario User;
   int _index = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    User = widget.User;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

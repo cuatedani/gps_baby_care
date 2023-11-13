@@ -26,7 +26,7 @@ class ArticuloController {
           date: documento['date'],
           title: documento['title'],
           content: documento['content'],
-          category: documento['category'],
+          categories: List<String>.from(documento['categories'] ?? []),
           gallery: documento['gallery']);
 
       listaArticulo.add(oneArticulo);
@@ -45,13 +45,14 @@ class ArticuloController {
     List<Articulo> listaArticulo = [];
 
     querySnapshot.docs.forEach((documento) {
+      print("Hola hay articulos");
       Articulo oneArticulo = Articulo(
           idarticle: documento.id,
           idprof: documento['idprof'],
           date: documento['date'],
           title: documento['title'],
           content: documento['content'],
-          category: documento['category'],
+          categories: List<String>.from(documento['categories'] ?? []),
           gallery: documento['gallery']);
 
       listaArticulo.add(oneArticulo);

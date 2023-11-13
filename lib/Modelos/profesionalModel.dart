@@ -1,11 +1,11 @@
 class Profesional {
-  String? idprof;
+  String idprof;
   String iduser;
   String idinstitute;
   String occupation;
 
   Profesional({
-    this.idprof,
+    required this.idprof,
     required this.iduser,
     required this.idinstitute,
     required this.occupation,

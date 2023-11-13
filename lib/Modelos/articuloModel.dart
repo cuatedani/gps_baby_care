@@ -1,12 +1,12 @@
-import 'package:gps_baby_care/Modelos/categoriaModel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Articulo {
   String? idarticle;
   String idprof;
-  DateTime date;
+  Timestamp date;
   String title;
   String content;
-  List<Categoria> category;
+  List<String>? categories;
   List<String>? gallery;
 
   Articulo({
@@ -15,7 +15,7 @@ class Articulo {
     required this.date,
     required this.title,
     required this.content,
-    required this.category,
+    this.categories,
     this.gallery,
   });
 
@@ -25,7 +25,7 @@ class Articulo {
       'date': date,
       'title': title,
       'content': content,
-      'category': category,
+      'category': categories,
       'gallery': gallery,
     };
   }
@@ -37,9 +37,8 @@ class Articulo {
       'date': date,
       'title': title,
       'content': content,
-      'category': category,
+      'category': categories,
       'gallery': gallery,
     };
   }
-
 }

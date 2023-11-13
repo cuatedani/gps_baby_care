@@ -24,7 +24,11 @@ class _LobbyProffViewState extends State<LobbyProffView> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Center(
+        child: Text("Este es un lobby para Profesionistas"),
+      ),
+    );
   }
 }
 

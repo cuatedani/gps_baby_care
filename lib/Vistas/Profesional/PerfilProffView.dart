@@ -24,6 +24,10 @@ class _PerfilProffViewState extends State<PerfilProffView> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Center(
+        child: Text("Este es un perfil para Profesionistas"),
+      ),
+    );
   }
 }

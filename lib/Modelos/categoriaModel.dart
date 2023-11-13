@@ -1,10 +1,10 @@
 class Categoria {
-  String? idcategory;
+  String idcategory;
   String name;
   String type;
 
   Categoria({
-    this.idcategory,
+    required this.idcategory,
     required this.name,
     required this.type
   });
