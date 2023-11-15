@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'RegistroView.dart';
-import '../../Componente/botonInicio.dart';
 import 'LoginView.dart';
 
 class BienvenidaView extends StatefulWidget {
@@ -23,44 +22,79 @@ class _BienvenidaViewState extends State<BienvenidaView> {
           ),
         ),
         //color: Color(0xFFFAF2E7) COLOR BASE
-        child:
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(height: 180),
-                Flexible(flex: 1, child: Container(
-                  margin: EdgeInsets.only(right: 100.0),
-                  child: Center(
-                    child: Image.asset("assets/images/img_19.png", width: MediaQuery.of(context).size.width / 1.5),
-                  ),
-                )),
-                Flexible(flex: 1,
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: Row(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Flexible(
+                flex: 1,
+                child: Container(
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                         Expanded(
-                          child: WelcomeButton(
-                            buttonText: 'Registrarte',
-                            onTap: RegistroView(),
-                            color: Colors.transparent,
-                            textColor: Color(0xFFE2746B),
-                          ),
-                        ),
-                        Expanded(
-                          child: WelcomeButton(
-                            buttonText: 'Iniciar Sesión',
-                            onTap:  LoginView(),
-                            color: Color(0xFFE2746B),
-                            textColor: Color(0xFFFAF2E7),
-                          ),
-                        ),
-                      ],
+                        Image.asset("assets/images/img_19.png",
+                            width: MediaQuery.of(context).size.width / 2,
+                            height: 250),
+                      ]),
+                )),
+            Padding(
+              padding: EdgeInsets.only(bottom: 20),
+              child: Container(
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    OutlinedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RegistroView()),
+                        );
+                      },
+                      child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text(
+                            "  Registrarte  ",
+                            style: TextStyle(
+                                fontFamily: 'NerkoOne',
+                                fontSize: 18,
+                                color: Colors.white),
+                          )),
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(color: Colors.brown, width: 2.0),
+                        shape: StadiumBorder(),
+                      ),
                     ),
-                  ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    OutlinedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginView()),
+                        );
+                      },
+                      child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text(
+                            "  Iniciar sesión ",
+                            style: TextStyle(
+                                fontFamily: 'NerkoOne',
+                                fontSize: 18,
+                                color: Colors.white),
+                          )),
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(color: Colors.brown, width: 2.0),
+                        shape: StadiumBorder(),
+                      ),
+                    ),
+                  ],
                 ),
+              ),
+            ),
 
-               /* SizedBox(height: 230,),
+            /* SizedBox(height: 230,),
                 GestureDetector(
                   onTap:() {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => LoginView()),);
@@ -72,10 +106,9 @@ class _BienvenidaViewState extends State<BienvenidaView> {
                     radius: 45,
 
                   ),),*/
-              ],
-
-            ),
-    ),
+          ],
+        ),
+      ),
     );
   }
 }
