@@ -2,22 +2,22 @@ import 'firestoreController.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gps_baby_care/Modelos/categoriaModel.dart';
 
-class InstitutoController {
+class CategoriaController {
   static Future<void> insertCategoria(Categoria c) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
-    await DB.collection('Categoria').add(c.Registrar());
+    await DB.collection('Categorias').add(c.toMap());
   }
 
   static Future<void> updateCategoria(Categoria c) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
-    await DB.collection('Categoria').doc(c.idcategory).set(c.Actualizar());
+    await DB.collection('Categorias').doc(c.idcategory).set(c.toMap());
   }
 
   static Future<List<Categoria>> getProductoCategoria() async {
     FirebaseFirestore firestore = await firestoreController.abrirFireStore();
     QuerySnapshot querySnapshot = await firestore
-        .collection('Categoria')
-        .where('type', isEqualTo: 'producto')
+        .collection('Categorias')
+        .where('type', isEqualTo: 'Producto')
         .get();
 
     List<Categoria> listaCategoria = [];
@@ -38,13 +38,13 @@ class InstitutoController {
   static Future<List<Categoria>> getArticuloCategoria() async {
     FirebaseFirestore firestore = await firestoreController.abrirFireStore();
     QuerySnapshot querySnapshot = await firestore
-        .collection('Categoria')
-        .where('type', isEqualTo: 'articulo')
+        .collection('Categorias')
+        .where('type', isEqualTo: 'Articulo')
         .get();
-
     List<Categoria> listaCategoria = [];
+    int num=0;
 
-    querySnapshot.docs.forEach((documento) {
+    await Future.forEach(querySnapshot.docs, (documento) async {
       Categoria oneCategoria = Categoria(
         idcategory: documento.id,
         name: documento['name'],
@@ -52,13 +52,14 @@ class InstitutoController {
       );
 
       listaCategoria.add(oneCategoria);
+      num++;
     });
 
     return listaCategoria;
   }
 
-  static Future<void> deleteInstituto(Categoria c) async {
+  static Future<void> deleteCategoria(Categoria c) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
-    await DB.collection('Categoria').doc(c.idcategory).delete();
+    await DB.collection('Categorias').doc(c.idcategory).delete();
   }
 }

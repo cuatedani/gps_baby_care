@@ -9,16 +9,8 @@ class Categoria {
     required this.type
   });
 
-  Map<String, dynamic> Registrar() {
+  Map<String, dynamic> toMap() {
     return {
-      'name': name,
-      'type': type
-    };
-  }
-
-  Map<String, dynamic> Actualizar() {
-    return {
-      'idcategory': idcategory,
       'name': name,
       'type': type
     };

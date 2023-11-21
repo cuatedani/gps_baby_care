@@ -1,40 +1,32 @@
-import 'dart:js_interop';
-
 import 'package:flutter/material.dart';
-import 'package:gps_baby_care/Modelos/profesionalModel.dart';
-import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 import 'package:gps_baby_care/Modelos/articuloModel.dart';
 import 'package:gps_baby_care/Controladores/articuloController.dart';
 import 'package:gps_baby_care/Componente/BannerArticuloWidget.dart';
-import 'package:gps_baby_care/Vistas/Profesional/AddArticuloView.dart';
 
-class ArticulosProffView extends StatefulWidget {
-  final Profesional Proff;
-  const ArticulosProffView({Key? key, required this.Proff}) : super(key: key);
+class ArticulosView extends StatefulWidget {
+  const ArticulosView({super.key});
 
   @override
-  State<ArticulosProffView> createState() => _ArticulosProffViewState();
+  State<ArticulosView> createState() => _ArticulosViewState();
 }
 
-class _ArticulosProffViewState extends State<ArticulosProffView> {
-  late Profesional Proff;
+class _ArticulosViewState extends State<ArticulosView> {
   late List<Articulo> ListaArticulos = [];
-  var texto = "";
+  var info = "";
 
   @override
   void initState() {
-    Proff = widget.Proff;
     super.initState();
     cargarArticulos();
   }
 
   Future<void> cargarArticulos() async {
     List<Articulo> articulos =
-        await ArticuloController.getProfArticulo(Proff.idprof);
+    await ArticuloController.getAllArticulo();
     if (mounted) {
       setState(() {
-        if (articulos.length == 0) {
-          texto = "No hay articulos que mostar";
+        if(articulos.length==0){
+          info = "No hay articulos que mostrar";
         }
         ListaArticulos = articulos;
       });
@@ -49,11 +41,11 @@ class _ArticulosProffViewState extends State<ArticulosProffView> {
         separatorBuilder: (context, index) => Divider(),
         itemBuilder: (context, index) {
           if (index == ListaArticulos.length) {
-            return Center(child: Text(texto));
+            return Center(child: Text(info));
           } else {
             return InkWell(
               onTap: () {
-                print(ListaArticulos.length);
+                print("Abriendo Pagina Individual Articulo");
               },
               child: BannerArticulo(ListaArticulos[index]),
             );
@@ -62,11 +54,7 @@ class _ArticulosProffViewState extends State<ArticulosProffView> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (BuildContext context) => AddArticuloView(proff: Proff),
-            ),
-          );
+          // Añadir Articulo
         },
         child: Icon(Icons.add),
         backgroundColor: Colors.brown,

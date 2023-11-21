@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gps_baby_care/Modelos/categoriaModel.dart';
 
 class Articulo {
   String? idarticle;
@@ -6,7 +7,7 @@ class Articulo {
   Timestamp date;
   String title;
   String content;
-  List<String>? categories;
+  List<Categoria>? categories;
   List<String>? gallery;
 
   Articulo({
@@ -19,20 +20,8 @@ class Articulo {
     this.gallery,
   });
 
-  Map<String, dynamic> Registrar() {
+  Map<String, dynamic> toMap() {
     return {
-      'idprof': idprof,
-      'date': date,
-      'title': title,
-      'content': content,
-      'category': categories,
-      'gallery': gallery,
-    };
-  }
-
-  Map<String, dynamic> Actualizar() {
-    return {
-      'idarticle': idarticle,
       'idprof': idprof,
       'date': date,
       'title': title,
