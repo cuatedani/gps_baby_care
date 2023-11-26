@@ -1,8 +1,5 @@
-import 'dart:js_interop';
-
 import 'package:flutter/material.dart';
 import 'package:gps_baby_care/Modelos/profesionalModel.dart';
-import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 import 'package:gps_baby_care/Modelos/articuloModel.dart';
 import 'package:gps_baby_care/Controladores/articuloController.dart';
 import 'package:gps_baby_care/Componente/BannerArticuloWidget.dart';
@@ -46,14 +43,15 @@ class _ArticulosProffViewState extends State<ArticulosProffView> {
     return Scaffold(
       body: ListView.separated(
         itemCount: ListaArticulos.length + 1,
-        separatorBuilder: (context, index) => Divider(),
+        separatorBuilder: (context, index) =>
+            Divider(),
         itemBuilder: (context, index) {
           if (index == ListaArticulos.length) {
             return Center(child: Text(texto));
           } else {
             return InkWell(
               onTap: () {
-                print(ListaArticulos.length);
+                print("Pendiente Interfaz ArticuloView(User) y EditArticuloView(Proff)");
               },
               child: BannerArticulo(ListaArticulos[index]),
             );

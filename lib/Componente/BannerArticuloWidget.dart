@@ -3,14 +3,6 @@ import 'package:gps_baby_care/Modelos/articuloModel.dart';
 import 'package:gps_baby_care/Modelos/categoriaModel.dart';
 
 Widget BannerArticulo(Articulo Art) {
-  String? ImgPortada() {
-    if (Art.gallery != null && Art.gallery!.isNotEmpty) {
-      return Art.gallery!.first;
-    } else {
-      return "assets/images/img_5.png";
-    }
-  }
-
   return Container(
     height: 200,
     decoration: BoxDecoration(
@@ -21,7 +13,8 @@ Widget BannerArticulo(Articulo Art) {
       children: [
         Container(
           width: 200,
-          height: double.infinity, // Asegura que la imagen tenga la misma altura que el contenedor
+          height: double
+              .infinity, // Asegura que la imagen tenga la misma altura que el contenedor
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
@@ -29,7 +22,9 @@ Widget BannerArticulo(Articulo Art) {
             ),
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: AssetImage("${ImgPortada()}"),
+              image: (Art.gallery != null && Art.gallery!.isNotEmpty)
+                  ? NetworkImage(Art.gallery![0].url) as ImageProvider<Object>
+                  : AssetImage("assets/images/img_5.png") as ImageProvider<Object>,
             ),
           ),
         ),
@@ -52,28 +47,18 @@ Widget BannerArticulo(Articulo Art) {
               SizedBox(height: 16),
               Art.categories != null && Art.categories!.isNotEmpty
                   ? Wrap(
-                children: Art.categories!.map((Categoria category) {
-                  return Chip(
-                    label: Text(category.name),
-                  );
-                }).toList(),
-              )
+                      children: Art.categories!.map((Categoria category) {
+                        return Chip(
+                          label: Text(category.name),
+                        );
+                      }).toList(),
+                    )
                   : Text('Sin Clasificar'),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
                 child: Text(
                   "${Art.content.trimLeft()}",
                   style: TextStyle(fontSize: 15),
-                ),
-              ),
-              Container(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  "Leer más...",
-                  style: TextStyle(
-                    color: Color(0xff2F0E84),
-                    fontSize: 18,
-                  ),
                 ),
               ),
             ],

@@ -42,7 +42,6 @@ class CategoriaController {
         .where('type', isEqualTo: 'Articulo')
         .get();
     List<Categoria> listaCategoria = [];
-    int num=0;
 
     await Future.forEach(querySnapshot.docs, (documento) async {
       Categoria oneCategoria = Categoria(
@@ -52,7 +51,6 @@ class CategoriaController {
       );
 
       listaCategoria.add(oneCategoria);
-      num++;
     });
 
     return listaCategoria;

@@ -21,11 +21,10 @@ class _ArticulosViewState extends State<ArticulosView> {
   }
 
   Future<void> cargarArticulos() async {
-    List<Articulo> articulos =
-    await ArticuloController.getAllArticulo();
+    List<Articulo> articulos = await ArticuloController.getAllArticulo();
     if (mounted) {
       setState(() {
-        if(articulos.length==0){
+        if (articulos.length == 0) {
           info = "No hay articulos que mostrar";
         }
         ListaArticulos = articulos;
@@ -35,30 +34,25 @@ class _ArticulosViewState extends State<ArticulosView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView.separated(
-        itemCount: ListaArticulos.length + 1,
-        separatorBuilder: (context, index) => Divider(),
-        itemBuilder: (context, index) {
-          if (index == ListaArticulos.length) {
-            return Center(child: Text(info));
-          } else {
-            return InkWell(
-              onTap: () {
-                print("Abriendo Pagina Individual Articulo");
-              },
-              child: BannerArticulo(ListaArticulos[index]),
-            );
-          }
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Añadir Articulo
-        },
-        child: Icon(Icons.add),
-        backgroundColor: Colors.brown,
-      ),
-    );
+    return Container(
+        padding: EdgeInsets.all(1),
+        constraints: BoxConstraints.expand(),
+        child: ListView.separated(
+          itemCount: ListaArticulos.length + 1,
+          separatorBuilder: (context, index) => Divider(),
+          itemBuilder: (context, index) {
+            if (index == ListaArticulos.length) {
+              return Center(child: Text(info));
+            } else {
+              return InkWell(
+                onTap: () {
+                  print("Abriendo Pagina Individual Articulo");
+                },
+                child: BannerArticulo(ListaArticulos[index]),
+              );
+            }
+          },
+        ),
+      );
   }
 }

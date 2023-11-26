@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:io';
 import 'package:gps_baby_care/Modelos/articuloModel.dart';
 import 'package:gps_baby_care/Modelos/profesionalModel.dart';
+import 'package:gps_baby_care/Modelos/categoriaModel.dart';
 import 'package:gps_baby_care/Controladores/articuloController.dart';
 import 'package:gps_baby_care/Controladores/categoriaController.dart';
-import 'package:gps_baby_care/Modelos/categoriaModel.dart';
+import 'package:gps_baby_care/Controladores/imagenController.dart';
 
 class AddArticuloView extends StatefulWidget {
   final Profesional proff;
@@ -24,7 +24,7 @@ class _AddArticuloViewState extends State<AddArticuloView> {
   Categoria? selectedCategory;
   final TextEditingController titleController = TextEditingController();
   final TextEditingController contentController = TextEditingController();
-  List<XFile> images = [];
+  List<XFile> ImgsGal = [];
 
   @override
   void initState() {
@@ -46,18 +46,6 @@ class _AddArticuloViewState extends State<AddArticuloView> {
     if (mounted) {
       setState(() {
         categorieslist = temporal;
-      });
-    }
-  }
-
-  Future<void> _pickImages() async {
-    List<XFile>? pickedFiles = await ImagePicker().pickMultiImage(
-      imageQuality: 50,
-    );
-
-    if (pickedFiles != null) {
-      setState(() {
-        images = pickedFiles;
       });
     }
   }
@@ -90,50 +78,50 @@ class _AddArticuloViewState extends State<AddArticuloView> {
               maxLines: null, // Permite varias líneas
             ),
             SizedBox(height: 16),
-            Center(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 200,
-                    child: DropdownButtonFormField(
-                      value: selectedCategory,
-                      items: categorieslist.map((Categoria category) {
-                        return DropdownMenuItem(
-                          value: category,
-                          child: Text(category.name),
-                        );
-                      }).toList(),
-                      onChanged: (Categoria? value) {
-                        setState(() {
-                          selectedCategory = value;
-                        });
-                      },
-                      decoration: InputDecoration(
-                        labelText: 'Seleccionar Categoría',
-                      ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 200,
+                  child: DropdownButtonFormField(
+                    value: selectedCategory,
+                    items: categorieslist.map((Categoria category) {
+                      return DropdownMenuItem(
+                        value: category,
+                        child: Text(category.name),
+                      );
+                    }).toList(),
+                    onChanged: (Categoria? value) {
+                      setState(() {
+                        selectedCategory = value;
+                      });
+                    },
+                    decoration: InputDecoration(
+                      labelText: 'Seleccionar Categoría',
                     ),
                   ),
-                  SizedBox(width: 15,),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (selectedCategory != null &&
-                          !selectedCategories.contains(selectedCategory)) {
-                        setState(() {
-                          selectedCategories.add(selectedCategory!);
-                        });
-                      }
-                    },
-                    child: Text('Añadir'),
-                  ),
-                ],
-              ),
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (selectedCategory != null &&
+                        !selectedCategories.contains(selectedCategory)) {
+                      setState(() {
+                        selectedCategories.add(selectedCategory!);
+                      });
+                    }
+                  },
+                  child: Text('Añadir'),
+                ),
+              ],
             ),
             SizedBox(height: 16),
             Text(
               selectedCategories.isNotEmpty
                   ? 'Categorías Seleccionadas:'
-                  : 'No hay categorías seleccionadas.',
+                  : 'No hay Categorías Seleccionadas.',
             ),
             SizedBox(height: 16),
             Wrap(
@@ -152,30 +140,52 @@ class _AddArticuloViewState extends State<AddArticuloView> {
             ),
             SizedBox(height: 16),
             ElevatedButton(
-              onPressed: _pickImages,
+              onPressed: () async {
+                List<XFile> temp = await ImagenController.SeleccionarImagenes();
+                if (temp.isNotEmpty) {
+                  setState(() {
+                    ImgsGal.addAll(temp);
+                  });
+                }
+              },
               child: Text('Añadir Imágenes'),
             ),
             SizedBox(height: 16),
-            // Mostrar las imágenes seleccionadas
+            Text(
+              ImgsGal.isNotEmpty
+                  ? 'Imagenes Seleccionadas:'
+                  : 'No hay Imagenes Seleccionadas',
+            ),
             Wrap(
-              children: images.map((XFile image) {
-                return Image.file(
-                  File(image.path),
-                  width: 100,
-                  height: 100,
-                  fit: BoxFit.cover,
-                );
-              }).toList(),
+              children: ImgsGal.map(
+                    (XFile image) {
+                  return Chip(
+                    avatar: Icon(Icons.image),
+                    label: Text(image.name),
+                    deleteIcon: Icon(Icons.cancel),
+                    deleteButtonTooltipMessage: 'Quitar',
+                    onDeleted: () {
+                      setState(() {
+                        ImgsGal.remove(image);
+                      });
+                    },
+                  );
+                },
+              ).toList(),
             ),
             SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  newArticulo.categories = selectedCategories;
-                  newArticulo.gallery = images.map((XFile image) => image.path).toList();
+              onPressed: () async {
+                newArticulo.categories = selectedCategories;
+                if(ImgsGal.isNotEmpty){
+                  newArticulo.gallery = await ImagenController.GuardarImagenes(ImgsGal);
+                }else{
+                  newArticulo.gallery = [];
+                }
+                await ArticuloController.insertArticulo(newArticulo).then((value) =>
+                {
+
                 });
-                ArticuloController.insertArticulo(newArticulo);
-                Navigator.pop(context);
               },
               child: Text('Guardar Artículo'),
             ),

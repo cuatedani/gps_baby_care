@@ -8,27 +8,27 @@ import 'package:gps_baby_care/Vistas/Generales/BienvenidaView.dart';
 import 'package:gps_baby_care/Modelos/profesionalModel.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 
-
 class MenuProffView extends StatefulWidget {
   final Profesional Proff;
   final Usuario User;
 
-  const MenuProffView({Key? key, required this.Proff, required this.User}) : super(key: key);
+  const MenuProffView({Key? key, required this.Proff, required this.User})
+      : super(key: key);
 
   @override
   State<MenuProffView> createState() => _MenuProffViewState();
 }
 
 class _MenuProffViewState extends State<MenuProffView> {
-  late Profesional Proff;
-  late Usuario User;
-  int _index = 0;
+  late Profesional proff;
+  late Usuario user;
+  String selectedScreen = 'lobby'; // Usar rutas en lugar de índices
 
   @override
   void initState() {
     super.initState();
-    Proff = widget.Proff;
-    User = widget.User;
+    proff = widget.Proff;
+    user = widget.User;
   }
 
   @override
@@ -38,9 +38,10 @@ class _MenuProffViewState extends State<MenuProffView> {
         title: const Text(
           "Baby Care",
           style: TextStyle(
-              color: Color(0xFFFAF2E7),
-              fontWeight: FontWeight.bold,
-              fontSize: 25),
+            color: Color(0xFFFAF2E7),
+            fontWeight: FontWeight.bold,
+            fontSize: 25,
+          ),
         ),
         backgroundColor: Color(0xFFC49666),
       ),
@@ -65,7 +66,7 @@ class _MenuProffViewState extends State<MenuProffView> {
                     height: 5,
                   ),
                   Text(
-                    "${User.name}",
+                    "${user.name}",
                     style: TextStyle(fontSize: 25),
                     textAlign: TextAlign.center,
                   ),
@@ -97,7 +98,8 @@ class _MenuProffViewState extends State<MenuProffView> {
               ),
             ),
             ElementoMenu("Inicio", 0, Icons.home),
-            ElementoMenu("Creciendo Juntos: \n Consejos y Cuidados", 1, Icons.baby_changing_station),
+            ElementoMenu("Creciendo Juntos: \n Consejos y Cuidados", 1,
+                Icons.baby_changing_station),
             ElementoMenu("Mis Articulos", 2, Icons.library_books_outlined),
             SizedBox(
               height: 50,
@@ -110,30 +112,28 @@ class _MenuProffViewState extends State<MenuProffView> {
                 'Cerrar sesión',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
-              onTap: () {Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => BienvenidaView()));},
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => BienvenidaView()));
+              },
             ),
           ],
         ),
       ),
-      body: Pantallas(),
+      body:
+          _buildSelectedScreen(), // Llamada a método para construir la pantalla seleccionada
     );
   }
 
-  Widget Pantallas() {
-    switch (_index) {
-      case 1:
-        {
-          return ArticulosView();
-        }
-      case 2:
-        {
-          return ArticulosProffView(Proff: Proff);
-        }
+  // Método para construir la pantalla seleccionada
+  Widget _buildSelectedScreen() {
+    switch (selectedScreen) {
+      case 'articulos':
+        return ArticulosView();
+      case 'mis_articulos':
+        return ArticulosProffView(Proff: proff);
       default:
-        {
-          return LobbyProffView(Proff: Proff, User: User);
-        }
+        return LobbyProffView(Proff: proff, User: user);
     }
   }
 
@@ -141,7 +141,11 @@ class _MenuProffViewState extends State<MenuProffView> {
     return InkWell(
       onTap: () {
         setState(() {
-          _index = i;
+          selectedScreen = i == 0
+              ? 'lobby'
+              : i == 1
+                  ? 'consejos'
+                  : 'mis_articulos';
         });
         Navigator.pop(context);
       },
