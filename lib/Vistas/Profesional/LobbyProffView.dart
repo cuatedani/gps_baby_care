@@ -5,7 +5,8 @@ import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 class LobbyProffView extends StatefulWidget {
   final Profesional Proff;
   final Usuario User;
-  const LobbyProffView({Key? key, required this.Proff, required this.User}) : super(key: key);
+  const LobbyProffView({Key? key, required this.Proff, required this.User})
+      : super(key: key);
 
   @override
   State<LobbyProffView> createState() => _LobbyProffViewState();
@@ -24,11 +25,14 @@ class _LobbyProffViewState extends State<LobbyProffView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text("Este es un lobby para Profesionistas"),
+    return Container(
+      padding: EdgeInsets.all(1),
+      child: Column(
+        children: [
+          Text("Este es un lobby para Profesionistas"),
+          // Agrega más widgets aquí
+        ],
       ),
     );
   }
 }
-

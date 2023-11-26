@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gps_baby_care/Modelos/articuloModel.dart';
+import 'package:gps_baby_care/Modelos/categoriaModel.dart';
 
 Widget BannerArticulo(Articulo Art) {
   return Container(
-    margin: EdgeInsets.all(5),
-    padding: EdgeInsets.all(10),
     height: 200,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(20),
@@ -12,9 +11,22 @@ Widget BannerArticulo(Articulo Art) {
     ),
     child: Row(
       children: [
-        Image.asset(
-          "assets/images/img_5.png",
-          width: 150,
+        Container(
+          width: 200,
+          height: double
+              .infinity, // Asegura que la imagen tenga la misma altura que el contenedor
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              bottomLeft: Radius.circular(20),
+            ),
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: (Art.gallery != null && Art.gallery!.isNotEmpty)
+                  ? NetworkImage(Art.gallery![0].url) as ImageProvider<Object>
+                  : AssetImage("assets/images/img_5.png") as ImageProvider<Object>,
+            ),
+          ),
         ),
         Expanded(
           child: Column(
@@ -23,32 +35,30 @@ Widget BannerArticulo(Articulo Art) {
               Container(
                 padding: EdgeInsets.all(5),
                 child: Text(
-                  'Hola',
+                  "${Art.title}",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
+                    fontSize: 18,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
+              SizedBox(height: 16),
+              Art.categories != null && Art.categories!.isNotEmpty
+                  ? Wrap(
+                      children: Art.categories!.map((Categoria category) {
+                        return Chip(
+                          label: Text(category.name),
+                        );
+                      }).toList(),
+                    )
+                  : Text('Sin Clasificar'),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
                 child: Text(
-                  "Texto",
+                  "${Art.content.trimLeft()}",
                   style: TextStyle(fontSize: 15),
-                ),
-              ),
-              Container(
-                alignment: Alignment.bottomRight,
-                child: InkWell(
-                  onTap: () {},
-                  child: Text(
-                    "Leer más",
-                    style: TextStyle(
-                      color: Color(0xff2F0E84),
-                      fontSize: 18,
-                    ),
-                  ),
                 ),
               ),
             ],

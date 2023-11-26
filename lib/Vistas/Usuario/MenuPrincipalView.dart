@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
+import 'package:gps_baby_care/Vistas/Usuario/ArticulosView.dart';
 import 'package:gps_baby_care/Vistas/Usuario/consejos.dart';
 import 'package:gps_baby_care/Vistas/Usuario/store.dart';
 import 'package:gps_baby_care/Vistas/Usuario/donar.dart';
@@ -125,7 +126,7 @@ class _MenuPrincipalViewState extends State<MenuPrincipalView> {
     switch (_index) {
       case 1:
         {
-          return Consejos();
+          return ArticulosView();
         }
       case 2:
         {
