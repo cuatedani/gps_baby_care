@@ -41,10 +41,10 @@ class ImagenController {
   }
 
   //Metodo para guardar las imagenes y cambiarlas a formato para guardarlo
-  static Future<List<Imagen>> GuardarImagenes(List<XFile> ImgsSel) async {
+  static Future<List<ImagenModel>> GuardarImagenes(List<XFile> ImgsSel) async {
     FirebaseStorage storage = FirebaseStorage.instance;
     List<File> filelist = [];
-    List<Imagen> Galeria = [];
+    List<ImagenModel> Galeria = [];
     String ruta = "";
 
     await Future.forEach(ImgsSel, (XFile preimagen) async {
@@ -60,8 +60,8 @@ class ImagenController {
 
       ruta = await snapshot.ref.getDownloadURL();
 
-      Imagen oneimagen =
-          Imagen(idimagen: "SinEspecificar", name: filename, url: ruta);
+      ImagenModel oneimagen =
+          ImagenModel(idimagen: "SinEspecificar", name: filename, url: ruta);
       Galeria.add(oneimagen);
     });
 

@@ -43,7 +43,7 @@ class ArticuloController {
 
     await Future.forEach(querySnapshot.docs, (documento) async {
       List<Categoria> listaCategorias = [];
-      List<Imagen> Galeria = [];
+      List<ImagenModel> Galeria = [];
 
       QuerySnapshot categoriaSnapshot = await firestore
           .collection('Articulo')
@@ -66,7 +66,7 @@ class ArticuloController {
       }).toList();
 
       Galeria = galeriaSnapshot.docs.map((ImagenDoc) {
-        return Imagen(
+        return ImagenModel(
           idimagen: ImagenDoc.id,
           name: ImagenDoc.get('name'),
           url: ImagenDoc.get('url'),
@@ -103,7 +103,7 @@ class ArticuloController {
       print('Document ID: ${documento.id}');
       print('Document Data: ${documento.data().toString()}');
       List<Categoria> listaCategorias = [];
-      List<Imagen> Galeria = [];
+      List<ImagenModel> Galeria = [];
 
       QuerySnapshot categoriaSnapshot = await firestore
           .collection('Articulo')
@@ -133,7 +133,7 @@ class ArticuloController {
         print('Document ID: ${ImagenDoc.id}');
         print('Document Data: ${ImagenDoc.data().toString()}');
 
-        Imagen oneimagen = Imagen(
+        ImagenModel oneimagen = ImagenModel(
           idimagen: ImagenDoc.id,
           name: ImagenDoc.get('name'),
           url: ImagenDoc.get('url'),

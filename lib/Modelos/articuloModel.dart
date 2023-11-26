@@ -9,7 +9,7 @@ class Articulo {
   String title;
   String content;
   List<Categoria>? categories;
-  List<Imagen>? gallery;
+  List<ImagenModel>? gallery;
 
   Articulo({
     this.idarticle,
