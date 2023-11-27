@@ -6,7 +6,7 @@ class Producto {
   double price;
   String description;
   List<String>? gallery;
-  List<Categoria> category;
+  List<Categoria>? category;
   int quantity;
 
   Producto({
@@ -21,11 +21,12 @@ class Producto {
 
   Map<String, dynamic> Registrar() {
     return {
-      'nombre': name,
-      'precio': price,
-      'descripcion': description,
-      'galeria':gallery,
-      'cantidad': quantity,
+      'name': name,
+      'price': price,
+      'description': description,
+      'galery':gallery,
+      'category':category,
+      'quantity': quantity,
     };
   }
 

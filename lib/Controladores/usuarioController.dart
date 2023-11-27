@@ -100,25 +100,27 @@ class UsuarioController {
 
   static Future<Usuario> getOneUsuarioId(String id) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
-    QuerySnapshot querySnapshot = await DB
+    DocumentSnapshot<Map<String, dynamic>> documento = await DB
         .collection('Usuario')
-        .where('iduser', isEqualTo: id)
+        .doc(id)
         .get();
 
-    final documento = querySnapshot.docs.first;
-
-    return Usuario(
-      iduser: documento.id,
-      name: documento['name'],
-      lastname: documento['lastname'],
-      email: documento['email'],
-      password: documento['password'],
-      phone: documento['phone'],
-      address: documento['address'],
-      isProf: documento['isProf'],
-      isAdmin: documento['isAdmin'],
-      picture: documento['picture'],
-    );
+    if (documento.exists) {
+      return Usuario(
+        iduser: documento.id,
+        name: documento['name'],
+        lastname: documento['lastname'],
+        email: documento['email'],
+        password: documento['password'],
+        phone: documento['phone'],
+        address: documento['address'],
+        isProf: documento['isProf'],
+        isAdmin: documento['isAdmin'],
+        picture: documento['picture'],
+      );
+    } else {
+      throw Exception("Documento no encontrado"); // Maneja el caso en el que no se encuentre el documento
+    }
   }
 
   static Future<void> deleteUsuario(Usuario u) async {

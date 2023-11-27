@@ -7,6 +7,7 @@ import 'package:gps_baby_care/Vistas/Usuario/donar.dart';
 import 'package:gps_baby_care/Vistas/Usuario/LobbyView.dart';
 import 'package:gps_baby_care/Vistas/Usuario/ProfesionalesView.dart';
 import 'package:gps_baby_care/Vistas/Usuario/EditarPerfil.dart';
+import 'RegistrarProducto.dart';
 
 class MenuPrincipalView extends StatefulWidget {
   final Usuario User;
@@ -93,6 +94,7 @@ class _MenuPrincipalViewState extends State<MenuPrincipalView> {
             ElementoMenu("Tienda en linea", 2, Icons.shopping_cart),
             ElementoMenu("Donación", 3, Icons.favorite),
             ElementoMenu("Consulta a un experto", 4, Icons.help_outline),
+            ElementoMenu("Añadir un articulo", 5, Icons.sell),
             SizedBox(
               height: 50,
             ),
@@ -139,6 +141,10 @@ class _MenuPrincipalViewState extends State<MenuPrincipalView> {
       case 4:
         {
           return ProfesionalesView();
+        }
+      case 5:
+        {
+          return RegistroProductoForm();
         }
       default:
         {
