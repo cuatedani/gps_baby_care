@@ -41,6 +41,7 @@ class _LoginViewState extends State<LoginView> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      //----------------------------------MENU PRINCIPAL------------------------------
                       Center(
                         child: Image.asset(
                           "assets/images/logo.png",
@@ -88,9 +89,10 @@ class _LoginViewState extends State<LoginView> {
                       Divider(
                         height: 15,
                       ),
-                      //----------------------------------MENU PRINCIPAL------------------------------
+                      //--------------------------------REGISTRARSE----------------------------------
                       ElevatedButton(
                           onPressed: () async {
+                            FuncLogin();
                             bool isEmailValid =
                                 await UsuarioController.verifEmailUsuario(
                                     email.text);
