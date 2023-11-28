@@ -6,6 +6,8 @@ import 'package:gps_baby_care/Vistas/Usuario/store.dart';
 import 'package:gps_baby_care/Vistas/Usuario/donar.dart';
 import 'package:gps_baby_care/Vistas/Usuario/LobbyView.dart';
 import 'package:gps_baby_care/Vistas/Usuario/ProfesionalesView.dart';
+import 'package:gps_baby_care/Vistas/Usuario/EditarPerfil.dart';
+import 'RegistrarProducto.dart';
 
 class MenuPrincipalView extends StatefulWidget {
   final Usuario User;
@@ -59,18 +61,15 @@ class _MenuPrincipalViewState extends State<MenuPrincipalView> {
                     height: 5,
                   ),
                   Text(
-                    "Ramon Herrera",
+                    User.name,
                     style: TextStyle(fontSize: 25),
                     textAlign: TextAlign.center,
                   ),
                   InkWell(
                     onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (_) => AlertDialog(
-                          title: Text('¡Hola!'),
-                          content: Text('¡Gracias por tocarme!'),
-                        ),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => EditarPerfil(User: User)),
                       );
                     },
                     child: Row(
@@ -90,11 +89,12 @@ class _MenuPrincipalViewState extends State<MenuPrincipalView> {
                 ],
               ),
             ),
-            ElementoMenu("inicio", 4, Icons.home),
+            ElementoMenu("inicio", 0, Icons.home),
             ElementoMenu("Ser buen padre: primeros pasos", 1, Icons.book),
             ElementoMenu("Tienda en linea", 2, Icons.shopping_cart),
             ElementoMenu("Donación", 3, Icons.favorite),
             ElementoMenu("Consulta a un experto", 4, Icons.help_outline),
+            ElementoMenu("Añadir un articulo", 5, Icons.sell),
             SizedBox(
               height: 50,
             ),
@@ -141,6 +141,10 @@ class _MenuPrincipalViewState extends State<MenuPrincipalView> {
       case 4:
         {
           return ProfesionalesView();
+        }
+      case 5:
+        {
+          return RegistroProductoForm();
         }
       default:
         {
