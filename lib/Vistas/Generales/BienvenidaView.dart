@@ -32,12 +32,12 @@ class _BienvenidaViewState extends State<BienvenidaView> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset("assets/images/img_19.png",
-                            width: MediaQuery.of(context).size.width / 2,
+                            width: MediaQuery.of(context).size.width / 1.4,
                             height: 250),
                       ]),
                 )),
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(bottom: 30),
               child: Container(
                 alignment: Alignment.bottomCenter,
                 child: Row(
