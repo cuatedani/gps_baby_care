@@ -43,46 +43,163 @@ class _RegistroViewState extends State<RegistroView> {
                 _autovalidateMode, // Define el modo de validación automática
             child: Column(
               children: <Widget>[
+                SizedBox(
+                  height: 35,
+                ),
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'Nombre(s)'),
+                  decoration: InputDecoration(
+                    labelText: "Nombre(s)",
+                    contentPadding: EdgeInsets.symmetric(
+                        vertical:
+                            10.0), // Ajusta el espacio interno del TextFormField
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(
+                          left: 12.0), // Ajusta el margen izquierdo del ícono
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.perm_contact_cal_outlined),
+                        ],
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
                   controller: name,
                 ),
                 SizedBox(
-                  height: 5,
+                  height: 35,
                 ),
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'Apellido(s)'),
+                  decoration: InputDecoration(
+                    labelText: "Apellido(s)",
+                    contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(
+                          left: 12.0), // Ajusta el margen izquierdo del ícono
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.perm_contact_cal_outlined),
+                        ],
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
                   controller: lastname,
                 ),
                 SizedBox(
-                  height: 5,
+                  height: 15,
                 ),
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'Correo Electrónico'),
-                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    labelText: "Correo Electrónico",
+                    contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(
+                          left: 12.0), // Ajusta el margen izquierdo del ícono
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.email_rounded),
+                        ],
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
                   controller: email,
-                  validator: validateEmail, // Validación de correo electrónico
+                  validator: validateEmail,
+                  keyboardType: TextInputType
+                      .emailAddress, // Validación de correo electrónico
                 ),
                 SizedBox(
-                  height: 5,
+                  height: 15,
                 ),
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'Contraseña'),
-                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: "Contraseña",
+                    contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(
+                          left: 12.0), // Ajusta el margen izquierdo del ícono
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.lock),
+                        ],
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
                   controller: password1,
+                  obscureText: true,
                   validator: validatePassword,
                 ),
                 SizedBox(
                   height: 5,
                 ),
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'Confirma Contraseña'),
-                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: "Confirmar Contraseña",
+                    contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                    prefixIcon: Padding(
+                        padding: EdgeInsets.only(
+                            left: 12.0), // Ajusta el margen izquierdo del ícono
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.lock),
+                          ],
+                        )),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
                   controller: password2,
+                  obscureText: true,
                   validator: confirmPassword,
                 ),
                 SizedBox(
                   height: 5,
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    bool isEmailValid =
+                    await UsuarioController.verifEmailUsuario(email.text);
+                    setState(() {
+                      validEmail = isEmailValid;
+                      // Habilita la validación automática al enviar el formulario
+                      _autovalidateMode = AutovalidateMode.onUserInteraction;
+                    });
+                    if (_formKey.currentState!.validate()) {
+                      FuncRegistrar();
+                    }
+                  },
+                  style: ButtonStyle(
+                    fixedSize:
+                    MaterialStateProperty.all<Size>(Size(300, 40)),
+                    backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.brown),
+                    shape: MaterialStateProperty.all<
+                        RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            25.0), // Ajusta el radio según sea necesario
+                      ),
+                    ),
+                  ),
+                  child: Text(
+                    "Registrarse",
+                    style:
+                    TextStyle(fontFamily: 'NerkoOne', fontSize: 20),
+                  ),
                 ),
                 ElevatedButton(
                   style: ButtonStyle(
