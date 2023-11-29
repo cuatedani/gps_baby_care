@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gps_baby_care/Modelos/imagenModel.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gps_baby_care/Modelos/articuloModel.dart';
@@ -176,16 +177,18 @@ class _AddArticuloViewState extends State<AddArticuloView> {
             SizedBox(height: 16),
             ElevatedButton(
               onPressed: () async {
-                newArticulo.categories = selectedCategories;
-                if(ImgsGal.isNotEmpty){
-                  newArticulo.gallery = await ImagenController.GuardarImagenes(ImgsGal);
-                }else{
-                  newArticulo.gallery = [];
-                }
-                await ArticuloController.insertArticulo(newArticulo).then((value) =>
-                {
+                // Añadir el artículo y obtener el artículo con su ID asignado
+                Articulo addedArticulo = await ArticuloController.insertArticulo(newArticulo);
 
-                });
+                // Guardar imágenes en la galería si hay alguna
+                if (ImgsGal.isNotEmpty) {
+                  List<ImagenModel> galleryImages =
+                  await ImagenController.SaveAllImagen("articulo", addedArticulo.idarticle!, ImgsGal);
+
+                  // Actualizar el artículo con la galería de imágenes
+                  addedArticulo.gallery = galleryImages;
+                  await ArticuloController.updateArticulo(addedArticulo);
+                }
               },
               child: Text('Guardar Artículo'),
             ),

@@ -2,15 +2,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gps_baby_care/Modelos/categoriaModel.dart';
 import 'package:gps_baby_care/Modelos/imagenModel.dart';
 import 'package:gps_baby_care/Modelos/articuloModel.dart';
-import 'firestoreController.dart';
+import 'package:gps_baby_care/Controladores/firestoreController.dart';
+import 'package:gps_baby_care/Controladores/imagenController.dart';
 
 class ArticuloController {
   //Insertar un articulo en la base de datos
-  static Future<void> insertArticulo(Articulo a) async {
+  static Future<Articulo> insertArticulo(Articulo a) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
 
     try {
       DocumentReference docRef = await DB.collection('Articulo').add(a.toMap());
+
+      // Obtener el ID asignado por Firebase
+      String idArticulo = docRef.id;
+
+      // Asignar el ID al objeto Articulo
+      a.idarticle = idArticulo;
 
       if (a.gallery!.isNotEmpty) {
         // Insertar imágenes en la subcolección 'gallery'
@@ -25,13 +32,105 @@ class ArticuloController {
           await docRef.collection('categories').add(categoria.toMap());
         });
       }
-    } catch (e) {}
+
+      // Retornar el objeto Articulo con el ID asignado
+      return a;
+    } catch (e) {
+      print("Aparecio el Error: ${e.toString()}");
+      return a;
+    }
   }
 
-  //Actualizar un articulo en la Base de Datos
+  //Actualizar un articulo en la base de datos
   static Future<void> updateArticulo(Articulo a) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
-    await DB.collection('Articulo').doc(a.idarticle).set(a.toMap());
+
+    try {
+      // Actualizar el documento principal del artículo
+      await DB.collection('Articulo').doc(a.idarticle).set(a.toMap());
+
+      // Eliminar documentos viejos de la subcolección 'gallery'
+      await DB.collection('Articulo').doc(a.idarticle).collection('gallery').get().then(
+            (snapshot) {
+          for (QueryDocumentSnapshot doc in snapshot.docs) {
+            doc.reference.delete();
+          }
+        },
+      );
+
+      // Insertar nuevas imágenes en la subcolección 'gallery'
+      if (a.gallery!.isNotEmpty) {
+        await Future.forEach(a.gallery!, (imagen) async {
+          await DB.collection('Articulo').doc(a.idarticle).collection('gallery').add(imagen.toMap());
+        });
+      }
+
+      // Eliminar documentos viejos de la subcolección 'categories'
+      await DB.collection('Articulo').doc(a.idarticle).collection('categories').get().then(
+            (snapshot) {
+          for (QueryDocumentSnapshot doc in snapshot.docs) {
+            doc.reference.delete();
+          }
+        },
+      );
+
+      // Insertar nuevas categorías en la subcolección 'categories'
+      if (a.categories!.isNotEmpty) {
+        await Future.forEach(a.categories!, (categoria) async {
+          await DB.collection('Articulo').doc(a.idarticle).collection('categories').add(categoria.toMap());
+        });
+      }
+    } catch (e) {
+      print("Apareció el error: ${e.toString()}");
+      // Puedes manejar el error según tus necesidades
+    }
+  }
+
+  //Eliminar un articulo de la base de datos
+  static Future<void> deleteArticulo(Articulo a) async{
+    FirebaseFirestore DB = await firestoreController.abrirFireStore();
+    try {
+      //Eliminar Imagenes
+      await ImagenController.DeleteAllImagen('article',a.idarticle!,a.gallery!);
+
+      // Eliminar el artículo
+      await DB.collection('Articulo').doc(a.idarticle).delete();
+
+      // Eliminar documentos viejos de la subcolección 'gallery'
+      await DB.collection('Articulo').doc(a.idarticle).collection('gallery').get().then(
+            (snapshot) {
+          for (QueryDocumentSnapshot doc in snapshot.docs) {
+            doc.reference.delete();
+          }
+        },
+      );
+
+      // Insertar nuevas imágenes en la subcolección 'gallery'
+      if (a.gallery!.isNotEmpty) {
+        await Future.forEach(a.gallery!, (imagen) async {
+          await DB.collection('Articulo').doc(a.idarticle).collection('gallery').add(imagen.toMap());
+        });
+      }
+
+      // Eliminar documentos viejos de la subcolección 'categories'
+      await DB.collection('Articulo').doc(a.idarticle).collection('categories').get().then(
+            (snapshot) {
+          for (QueryDocumentSnapshot doc in snapshot.docs) {
+            doc.reference.delete();
+          }
+        },
+      );
+
+      // Insertar nuevas categorías en la subcolección 'categories'
+      if (a.categories!.isNotEmpty) {
+        await Future.forEach(a.categories!, (categoria) async {
+          await DB.collection('Articulo').doc(a.idarticle).collection('categories').add(categoria.toMap());
+        });
+      }
+    } catch (e) {
+      print("Apareció el error: ${e.toString()}");
+      // Puedes manejar el error según tus necesidades
+    }
   }
 
   //Obtener una Lista con Todos los Articulos
@@ -155,4 +254,6 @@ class ArticuloController {
     });
     return listaArticulo;
   }
+
+  //Falta Filtrado para Usuario y Profesional
 }

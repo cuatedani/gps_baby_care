@@ -4,6 +4,7 @@ import 'package:gps_baby_care/Modelos/articuloModel.dart';
 import 'package:gps_baby_care/Controladores/articuloController.dart';
 import 'package:gps_baby_care/Componente/BannerArticuloWidget.dart';
 import 'package:gps_baby_care/Vistas/Profesional/AddArticuloView.dart';
+import 'package:gps_baby_care/Vistas/Profesional/ArticuloPageProffView.dart';
 
 class ArticulosProffView extends StatefulWidget {
   final Profesional Proff;
@@ -41,26 +42,33 @@ class _ArticulosProffViewState extends State<ArticulosProffView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.separated(
-        itemCount: ListaArticulos.length + 1,
-        separatorBuilder: (context, index) =>
-            Divider(),
-        itemBuilder: (context, index) {
-          if (index == ListaArticulos.length) {
-            return Center(child: Text(texto));
-          } else {
-            return InkWell(
-              onTap: () {
-                print("Pendiente Interfaz ArticuloView(User) y EditArticuloView(Proff)");
-              },
-              child: BannerArticulo(ListaArticulos[index]),
-            );
-          }
-        },
+      body: Padding(
+        padding: EdgeInsets.all(10),
+        child: ListView.separated(
+          itemCount: ListaArticulos.length + 1,
+          separatorBuilder: (context, index) =>
+              Divider(),
+          itemBuilder: (context, index) {
+            if (index == ListaArticulos.length) {
+              return Center(child: Text(texto));
+            } else {
+              return InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => ArticuloPageProff(proff: Proff, art: ListaArticulos[index],),
+                    ),
+                  );
+                },
+                child: BannerArticulo(ListaArticulos[index]),
+              );
+            }
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushReplacement(
+          Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) => AddArticuloView(proff: Proff),
             ),

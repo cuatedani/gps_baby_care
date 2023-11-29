@@ -4,7 +4,7 @@ import 'package:gps_baby_care/Modelos/imagenModel.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class ImagenController {
-  //Metodo para Seleccionar Imagenes de la Galeria
+  //Metodo para Seleccionar Varias Imagenes de la Galeria
   static Future<List<XFile>> SeleccionarImagenes() async {
     final ImagePicker picker = ImagePicker();
 
@@ -17,7 +17,7 @@ class ImagenController {
     return ImgsSel ?? [];
   }
 
-  // Método para Seleccionar una imagen de galería o de la cámara
+  // Método para Seleccionar Una Imagen de Galería o de la Cámara
   static Future<XFile?> SeleccionarUnaImagen(bool camara) async {
     print("Empezo a guardar imagenes");
     final ImagePicker picker = ImagePicker();
@@ -40,8 +40,9 @@ class ImagenController {
     return img;
   }
 
-  //Metodo para guardar las imagenes y cambiarlas a formato para guardarlo
-  static Future<List<ImagenModel>> GuardarImagenes(List<XFile> ImgsSel) async {
+  //Metodo para guardar galeria de imagenes, se especifica el tipo(article, product),  luego el id(producto, articulo)
+  static Future<List<ImagenModel>> SaveAllImagen(
+      String tipo, String id, List<XFile> ImgsSel) async {
     FirebaseStorage storage = FirebaseStorage.instance;
     List<File> filelist = [];
     List<ImagenModel> Galeria = [];
@@ -52,7 +53,7 @@ class ImagenController {
 
       String filename = fileimg.path.split("/").last;
 
-      Reference ref = storage.ref().child("images").child(filename);
+      Reference ref = storage.ref().child(tipo).child(id).child(filename);
 
       UploadTask subida = ref.putFile(fileimg);
 
@@ -66,5 +67,48 @@ class ImagenController {
     });
 
     return Galeria;
+  }
+
+  //Metodo para guardar una imagen, se especifica el tipo(perfil,instituto),  luego el id(usuario)
+  static Future<ImagenModel> SaveOneImagen(
+      String tipo, String id, XFile ImgSel) async {
+    FirebaseStorage storage = FirebaseStorage.instance;
+
+    File fileimg = File(ImgSel.path);
+
+    String filename = fileimg.path.split("/").last;
+
+    Reference ref = storage.ref().child(tipo).child(id).child(filename);
+
+    UploadTask subida = ref.putFile(fileimg);
+
+    TaskSnapshot snapshot = await subida.whenComplete(() => true);
+
+    String ruta = await snapshot.ref.getDownloadURL();
+
+    return ImagenModel(idimagen: "SinEspecificar", name: filename, url: ruta);
+    ;
+  }
+
+  //Metodo para Eliminar Una Imagen
+  static Future<void> DeleteOneImagen(
+      String type, String id, ImagenModel image) async {
+    FirebaseStorage storage = FirebaseStorage.instance;
+    String url = type + "/" + id + "/" + image.name;
+    Reference ref = storage.ref().child(url);
+    try {
+      await ref.delete();
+      print('Imagen eliminada exitosamente');
+    } catch (e) {
+      print('Error al eliminar la imagen: $e');
+    }
+  }
+
+  // Método para Eliminar Varias Imágenes
+  static Future<void> DeleteAllImagen(
+      String type, String id, List<ImagenModel> gallery) async {
+    await Future.forEach(gallery, (ImagenModel image) async {
+      await DeleteOneImagen(type, id, image);
+    });
   }
 }
