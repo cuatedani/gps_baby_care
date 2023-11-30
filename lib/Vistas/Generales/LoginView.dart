@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:gps_baby_care/Controladores/usuarioController.dart';
 import 'package:gps_baby_care/Controladores/profesionalController.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
@@ -53,28 +54,19 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
       backgroundColor: Color(0xFFFAF2E7),
       body: SingleChildScrollView(
         child: Stack(
-         // clipBehavior: Clip.none,
           children: [
             Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
-              ),
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: MediaQuery.of(context).size.height * 0.55,
-              child: Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/background2.png'),
+                    image: AssetImage('assets/images/background.jpeg'),
                     fit: BoxFit.cover,
                   ),
-                ),
-              ),
+                )
             ),
             AnimatedPositioned(
-              duration: Duration(milliseconds: 250),
+              duration: Duration(milliseconds: 400),
               top: MediaQuery.of(context).size.height * _animation.value,
               left: 0,
               right: 0,
@@ -135,7 +127,7 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
                                });
                              },
                              icon: Icon(
-                               obscureText2 ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye,
+                               obscureText2 ? FontAwesomeIcons.eye : FontAwesomeIcons.eyeSlash,
                              ),
                            ),
                               border: OutlineInputBorder(
@@ -227,11 +219,11 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
               ),
             ),
             // Imagen en la mitad superior
-            Positioned(
+      Positioned(
               top: MediaQuery.of(context).size.height * 0.25,
               left: 0,
               right: 0,
-              child: Container(
+              child:  FadeInUp(duration: Duration(milliseconds: 1000,), delay: Duration(milliseconds: 300), child:Container(
                 child: Center(
                   child: Image.asset(
                     "assets/images/logonobg.png",
@@ -239,7 +231,7 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
                     height: 200,
                   ),
                 ),
-              ),
+              ),),
             ),
           ],
         ),

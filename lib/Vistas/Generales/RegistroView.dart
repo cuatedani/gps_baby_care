@@ -23,7 +23,7 @@ class _RegistroViewState extends State<RegistroView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffFAF2E7),
+      //backgroundColor: Color(0xffFAF2E7),
       appBar: AppBar(
         title: const Text(
           "Baby Care",
@@ -32,7 +32,7 @@ class _RegistroViewState extends State<RegistroView> {
               fontWeight: FontWeight.bold,
               fontSize: 25),
         ),
-        backgroundColor: Color(0xFFC49666),
+        //backgroundColor: Color(0xFFC49666),
       ),
       body: SingleChildScrollView(
         child: Container(
