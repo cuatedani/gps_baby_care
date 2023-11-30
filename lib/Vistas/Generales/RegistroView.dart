@@ -201,25 +201,6 @@ class _RegistroViewState extends State<RegistroView> {
                     TextStyle(fontFamily: 'NerkoOne', fontSize: 20),
                   ),
                 ),
-                ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.brown),
-                  ),
-                  child: Text('Registrarse'),
-                  onPressed: () async {
-                    bool isEmailValid =
-                        await UsuarioController.verifEmailUsuario(email.text);
-                    setState(() {
-                      validEmail = isEmailValid;
-                      // Habilita la validación automática al enviar el formulario
-                      _autovalidateMode = AutovalidateMode.onUserInteraction;
-                    });
-                    if (_formKey.currentState!.validate()) {
-                      FuncRegistrar();
-                    }
-                  },
-                ),
               ],
             ),
           ),
