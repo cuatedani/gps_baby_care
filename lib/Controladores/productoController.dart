@@ -29,7 +29,7 @@ class ProductoController {
         price: documento['precio'],
         description: documento['descripcion'],
         gallery: List<String>.from(documento['galeria'] ?? []),
-        category: [], // ¡Recuerda recuperar las categorías si también están almacenadas!
+        category: documento['categoria'], // ¡Recuerda recuperar las categorías si también están almacenadas!
         quantity: documento['cantidad'],
       );
 
@@ -50,7 +50,7 @@ class ProductoController {
         price: documento['precio'],
         description: documento['descripcion'],
         gallery: List<String>.from(documento['galeria'] ?? []),
-        category: [], // ¡Recuerda recuperar las categorías si también están almacenadas!
+        category: documento['categoria'], // ¡Recuerda recuperar las categorías si también están almacenadas!
         quantity: documento['cantidad'],
       );
     } else {
