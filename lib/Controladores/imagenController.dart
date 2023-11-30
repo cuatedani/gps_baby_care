@@ -94,8 +94,7 @@ class ImagenController {
   static Future<void> DeleteOneImagen(
       String type, String id, ImagenModel image) async {
     FirebaseStorage storage = FirebaseStorage.instance;
-    String url = type + "/" + id + "/" + image.name;
-    Reference ref = storage.ref().child(url);
+    Reference ref = storage.ref().child(type).child(id).child(image.name);
     try {
       await ref.delete();
       print('Imagen eliminada exitosamente');
@@ -110,5 +109,27 @@ class ImagenController {
     await Future.forEach(gallery, (ImagenModel image) async {
       await DeleteOneImagen(type, id, image);
     });
+  }
+
+  // Método para Eliminar Folder
+  static Future<void> DeleteFolder(String type, String id) async {
+    try {
+      FirebaseStorage storage = FirebaseStorage.instance;
+      Reference ref1 = storage.ref();
+      print(await ref1.listAll().toString());
+      print(ref1.fullPath);
+      Reference ref2 = storage.ref().child(type);
+      print(await ref2.listAll().toString());
+      print(ref2.fullPath);
+      Reference ref3 = storage.ref().child(type).child(id);
+      print(await ref3.listAll().toString());
+      print(ref3.fullPath);
+
+
+      await ref3.delete();
+      print('Carpeta Eliminada Exitosamente');
+    } catch (e) {
+      print('Error al Eliminar la Carpeta: $e');
+    }
   }
 }

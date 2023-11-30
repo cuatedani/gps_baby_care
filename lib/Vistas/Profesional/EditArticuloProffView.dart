@@ -1,43 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:gps_baby_care/Controladores/imagenController.dart';
 import 'package:gps_baby_care/Modelos/imagenModel.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:gps_baby_care/Modelos/articuloModel.dart';
-import 'package:gps_baby_care/Modelos/profesionalModel.dart';
-import 'package:gps_baby_care/Modelos/categoriaModel.dart';
 import 'package:gps_baby_care/Controladores/articuloController.dart';
 import 'package:gps_baby_care/Controladores/categoriaController.dart';
-import 'package:gps_baby_care/Controladores/imagenController.dart';
+import 'package:gps_baby_care/Modelos/articuloModel.dart';
+import 'package:gps_baby_care/Modelos/categoriaModel.dart';
 
-class AddArticuloView extends StatefulWidget {
-  final Profesional proff;
-  const AddArticuloView({Key? key, required this.proff}) : super(key: key);
+class EditArticuloProffView extends StatefulWidget {
+  final Articulo art;
+
+  const EditArticuloProffView({super.key, required this.art});
 
   @override
-  State<AddArticuloView> createState() => _AddArticuloViewState();
+  State<EditArticuloProffView> createState() => _EditArticuloProffViewState();
 }
 
-class _AddArticuloViewState extends State<AddArticuloView> {
-  late Profesional proff;
-  late Articulo newArticulo;
-  List<Categoria> categorieslist = [];
-  List<Categoria> selectedCategories = [];
-  Categoria? selectedCategory;
+class _EditArticuloProffViewState extends State<EditArticuloProffView> {
+  late Articulo Art;                        //Articulo Enviado
+  List<Categoria> categorieslist = [];      //Lista de Todas las Categorias
+  List<Categoria> selectedCategories = [];  //Lista de Categorias Seleccionadas
+  Categoria? selectedCategory;              //Categoria Seleccionada en el Componente
   final TextEditingController titleController = TextEditingController();
   final TextEditingController contentController = TextEditingController();
-  List<XFile> ImgsGal = [];
+  List<XFile> NewImgsGal = [];              //Lista de Imagenes Nuevas sin procesar
+  late List<ImagenModel> compactgallery = [];    //Lista de Imagenes Nuevas y Viejas Modelos
+  late List<ImagenModel> oldgallery = [];        //Lista de Imagenes Viejas  Modelos
 
   @override
   void initState() {
-    proff = widget.proff;
-    newArticulo = Articulo(
-      idprof: proff.idprof,
-      date: Timestamp.now(),
-      title: '',
-      content: '',
-      categories: [],
-      gallery: [],
-    );
+    Art = widget.art;
     cargardatos();
     super.initState();
   }
@@ -58,7 +50,7 @@ class _AddArticuloViewState extends State<AddArticuloView> {
               decoration: InputDecoration(labelText: 'Título'),
               onChanged: (value) {
                 setState(() {
-                  newArticulo.title = value;
+                  Art.title = value;
                 });
               },
             ),
@@ -68,7 +60,7 @@ class _AddArticuloViewState extends State<AddArticuloView> {
               decoration: InputDecoration(labelText: 'Contenido'),
               onChanged: (value) {
                 setState(() {
-                  newArticulo.content = value;
+                  Art.content = value;
                 });
               },
               maxLines: null, // Permite varias líneas
@@ -139,8 +131,11 @@ class _AddArticuloViewState extends State<AddArticuloView> {
               onPressed: () async {
                 List<XFile> temp = await ImagenController.SeleccionarImagenes();
                 if (temp.isNotEmpty) {
+                  NewImgsGal.addAll(temp);
                   setState(() {
-                    ImgsGal.addAll(temp);
+                    temp.forEach((img) {
+                      compactgallery.add(ImagenModel(name: '${img.name}', url: 'SinDefinir'));
+                    });
                   });
                 }
               },
@@ -148,33 +143,37 @@ class _AddArticuloViewState extends State<AddArticuloView> {
             ),
             SizedBox(height: 16),
             Text(
-              ImgsGal.isNotEmpty
+              compactgallery.isNotEmpty
                   ? 'Imagenes Seleccionadas:'
                   : 'No hay Imagenes Seleccionadas',
             ),
             Wrap(
-              children: ImgsGal.map(
-                (XFile image) {
-                  return Chip(
-                    avatar: Icon(Icons.image),
-                    label: Text(image.name),
-                    deleteIcon: Icon(Icons.cancel),
-                    deleteButtonTooltipMessage: 'Quitar',
-                    onDeleted: () {
-                      setState(() {
-                        ImgsGal.remove(image);
-                      });
-                    },
-                  );
-                },
-              ).toList(),
+              children: compactgallery.map((ImagenModel img) {
+                return Chip(
+                  label: Text(img.name),
+                  deleteIcon: Icon(Icons.cancel),
+                  deleteButtonTooltipMessage: 'Quitar',
+                  onDeleted: () {
+                    setState(() async {
+                      if (img.url == 'SinDefinir') {
+                        NewImgsGal.removeWhere((element) => element.name == img.name);
+                      } else {
+                        //await ImagenController.DeleteOneImagen('articulo', Art.idarticle!, img!);
+                        oldgallery.removeWhere((element) => element.name == img.name);
+                      }
+                      compactgallery.remove(img);
+                    });
+                  },
+                );
+              }).toList(),
             ),
             SizedBox(height: 16),
             ElevatedButton(
               onPressed: () async {
-                showConfirmation(context);
+                //Llamar el metodo de confirmacion
+                showEditConfirmation(context);
               },
-              child: Text('Guardar Artículo'),
+              child: Text('Guardar Cambios'),
             ),
           ],
         ),
@@ -182,26 +181,30 @@ class _AddArticuloViewState extends State<AddArticuloView> {
     );
   }
 
-  //Metodos
-  //Carga los datos inciales
+  //Zona de Metodos
+  //Carga datos de la DB
   Future<void> cargardatos() async {
     List<Categoria> temporal = await CategoriaController.getArticuloCategoria();
     if (mounted) {
       setState(() {
+        titleController.text = Art.title;
+        contentController.text = Art.content;
+        selectedCategories = Art.categories!;
+        oldgallery = Art.gallery!;
+        compactgallery.addAll(Art.gallery!);
         categorieslist = temporal;
       });
     }
   }
 
   //Muestra la confirmacion de Editar
-  Future<void> showConfirmation(BuildContext context) async {
+  Future<void> showEditConfirmation(BuildContext context) async {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text("Confirmación"),
-          content:
-              Text("¿Estás seguro de que quieres agregar el nuevo articulo?"),
+          content: Text("¿Estás seguro de que quieres guardar los cambios?"),
           actions: [
             TextButton(
               onPressed: () {
@@ -211,34 +214,30 @@ class _AddArticuloViewState extends State<AddArticuloView> {
             ),
             TextButton(
               onPressed: () async {
-                //Añadir las Categorias Seleccionadas
-                newArticulo.categories = selectedCategories;
-
-                // Añadir el artículo y obtener el artículo con su ID asignado
-                Articulo addedArticulo =
-                    await ArticuloController.insertArticulo(newArticulo);
-
+                //Codigo para Actualizar
                 // Guardar imágenes en la galería si hay alguna
-                if (ImgsGal.isNotEmpty) {
+                if (NewImgsGal.isNotEmpty) {
                   List<ImagenModel> galleryImages =
-                      await ImagenController.SaveAllImagen(
-                          "articulo", addedArticulo.idarticle!, ImgsGal);
+                  await ImagenController.SaveAllImagen("articulo", Art.idarticle!, NewImgsGal);
 
-                  // Añade los ImagenModel al articulo
-                  addedArticulo.gallery = galleryImages;
-                  //Actuliza el articulo añadiendo los modelos
-                  await ArticuloController.updateArticulo(addedArticulo);
+                  galleryImages.addAll(oldgallery);
+                  // Actualizar el artículo con la galería de imágenes
+                  Art.gallery = galleryImages;
+
+                  //ACtualiza el articulo en la base de datos
+                  await ArticuloController.updateArticulo(Art);
                 }
 
+                await ArticuloController.updateArticulo(Art);
                 Navigator.of(context).pop(); // Cerrar el cuadro de diálogo
                 Navigator.of(context).pop(); // Cerrar la página actual
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text("Artículo Agregado Correctamente"),
+                    content: Text("Artículo Actualizado Correctamente"),
                   ),
                 );
               },
-              child: Text("Sí, Agregar"),
+              child: Text("Guardar Cambios"),
             ),
           ],
         );

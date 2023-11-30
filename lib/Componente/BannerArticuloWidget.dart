@@ -31,6 +31,7 @@ Widget BannerArticulo(Articulo Art) {
         Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start, // Alinea el texto a la izquierda
             children: [
               Container(
                 padding: EdgeInsets.all(5),
@@ -47,20 +48,18 @@ Widget BannerArticulo(Articulo Art) {
               SizedBox(height: 16),
               Art.categories != null && Art.categories!.isNotEmpty
                   ? Wrap(
-                      children: Art.categories!.map((Categoria category) {
-                        return Chip(
-                          label: Text(category.name),
-                        );
-                      }).toList(),
-                    )
+                children: Art.categories!.map((Categoria category) {
+                  return Chip(
+                    label: Text(category.name),
+                  );
+                }).toList(),
+              )
                   : Text('Sin Clasificar'),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                child: Text(
-                  "${Art.content.trimLeft()}",
-                  style: TextStyle(fontSize: 15),
+                child: Art.content.length < 40 ? Text('${Art.content}', style: TextStyle(fontSize: 15),) :Text('${Art.content.substring(0,40)} ...', style: TextStyle(fontSize: 15),),
+
                 ),
-              ),
             ],
           ),
         ),
