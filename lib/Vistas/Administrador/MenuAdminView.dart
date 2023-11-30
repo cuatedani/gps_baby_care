@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gps_baby_care/Vistas/Usuario/ArticulosView.dart';
-import 'package:gps_baby_care/Vistas/Usuario/consejos.dart';
-import 'package:gps_baby_care/Vistas/Usuario/store.dart';
-import 'package:gps_baby_care/Vistas/Usuario/donar.dart';
+import 'package:gps_baby_care/Vistas/Administrador/CategoriasView.dart';
+import 'package:gps_baby_care/Vistas/Administrador/IntitutosAdminView.dart';
+import 'package:gps_baby_care/Vistas/Usuario/EditarPerfil.dart';
 import 'package:gps_baby_care/Vistas/Usuario/LobbyView.dart';
-import 'package:gps_baby_care/Vistas/Usuario/ProfesionalesView.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 
 class MenuAdminView extends StatefulWidget {
@@ -18,13 +16,14 @@ class MenuAdminView extends StatefulWidget {
 
 class _MenuAdminViewState extends State<MenuAdminView> {
   late Usuario User;
-  int _index = 0;
+  int _index = 2;
 
   @override
   void initState() {
     super.initState();
     User = widget.User;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,18 +58,15 @@ class _MenuAdminViewState extends State<MenuAdminView> {
                     height: 5,
                   ),
                   Text(
-                    "Ramon Herrera",
+                    User.name,
                     style: TextStyle(fontSize: 25),
                     textAlign: TextAlign.center,
                   ),
                   InkWell(
                     onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (_) => AlertDialog(
-                          title: Text('¡Hola!'),
-                          content: Text('¡Gracias por tocarme!'),
-                        ),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => EditarPerfil(User: User)),
                       );
                     },
                     child: Row(
@@ -90,11 +86,12 @@ class _MenuAdminViewState extends State<MenuAdminView> {
                 ],
               ),
             ),
-            ElementoMenu("inicio", 4, Icons.home),
+            ElementoMenu("inicio", 0, Icons.home),
             ElementoMenu("Ser buen padre: primeros pasos", 1, Icons.book),
             ElementoMenu("Tienda en linea", 2, Icons.shopping_cart),
             ElementoMenu("Donación", 3, Icons.favorite),
             ElementoMenu("Consulta a un experto", 4, Icons.help_outline),
+            ElementoMenu("Añadir un articulo", 5, Icons.sell),
             SizedBox(
               height: 50,
             ),
@@ -128,19 +125,11 @@ class _MenuAdminViewState extends State<MenuAdminView> {
     switch (_index) {
       case 1:
         {
-          return ArticulosView();
+          return InstitutosAdminView();
         }
       case 2:
         {
-          return Store();
-        }
-      case 3:
-        {
-          return Donar();
-        }
-      case 4:
-        {
-          return ProfesionalesView();
+          return CategoriasView();
         }
       default:
         {

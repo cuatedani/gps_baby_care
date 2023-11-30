@@ -4,6 +4,7 @@ import 'package:gps_baby_care/Controladores/usuarioController.dart';
 import 'package:gps_baby_care/Controladores/profesionalController.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 import 'package:gps_baby_care/Modelos/profesionalModel.dart';
+import 'package:gps_baby_care/Vistas/Administrador/MenuAdminView.dart';
 import 'package:gps_baby_care/Vistas/Profesional/MenuProffView.dart';
 import 'package:gps_baby_care/Vistas/Generales/RegistroView.dart';
 import 'package:gps_baby_care/Vistas/Usuario/MenuPrincipalView.dart';
@@ -256,10 +257,9 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
               builder: (context) => MenuProffView(Proff: Proff, User: User)));
     } else {
       if (User.isAdmin == true) {
-        /*
-        //Aqui debe mandar al admin junto con un elemento Usuario
-        Navigator.push(
-          context, MaterialPageRoute(builder: (context) => MenuAdminView(User)));*/
+        //Aqui manda al admin junto con un elemento Usuario
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => MenuAdminView(User: User)));
       } else {
         //Aqui se manda a los usuarios normales con un elemento Usuario
         Navigator.push(
