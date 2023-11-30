@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:gps_baby_care/Controladores/usuarioController.dart';
 import 'package:gps_baby_care/Controladores/profesionalController.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
@@ -181,10 +182,17 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
                           ),
                         ),
                         SizedBox(height: 40),
-                        Text(
-                          "¿Aún no estás registrado?",
-                          style: TextStyle(fontSize: 17),
+                      Text(
+                        '¿Aún no estás registrado?',
+                        style: GoogleFonts.lobster(
+                          textStyle: TextStyle(
+                            fontSize: 20,
+                            letterSpacing: .5,
+                            color: Color(0XFF815B51),
+                            fontWeight: FontWeight.w100,
+                          ),
                         ),
+                      ),
                         SizedBox(height: 15),
                         ElevatedButton(
                           onPressed: () {

@@ -31,6 +31,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  google_fonts:
+
   #Firebase
   firebase_core: ^2.17.0
   firebase_auth:
