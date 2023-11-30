@@ -4,6 +4,7 @@ import 'package:gps_baby_care/Modelos/articuloModel.dart';
 import 'package:gps_baby_care/Modelos/categoriaModel.dart';
 import 'package:gps_baby_care/Modelos/profesionalModel.dart';
 import 'package:gps_baby_care/Componente/GaleriaWidget.dart';
+import 'package:gps_baby_care/Vistas/Profesional/EditArticuloProffView.dart';
 
 class ArticuloPageProff extends StatefulWidget {
   final Articulo art;
@@ -28,6 +29,7 @@ class _ArticuloPageProffState extends State<ArticuloPageProff> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text("${Art.title}"), backgroundColor: Colors.brown,),
       body: ListView(
         padding: EdgeInsets.all(16),
         children: [
@@ -61,7 +63,10 @@ class _ArticuloPageProffState extends State<ArticuloPageProff> {
               Row(
                 children: [
                   IconButton(onPressed: () {
-
+                    Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => EditArticuloProffView(art: Art,),
+                        ));
                   }, icon: Icon(Icons.edit)),
                   SizedBox(width: 16),
                   IconButton(onPressed: () {

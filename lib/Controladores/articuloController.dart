@@ -51,9 +51,9 @@ class ArticuloController {
 
       // Eliminar documentos viejos de la subcolección 'gallery'
       await DB.collection('Articulo').doc(a.idarticle).collection('gallery').get().then(
-            (snapshot) {
+            (snapshot) async {
           for (QueryDocumentSnapshot doc in snapshot.docs) {
-            doc.reference.delete();
+            await doc.reference.delete();
           }
         },
       );
@@ -91,7 +91,7 @@ class ArticuloController {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
     try {
       //Eliminar Imagenes
-      await ImagenController.DeleteAllImagen('article',a.idarticle!,a.gallery!);
+      //await ImagenController.DeleteFolder('article',a.idarticle!);
 
       // Eliminar el artículo
       await DB.collection('Articulo').doc(a.idarticle).delete();
@@ -105,13 +105,6 @@ class ArticuloController {
         },
       );
 
-      // Insertar nuevas imágenes en la subcolección 'gallery'
-      if (a.gallery!.isNotEmpty) {
-        await Future.forEach(a.gallery!, (imagen) async {
-          await DB.collection('Articulo').doc(a.idarticle).collection('gallery').add(imagen.toMap());
-        });
-      }
-
       // Eliminar documentos viejos de la subcolección 'categories'
       await DB.collection('Articulo').doc(a.idarticle).collection('categories').get().then(
             (snapshot) {
@@ -121,15 +114,8 @@ class ArticuloController {
         },
       );
 
-      // Insertar nuevas categorías en la subcolección 'categories'
-      if (a.categories!.isNotEmpty) {
-        await Future.forEach(a.categories!, (categoria) async {
-          await DB.collection('Articulo').doc(a.idarticle).collection('categories').add(categoria.toMap());
-        });
-      }
     } catch (e) {
-      print("Apareció el error: ${e.toString()}");
-      // Puedes manejar el error según tus necesidades
+      print("Apareció el Error: ${e.toString()}");
     }
   }
 
@@ -199,8 +185,6 @@ class ArticuloController {
     List<Articulo> listaArticulo = [];
 
     await Future.forEach(querySnapshot.docs, (documento) async {
-      print('Document ID: ${documento.id}');
-      print('Document Data: ${documento.data().toString()}');
       List<Categoria> listaCategorias = [];
       List<ImagenModel> Galeria = [];
 
@@ -211,8 +195,6 @@ class ArticuloController {
           .get();
 
       await Future.forEach(categoriaSnapshot.docs, (cat) async {
-        print('Document ID: ${cat.id}');
-        print('Document Data: ${cat.data().toString()}');
 
         Categoria onecategoria = Categoria(
           idcategory: cat.id,
@@ -229,8 +211,6 @@ class ArticuloController {
           .get();
 
       await Future.forEach(galeriaSnapshot.docs, (ImagenDoc) async {
-        print('Document ID: ${ImagenDoc.id}');
-        print('Document Data: ${ImagenDoc.data().toString()}');
 
         ImagenModel oneimagen = ImagenModel(
           idimagen: ImagenDoc.id,
