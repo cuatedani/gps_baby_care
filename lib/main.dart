@@ -15,13 +15,15 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'GPS BabyCare',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.brown,
       ),
      // home: Bienvenida(),
       home: SplashScreen(),

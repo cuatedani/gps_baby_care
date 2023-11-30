@@ -6,6 +6,7 @@ import 'package:gps_baby_care/Modelos/profesionalModel.dart';
 import 'package:gps_baby_care/Vistas/Profesional/MenuProffView.dart';
 import 'package:gps_baby_care/Vistas/Generales/RegistroView.dart';
 import 'package:gps_baby_care/Vistas/Usuario/MenuPrincipalView.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -14,9 +15,11 @@ class LoginView extends StatefulWidget {
   State<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMixin {
   final email = TextEditingController();
   final password = TextEditingController();
+
+  bool obscureText2=true;
 
   AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
 
@@ -24,17 +27,38 @@ class _LoginViewState extends State<LoginView> {
   bool validEmail = false;
   bool validPass = true;
 
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+
+    _animation = Tween<double>(begin: 1.5, end: 0.38)
+        .animate(_animationController)
+      ..addListener(() {
+        setState(() {});
+      });
+
+    // Inicia la animación cuando se inicia el widget
+    _animationController.forward();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFFAF2E7),
       body: SingleChildScrollView(
         child: Stack(
-          clipBehavior: Clip.none,
+         // clipBehavior: Clip.none,
           children: [
             Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-            ),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+              ),
             Positioned(
               top: 0,
               left: 0,
@@ -49,8 +73,9 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
             ),
-            Positioned(
-              top: MediaQuery.of(context).size.height * 0.38,
+            AnimatedPositioned(
+              duration: Duration(milliseconds: 250),
+              top: MediaQuery.of(context).size.height * _animation.value,
               left: 0,
               right: 0,
               bottom: 0,
@@ -73,7 +98,15 @@ class _LoginViewState extends State<LoginView> {
                           enableInteractiveSelection: false,
                           decoration: InputDecoration(
                             labelText: "Correo electrónico",
-                            suffixIcon: Icon(Icons.verified_user),
+                            prefixIcon: Padding(
+                                padding: EdgeInsets.only(
+                                    left: 12.0), // Ajusta el margen izquierdo del ícono
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(Icons.email_outlined),
+                                  ],
+                                )),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
@@ -84,19 +117,37 @@ class _LoginViewState extends State<LoginView> {
                         SizedBox(height: 15),
                         TextFormField(
                           enableInteractiveSelection: false,
-                          obscureText: true,
                           decoration: InputDecoration(
                             labelText: "Contraseña",
-                            suffixIcon: Icon(Icons.verified_user),
-                            border: OutlineInputBorder(
+                            prefixIcon: Padding(
+                                padding: EdgeInsets.only(
+                                    left: 12.0), // Ajusta el margen izquierdo del ícono
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(Icons.lock),
+                                  ],
+                                )),
+                           suffixIcon: IconButton(
+                             onPressed: () {
+                               setState(() {
+                                 obscureText2 = !obscureText2;
+                               });
+                             },
+                             icon: Icon(
+                               obscureText2 ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye,
+                             ),
+                           ),
+                              border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
                           ),
+                          obscureText: obscureText2,
                           controller: password,
                           validator: validatePassword,
                         ),
                         SizedBox(
-                          height: 15,
+                          height: 25,
                         ),
                         ElevatedButton(
                           onPressed: () async {
@@ -126,7 +177,7 @@ class _LoginViewState extends State<LoginView> {
                                 RoundedRectangleBorder>(
                               RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
-                                    25.0), // Ajusta el radio según sea necesario
+                                    25.0),
                               ),
                             ),
                           ),
@@ -159,7 +210,7 @@ class _LoginViewState extends State<LoginView> {
                                 RoundedRectangleBorder>(
                               RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
-                                    25.0), // Ajusta el radio según sea necesario
+                                    25.0),
                               ),
                             ),
                           ),
