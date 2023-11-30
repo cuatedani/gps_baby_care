@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gps_baby_care/Modelos/articuloModel.dart';
 import 'package:gps_baby_care/Controladores/articuloController.dart';
 import 'package:gps_baby_care/Componente/BannerArticuloWidget.dart';
+import 'package:gps_baby_care/Vistas/Usuario/ArticuloView.dart';
 
 class ArticulosView extends StatefulWidget {
   const ArticulosView({super.key});
@@ -47,6 +48,12 @@ class _ArticulosViewState extends State<ArticulosView> {
               return InkWell(
                 onTap: () {
                   print("Abriendo Pagina Individual Articulo");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ArticuloView(articulo: ListaArticulos[index]),
+                    ),
+                  );
                 },
                 child: BannerArticulo(ListaArticulos[index]),
               );

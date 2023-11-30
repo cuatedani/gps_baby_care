@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:gps_baby_care/Controladores/usuarioController.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
+import 'package:gps_baby_care/Vistas/Usuario/MenuPrincipalView.dart';
 
     class EditarPerfil extends StatefulWidget {
       final Usuario User;
@@ -16,8 +17,8 @@ import 'package:gps_baby_care/Modelos/usuarioModel.dart';
       TextEditingController name = TextEditingController();
       TextEditingController lastname = TextEditingController();
       TextEditingController email = TextEditingController();
-      TextEditingController password1= TextEditingController();
-      TextEditingController password2= TextEditingController();
+      TextEditingController phone = TextEditingController();
+      TextEditingController address = TextEditingController();
       @override
       void initState() {
         super.initState();
@@ -80,20 +81,13 @@ import 'package:gps_baby_care/Modelos/usuarioModel.dart';
                       height: 5,
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'Contraseña'),
-                      obscureText: true,
-                      controller: password1,
-                      validator: validatePassword,
+                      decoration: InputDecoration(labelText: 'phone'),
+                      controller: phone,
                     ),
                     SizedBox(
                       height: 5,
                     ),
-                    TextFormField(
-                      decoration: InputDecoration(labelText: 'Confirma Contraseña'),
-                      obscureText: true,
-                      controller: password2,
-                      validator: confirmPassword,
-                    ),
+
                     SizedBox(
                       height: 5,
                     ),
@@ -102,7 +96,7 @@ import 'package:gps_baby_care/Modelos/usuarioModel.dart';
                         backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.brown),
                       ),
-                      child: Text('Registrarse'),
+                      child: Text('Actualizar información'),
                       onPressed: () async {
                         bool isEmailValid =
                         await UsuarioController.verifEmailUsuario(email.text);
@@ -130,23 +124,21 @@ import 'package:gps_baby_care/Modelos/usuarioModel.dart';
             name: name.text,
             lastname: lastname.text,
             email: email.text,
-            password: password1.text);
+            phone: phone.text,
+            password: User.password
+        );
 
         await UsuarioController.updateUsuario(u);
 
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text("ACTUALIZADO CON EXITO")));
 
-        Navigator.pop(context);
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => MenuPrincipalView(User: u)),
+        );
       }
 
-      // Función para validar la contraseña
-      String? confirmPassword(String? value) {
-        if (value != password1.text) {
-          return '¡Las contraseñas no coinciden!.';
-        }
-        return null; // La contraseñas coinciden
-      }
+
 
       // Función para validar el correo electrónico de manera asíncrona
       String? validateEmail(String? value) {
@@ -160,31 +152,18 @@ import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 
         return null;
       }
-      // Función para validar la contraseña
-      String? validatePassword(String? value) {
-        if (value == null || value.isEmpty) {
-          return 'Por favor, ingresa una contraseña.';
-        }
-
-        // Comprueba la longitud
-        if (value.length < 8) {
-          return 'La contraseña debe tener al menos 8 caracteres.';
-        }
 
 
-        return null; // La contraseña cumple con todos los requisitos
-      }
       Future<void> _fetchUsuario(String userId) async {
         // Obtención del usuario de manera asíncrona
         Usuario usuario = await UsuarioController.getOneUsuarioId(userId);
         setState(() {
           //user = usuario; // Actualiza el usuario obtenido
-          print(usuario.name);
-          print(usuario.lastname);
-          print(usuario.email);
           name.text = usuario.name;
           lastname.text = usuario.lastname;
           email.text = usuario.email;
+          phone.text=usuario.phone;
+
         });
       }
     }

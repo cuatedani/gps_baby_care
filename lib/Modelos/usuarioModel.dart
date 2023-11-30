@@ -8,7 +8,7 @@ class Usuario {
   String lastname;
   String email;
   String password;
-  String? phone;
+  String phone;
   GeoPoint? address;
   bool? isProf;
   bool? isAdmin;
@@ -20,7 +20,7 @@ class Usuario {
     required this.lastname,
     required this.email,
     required this.password,
-    this.phone,
+    required this.phone,
     this.address,
     this.isProf,
     this.isAdmin,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gps_baby_care/Modelos/categoriaModel.dart';
-import 'package:gps_baby_care/Modelos/productoModel.dart';
+import 'package:gps_baby_care/Modelos/categoriaProductoModel.dart';
+import 'package:gps_baby_care/Controladores/categoriaProductoController.dart';
 import 'package:gps_baby_care/Controladores/productoController.dart';
-
+import 'package:gps_baby_care/Modelos/productoModel.dart';
 
 class RegistroProductoForm extends StatefulWidget {
   @override
@@ -11,18 +11,70 @@ class RegistroProductoForm extends StatefulWidget {
 
 class _RegistroProductoFormState extends State<RegistroProductoForm> {
   final _formKey = GlobalKey<FormState>();
+  late Producto nuevoProducto;
+  final TextEditingController nombre = TextEditingController();
+  final TextEditingController precio = TextEditingController();
+  final TextEditingController descripcion = TextEditingController();
+  final TextEditingController cantidad = TextEditingController();
+  //late List<String> _galeria = [];
+  double? _precio;
+  int? _cantidad; // Cambiado a int, ya que es la cantidad de productos
 
-  late String _nombre;
-  late double _precio;
-  late String _descripcion;
-  late List<String> _galeria = [];
-  late int _cantidad;
-  late List<Categoria> _categorias = []; // Esta lista almacenará las categorías seleccionadas
+  List<CategoriaP> categorias = [];
+  CategoriaP? selectedCategoria;
+
+  @override
+  void initState() {
+    loadCategorias();
+    nuevoProducto = Producto(
+      name: '',
+      price: 0,
+      description: '',
+      gallery: [],
+      category: '',
+      quantity: 0,
+    );
+    super.initState();
+  }
+
+  Future<void> loadCategorias() async {
+    List<CategoriaP> categoriasList = await CategoriaController.getallCategorias();
+    setState(() {
+      categorias = categoriasList;
+    });
+    print(categorias);
+  }
+
+  Future<void> _submitForm() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+
+      nuevoProducto.name = nombre.text;
+      nuevoProducto.description = descripcion.text;
+
+      if (_precio != null) {
+        nuevoProducto.price = _precio!;
+      }
+
+      if (_cantidad != null) {
+        nuevoProducto.quantity = _cantidad!;
+      }
+
+      if (selectedCategoria != null) {
+        nuevoProducto.category = selectedCategoria!.nombre; // Asignando el nombre de la categoría seleccionada
+      }
+
+      await ProductoController.insertProducto(nuevoProducto);
+
+      _formKey.currentState!.reset();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text('Registrar Producto'),
       ),
       body: Padding(
@@ -33,18 +85,16 @@ class _RegistroProductoFormState extends State<RegistroProductoForm> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               TextFormField(
+                controller: nombre,
                 decoration: InputDecoration(labelText: 'Nombre'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, ingrese el nombre del producto';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  _nombre = value!;
+                onChanged: (value) {
+                  setState(() {
+                    nuevoProducto.name = value;
+                  });
                 },
               ),
               TextFormField(
+                controller: precio,
                 decoration: InputDecoration(labelText: 'Precio'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
@@ -53,11 +103,14 @@ class _RegistroProductoFormState extends State<RegistroProductoForm> {
                   }
                   return null;
                 },
-                onSaved: (value) {
-                  _precio = double.parse(value!);
+                onChanged: (value) {
+                  setState(() {
+                    _precio = double.tryParse(value);
+                  });
                 },
               ),
               TextFormField(
+                controller: descripcion,
                 decoration: InputDecoration(labelText: 'Descripción'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -65,11 +118,14 @@ class _RegistroProductoFormState extends State<RegistroProductoForm> {
                   }
                   return null;
                 },
-                onSaved: (value) {
-                  _descripcion = value!;
+                onChanged: (value) {
+                  setState(() {
+                    nuevoProducto.description = value;
+                  });
                 },
               ),
               TextFormField(
+                controller: cantidad,
                 decoration: InputDecoration(labelText: 'Cantidad'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
@@ -78,39 +134,34 @@ class _RegistroProductoFormState extends State<RegistroProductoForm> {
                   }
                   return null;
                 },
-                onSaved: (value) {
-                  _cantidad = int.parse(value!);
+                onChanged: (value) {
+                  setState(() {
+                    _cantidad = int.tryParse(value); // Cambiado a int para la cantidad
+                  });
                 },
               ),
-              // Field para agregar categorías
-              // (Puedes usar DropdownButton, TextFormField para ingresar categorías, etc.)
-
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
-
-                    // Crea un nuevo producto con la información ingresada
-                    Producto nuevoProducto = Producto(
-                      name: _nombre,
-                      price: _precio,
-                      description: _descripcion,
-                      gallery: _galeria,
-                      category: _categorias,
-                      quantity: _cantidad,
-                    );
-
-                    // Llama al controlador para insertar el producto en Firestore
-                    ProductoController.insertProducto(nuevoProducto);
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Producto registrado')),
-                    );
-
-                    // Limpia el formulario
-                    _formKey.currentState!.reset();
-                  }
+              Text(
+                'Categorías:',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              DropdownButton<CategoriaP>(
+                hint: Text('Selecciona una categoría'),
+                value: selectedCategoria,
+                onChanged: (CategoriaP? newValue) {
+                  setState(() {
+                    selectedCategoria = newValue;
+                  });
                 },
+                items: categorias.map<DropdownMenuItem<CategoriaP>>((CategoriaP value) {
+                  return DropdownMenuItem<CategoriaP>(
+                    value: value,
+                    child: Text(value.nombre),
+                  );
+                }).toList(),
+              ),
+              ElevatedButton(
+                onPressed: _submitForm,
                 child: Text('Registrar'),
               ),
             ],

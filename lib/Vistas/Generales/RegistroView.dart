@@ -235,7 +235,9 @@ class _RegistroViewState extends State<RegistroView> {
         name: name.text,
         lastname: lastname.text,
         email: email.text,
-        password: password1.text);
+        password: password1.text,
+        phone: 'SinEspecificar',
+    );
 
     await UsuarioController.insertUsuario(u);
 

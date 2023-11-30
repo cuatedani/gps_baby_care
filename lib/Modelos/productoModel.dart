@@ -1,12 +1,11 @@
-import 'categoriaModel.dart';
-
+//import 'package:gps_baby_care/Modelos/categoriaModel.dart';
 class Producto {
   String? idproduct;
   String name;
   double price;
   String description;
   List<String>? gallery;
-  List<Categoria>? category;
+  String category;
   int quantity;
 
   Producto({

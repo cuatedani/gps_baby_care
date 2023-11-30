@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 import 'package:gps_baby_care/Vistas/Usuario/ArticulosView.dart';
-import 'package:gps_baby_care/Vistas/Usuario/consejos.dart';
+//import 'package:gps_baby_care/Vistas/Usuario/consejos.dart';
 import 'package:gps_baby_care/Vistas/Usuario/store.dart';
 import 'package:gps_baby_care/Vistas/Usuario/donar.dart';
 import 'package:gps_baby_care/Vistas/Usuario/LobbyView.dart';
 import 'package:gps_baby_care/Vistas/Usuario/ProfesionalesView.dart';
 import 'package:gps_baby_care/Vistas/Usuario/EditarPerfil.dart';
 import 'RegistrarProducto.dart';
+import 'package:gps_baby_care/Vistas/Generales/BienvenidaView.dart';
 
 class MenuPrincipalView extends StatefulWidget {
   final Usuario User;
@@ -115,7 +116,9 @@ class _MenuPrincipalViewState extends State<MenuPrincipalView> {
                 'Cerrar sesión',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context,MaterialPageRoute(builder: (context) => BienvenidaView()));
+              },
             ),
           ],
         ),

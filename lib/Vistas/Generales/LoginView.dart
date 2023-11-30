@@ -119,9 +119,9 @@ class _LoginViewState extends State<LoginView> {
                           },
                           style: ButtonStyle(
                             fixedSize:
-                                MaterialStateProperty.all<Size>(Size(300, 45)),
+                            MaterialStateProperty.all<Size>(Size(300, 45)),
                             backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.brown),
+                            MaterialStateProperty.all<Color>(Colors.brown),
                             shape: MaterialStateProperty.all<
                                 RoundedRectangleBorder>(
                               RoundedRectangleBorder(
@@ -133,7 +133,7 @@ class _LoginViewState extends State<LoginView> {
                           child: Text(
                             "Ingresar",
                             style:
-                                TextStyle(fontFamily: 'NerkoOne', fontSize: 20),
+                            TextStyle(fontFamily: 'NerkoOne', fontSize: 20),
                           ),
                         ),
                         SizedBox(height: 40),
@@ -152,9 +152,9 @@ class _LoginViewState extends State<LoginView> {
                           },
                           style: ButtonStyle(
                             fixedSize:
-                                MaterialStateProperty.all<Size>(Size(300, 40)),
+                            MaterialStateProperty.all<Size>(Size(300, 40)),
                             backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.brown),
+                            MaterialStateProperty.all<Color>(Colors.brown),
                             shape: MaterialStateProperty.all<
                                 RoundedRectangleBorder>(
                               RoundedRectangleBorder(
@@ -166,7 +166,7 @@ class _LoginViewState extends State<LoginView> {
                           child: Text(
                             "Registrarse",
                             style:
-                                TextStyle(fontFamily: 'NerkoOne', fontSize: 20),
+                            TextStyle(fontFamily: 'NerkoOne', fontSize: 20),
                           ),
                         ),
                       ],
@@ -198,13 +198,13 @@ class _LoginViewState extends State<LoginView> {
 
   void FuncLogin() async {
     Usuario User =
-        await UsuarioController.getOneUsuario(email.text, password.text);
+    await UsuarioController.getOneUsuario(email.text, password.text);
 
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text("EXITO INGRESANDO")));
     if (User.isProf == true) {
       Profesional Proff =
-          await ProfesionalController.getOneProfesional(User.iduser);
+      await ProfesionalController.getOneProfesional(User.iduser);
 
       //Aqui debe mandar al profesionista junto con un elemento Usuario y Profesionista
       Navigator.push(
