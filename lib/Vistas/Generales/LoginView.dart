@@ -181,53 +181,51 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
                             TextStyle(fontFamily: 'NerkoOne', fontSize: 20),
                           ),
                         ),
-                        SizedBox(height: 40),
-                      Text(
-                        '¿Aún no estás registrado?',
-                        style: GoogleFonts.lobster(
-                          textStyle: TextStyle(
-                            fontSize: 20,
-                            letterSpacing: .5,
-                            color: Color(0XFF815B51),
-                            fontWeight: FontWeight.w100,
-                          ),
-                        ),
-                      ),
-                        SizedBox(height: 15),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => RegistroView()),
-                            );
-                          },
-                          style: ButtonStyle(
-                            fixedSize:
-                            MaterialStateProperty.all<Size>(Size(300, 40)),
-                            backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.brown),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    25.0),
+                        SizedBox(height: 80),
+                        Container(
+                            width: double.infinity,
+                            child:
+                            Row(children: [
+                              Text(
+                                '¿Aún no tienes cuenta?',
+                                style: GoogleFonts.questrial(
+                                  textStyle: TextStyle(
+                                    fontSize: 18,
+                                    letterSpacing: .5,
+                                    color: Color(0XFF815B51),
+                                  ),
+                                ),
                               ),
+                              SizedBox(width: 5,),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => RegistroView()),
+                                    );
+                                  },
+                                  child:
+                                  Text(
+                                    'Registrate',
+                                    style: GoogleFonts.lobster(
+                                      textStyle: TextStyle(
+                                        fontSize: 20,
+                                        letterSpacing: .5,
+                                        color: Color(0XFF7D8B5F),
+                                      ),
+                                    ),
+                                  ),
+                              ),
+
+                            ],)
                             ),
-                          ),
-                          child: Text(
-                            "Registrarse",
-                            style:
-                            TextStyle(fontFamily: 'NerkoOne', fontSize: 20),
-                          ),
-                        ),
                       ],
                     ),
                   ),
                 ),
               ),
             ),
-            // Imagen en la mitad superior
       Positioned(
               top: MediaQuery.of(context).size.height * 0.25,
               left: 0,

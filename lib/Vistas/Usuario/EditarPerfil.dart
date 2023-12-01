@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:google_fonts/google_fonts.dart';
 import 'package:gps_baby_care/Controladores/usuarioController.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 import 'package:gps_baby_care/Vistas/Usuario/MenuPrincipalView.dart';
@@ -39,12 +40,15 @@ import 'package:gps_baby_care/Vistas/Usuario/MenuPrincipalView.dart';
         return Scaffold(
           backgroundColor: Color(0xffFAF2E7),
           appBar: AppBar(
-            title: const Text(
-              "Baby Care",
-              style: TextStyle(
-                  color: Color(0xFFFAF2E7),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25),
+            title:  Text(
+              'Editar Perfil',
+              style: GoogleFonts.lobster(
+                textStyle: TextStyle(
+                  fontSize: 20,
+                  letterSpacing: .5,
+                 // color: Color(0XFF7D8B5F),
+                ),
+              ),
             ),
             backgroundColor: Color(0xFFC49666),
           ),

@@ -122,12 +122,12 @@ class _RegistroViewState extends State<RegistroView>
                                   );
                                 },
                                 child: Text(
-                                  'Inicia Sesión',
+                                  'Iniciar Sesión',
                                   style: GoogleFonts.lobster(
                                     textStyle: TextStyle(
                                         fontSize: 17,
                                         letterSpacing: .5,
-                                        color: Color(0XFFE39978)),
+                                        color: Color(0XFF7D8B5F)),
                                   ),
                                 ),
                               ),

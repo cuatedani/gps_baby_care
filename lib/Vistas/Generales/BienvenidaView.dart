@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'RegistroView.dart';
 import 'LoginView.dart';
 
@@ -54,12 +55,16 @@ class _BienvenidaViewState extends State<BienvenidaView> {
                       child: Padding(
                           padding: EdgeInsets.all(8),
                           child: Text(
-                            "  Registrarte  ",
-                            style: TextStyle(
-                                fontFamily: 'NerkoOne',
-                                fontSize: 18,
-                                color: Colors.white),
-                          )),
+                            '  Registrate  ',
+                            style: GoogleFonts.lobster(
+                              textStyle: TextStyle(
+                                fontSize: 20,
+                                letterSpacing: .5,
+                                color: Colors.white
+                              ),
+                            ),
+                          ),
+                      ),
                       style: OutlinedButton.styleFrom(
                         side: BorderSide(color: Colors.brown, width: 2.0),
                         shape: StadiumBorder(),
@@ -78,12 +83,15 @@ class _BienvenidaViewState extends State<BienvenidaView> {
                       child: Padding(
                           padding: EdgeInsets.all(8),
                           child: Text(
-                            "  Iniciar sesión ",
-                            style: TextStyle(
-                                fontFamily: 'NerkoOne',
-                                fontSize: 18,
-                                color: Colors.white),
-                          )),
+                            '  Iniciar Sesión  ',
+                            style: GoogleFonts.lobster(
+                              textStyle: TextStyle(
+                                fontSize: 20,
+                                letterSpacing: .5,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),),
                       style: OutlinedButton.styleFrom(
                         side: BorderSide(color: Colors.brown, width: 2.0),
                         shape: StadiumBorder(),

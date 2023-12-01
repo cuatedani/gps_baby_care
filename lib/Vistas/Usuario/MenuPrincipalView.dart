@@ -7,6 +7,7 @@ import 'package:gps_baby_care/Vistas/Usuario/donar.dart';
 import 'package:gps_baby_care/Vistas/Usuario/LobbyView.dart';
 import 'package:gps_baby_care/Vistas/Usuario/ProfesionalesView.dart';
 import 'package:gps_baby_care/Vistas/Usuario/EditarPerfil.dart';
+import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 import 'RegistrarProducto.dart';
 import 'package:gps_baby_care/Vistas/Generales/BienvenidaView.dart';
 
@@ -26,11 +27,61 @@ class _MenuPrincipalViewState extends State<MenuPrincipalView> {
   void initState() {
     super.initState();
     User = widget.User;
+
+    _pages = [
+      ScreenHiddenDrawer(ItemHiddenMenu(
+        name:'Inicio',
+        baseStyle: TextStyle(),
+        selectedStyle: TextStyle()
+      ), LobbyView(),
+      ),
+      ScreenHiddenDrawer(ItemHiddenMenu(
+          name:'Consejos & Cuidados',
+          baseStyle: TextStyle(),
+          selectedStyle: TextStyle()
+      ), ArticulosView(),
+      ),
+      ScreenHiddenDrawer(ItemHiddenMenu(
+          name:'Tienda',
+          baseStyle: TextStyle(),
+          selectedStyle: TextStyle()
+      ), Store(),
+      ),
+      ScreenHiddenDrawer(ItemHiddenMenu(
+          name:'Donar',
+          baseStyle: TextStyle(),
+          selectedStyle: TextStyle()
+      ), Donar(),
+      ),
+      ScreenHiddenDrawer(ItemHiddenMenu(
+          name:'Consulta a un experto',
+          baseStyle: TextStyle(),
+          selectedStyle: TextStyle()
+      ), ProfesionalesView(),
+      ),
+      ScreenHiddenDrawer(ItemHiddenMenu(
+          name:'Añadir un articulo',
+          baseStyle: TextStyle(),
+          selectedStyle: TextStyle()
+      ), RegistroProductoForm(),
+      ),
+
+    ];
   }
+
+  List<ScreenHiddenDrawer> _pages=[];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return HiddenDrawerMenu(
+        screens: _pages,
+        backgroundColorMenu: Colors.brown.shade400,
+    initPositionSelected: 0
+    );
+  }
+
+  /*
+  Scaffold(
       appBar: AppBar(
         title: const Text(
           "Baby Care",
@@ -46,13 +97,13 @@ class _MenuPrincipalViewState extends State<MenuPrincipalView> {
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
-              decoration: BoxDecoration(color: Color(0xFFF2B75B)),
+              decoration: BoxDecoration(color: Colors.brown),
               child: Column(
                 children: [
                   CircleAvatar(
                     backgroundImage: AssetImage("assets/images/perfil.png"),
-                    backgroundColor: Color(0xffffffff),
-                    radius: 39,
+                 //   backgroundColor: Color(0xffffffff),
+                 //   radius: 39,
                     child: Text(
                       "",
                       style: TextStyle(fontSize: 15),
@@ -125,7 +176,7 @@ class _MenuPrincipalViewState extends State<MenuPrincipalView> {
       ),
       body: Pantallas(),
     );
-  }
+   */
 
   Widget Pantallas() {
     switch (_index) {
