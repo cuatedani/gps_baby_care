@@ -89,7 +89,6 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
                       children: <Widget>[
                         SizedBox(height: 90),
                         TextFormField(
-                          enableInteractiveSelection: false,
                           decoration: InputDecoration(
                             labelText: "Correo electrónico",
                             prefixIcon: Padding(
@@ -110,7 +109,6 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
                         ),
                         SizedBox(height: 15),
                         TextFormField(
-                          enableInteractiveSelection: false,
                           decoration: InputDecoration(
                             labelText: "Contraseña",
                             prefixIcon: Padding(
@@ -257,18 +255,18 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
       await ProfesionalController.getOneProfesional(User.iduser);
 
       //Aqui debe mandar al profesionista junto con un elemento Usuario y Profesionista
-      Navigator.push(
+      Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) => MenuProffView(Proff: Proff, User: User)));
     } else {
       if (User.isAdmin == true) {
         //Aqui manda al admin junto con un elemento Usuario
-        Navigator.push(context,
+        Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => MenuAdminView(User: User)));
       } else {
         //Aqui se manda a los usuarios normales con un elemento Usuario
-        Navigator.push(
+        Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: (context) => MenuPrincipalView(

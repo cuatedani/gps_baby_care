@@ -18,24 +18,15 @@ class ImagenController {
   }
 
   // Método para Seleccionar Una Imagen de Galería o de la Cámara
-  static Future<XFile?> SeleccionarUnaImagen(bool camara) async {
-    print("Empezo a guardar imagenes");
+  static Future<XFile?> SeleccionarUnaImagen() async {
     final ImagePicker picker = ImagePicker();
     XFile? img;
 
-    if (camara == false) {
       // Seleccionar desde la galería
       img = await picker.pickImage(
         source: ImageSource.gallery,
         imageQuality: 50,
       );
-    } else {
-      // Seleccionar desde la cámara
-      img = await picker.pickImage(
-        source: ImageSource.camera,
-        imageQuality: 50,
-      );
-    }
 
     return img;
   }
