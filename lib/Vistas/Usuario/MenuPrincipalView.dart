@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 import 'package:gps_baby_care/Vistas/Usuario/ArticulosView.dart';
-//import 'package:gps_baby_care/Vistas/Usuario/consejos.dart';
 import 'package:gps_baby_care/Vistas/Usuario/store.dart';
 import 'package:gps_baby_care/Vistas/Usuario/donar.dart';
 import 'package:gps_baby_care/Vistas/Usuario/LobbyView.dart';
 import 'package:gps_baby_care/Vistas/Usuario/ProfesionalesView.dart';
-import 'package:gps_baby_care/Vistas/Usuario/EditarPerfil.dart';
-import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
+import '../../Componente/MenuScreen.dart';
 import 'RegistrarProducto.dart';
-import 'package:gps_baby_care/Vistas/Generales/BienvenidaView.dart';
 
 class MenuPrincipalView extends StatefulWidget {
   final Usuario User;
@@ -25,60 +23,63 @@ class _MenuPrincipalViewState extends State<MenuPrincipalView> {
 
   @override
   void initState() {
-    super.initState();
     User = widget.User;
-
-    _pages = [
-      ScreenHiddenDrawer(ItemHiddenMenu(
-        name:'Inicio',
-        baseStyle: TextStyle(),
-        selectedStyle: TextStyle()
-      ), LobbyView(),
-      ),
-      ScreenHiddenDrawer(ItemHiddenMenu(
-          name:'Consejos & Cuidados',
-          baseStyle: TextStyle(),
-          selectedStyle: TextStyle()
-      ), ArticulosView(),
-      ),
-      ScreenHiddenDrawer(ItemHiddenMenu(
-          name:'Tienda',
-          baseStyle: TextStyle(),
-          selectedStyle: TextStyle()
-      ), Store(),
-      ),
-      ScreenHiddenDrawer(ItemHiddenMenu(
-          name:'Donar',
-          baseStyle: TextStyle(),
-          selectedStyle: TextStyle()
-      ), Donar(),
-      ),
-      ScreenHiddenDrawer(ItemHiddenMenu(
-          name:'Consulta a un experto',
-          baseStyle: TextStyle(),
-          selectedStyle: TextStyle()
-      ), ProfesionalesView(),
-      ),
-      ScreenHiddenDrawer(ItemHiddenMenu(
-          name:'Añadir un articulo',
-          baseStyle: TextStyle(),
-          selectedStyle: TextStyle()
-      ), RegistroProductoForm(),
-      ),
-
-    ];
+    super.initState();
+  }
+ MenuItem currentItem = MenuItems.Inicio;
+  @override
+  Widget build(BuildContext context) {
+    return ZoomDrawer(
+        mainScreen: getScreen(),
+        menuScreen: Builder(
+          builder: (context)=>MenuScreen(
+              currentItem: currentItem,
+              onSelectedItem: (item){
+                setState(() =>
+                currentItem=item
+                );
+                ZoomDrawer.of(context)!.close();
+              }, user: User,  ),
+        ),
+        borderRadius: 24,
+        showShadow: true,
+        angle: 0,
+        menuBackgroundColor: Colors.brown,
+        slideWidth: MediaQuery.of(context).size.width *
+            (Directionality.of(context) == TextDirection.rtl ? 0.45 : 0.65),
+        openCurve: Curves.fastOutSlowIn,
+        closeCurve: Curves.bounceIn,
+    );
+  }
+  Widget getScreen() {
+    switch (currentItem) {
+      case MenuItems.Inicio:
+        return LobbyView();
+      case MenuItems.consejos:
+        return ArticulosView();
+      case MenuItems.tienda:
+        return Store();
+      case MenuItems.donacion:
+        return Donar();
+      case MenuItems.consulta:
+        return ProfesionalesView();
+      case MenuItems.articuloadd:
+        return RegistroProductoForm();
+      default:
+      // Add a default case to handle any unexpected values
+        throw Exception("Unhandled MenuItems case: $currentItem");
+    }
   }
 
-  List<ScreenHiddenDrawer> _pages=[];
 
-  @override
+  /*@override
   Widget build(BuildContext context) {
     return HiddenDrawerMenu(
         screens: _pages,
         backgroundColorMenu: Colors.brown.shade400,
     initPositionSelected: 0
     );
-  }
+  }*/
 
   /*
   Scaffold(

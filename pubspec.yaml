@@ -33,6 +33,7 @@ dependencies:
 
   google_fonts:
   hidden_drawer_menu:
+  flutter_zoom_drawer:
 
   #Firebase
   firebase_core: ^2.17.0

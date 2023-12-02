@@ -248,8 +248,7 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
     Usuario User =
     await UsuarioController.getOneUsuario(email.text, password.text);
 
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text("EXITO INGRESANDO")));
+
     if (User.isProf == true) {
       Profesional Proff =
       await ProfesionalController.getOneProfesional(User.iduser);

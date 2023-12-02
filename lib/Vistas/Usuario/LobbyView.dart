@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import '../../Componente/MenuWidget.dart';
 import 'MenuPrincipalView.dart';
 
 class LobbyView extends StatefulWidget {
@@ -8,40 +10,53 @@ class LobbyView extends StatefulWidget {
   State<LobbyView> createState() => _LobbyViewState();
 }
 
+
+
 class _LobbyViewState extends State<LobbyView> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: ListView(
-        children: [
-          //BANNER DE DONACIÓN
-          dona(),
-          //MENSAJE DE BIENVENIDA CON DESCRIPCIÓN DE UTILIDADES DE LA APLICACIÓN
-          Image.asset(
-            "assets/images/img_19.png",
-            width: 150,
-            height: 150,
-            opacity: const AlwaysStoppedAnimation(.5),
-          ),
-          Text(
-            "¡¡Bienvenido!!",
-            style: TextStyle(
-                color: Colors.orange,
-                fontSize: 25,
-                fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
-          ),
-          Container(
-            padding: EdgeInsets.all(30),
-            child: Text(
-              "Esta aplicación busca funcionar como una herramienta de apoyo para la creación de ambientes seguros y divertidos para los niños, y así formar mejores personas para el mundo.\nAdemás, de combatir la cultura consumista para dejar un mundo mejor para los pequeños",
-              style: TextStyle(color: Colors.black, fontSize: 20),
-              textAlign: TextAlign.justify,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Baby Care",
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 25),
+        ),
+        leading: MenuWidget(),
+      ),
+      body: Container(
+        color: Colors.white,
+        child: ListView(
+          children: [
+            //BANNER DE DONACIÓN
+            dona(),
+            //MENSAJE DE BIENVENIDA CON DESCRIPCIÓN DE UTILIDADES DE LA APLICACIÓN
+            Image.asset(
+              "assets/images/img_19.png",
+              width: 150,
+              height: 150,
+              opacity: const AlwaysStoppedAnimation(.5),
             ),
-          ),
-          Divider(),
-        ],
+            Text(
+              "¡¡Bienvenido!!",
+              style: TextStyle(
+                  color: Colors.orange,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            Container(
+              padding: EdgeInsets.all(30),
+              child: Text(
+                "Esta aplicación busca funcionar como una herramienta de apoyo para la creación de ambientes seguros y divertidos para los niños, y así formar mejores personas para el mundo.\nAdemás, de combatir la cultura consumista para dejar un mundo mejor para los pequeños",
+                style: TextStyle(color: Colors.black, fontSize: 20),
+                textAlign: TextAlign.justify,
+              ),
+            ),
+            Divider(),
+          ],
+        ),
       ),
     );
   }

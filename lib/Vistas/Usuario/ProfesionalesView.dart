@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gps_baby_care/Controladores/profesionalController.dart';
 import 'package:gps_baby_care/Modelos/profesionalModel.dart';
 
+import '../../Componente/MenuWidget.dart';
+
 class ProfesionalesView extends StatefulWidget {
   const ProfesionalesView({Key? key}) : super(key: key);
 
@@ -30,7 +32,17 @@ class _ProfesionalesViewState extends State<ProfesionalesView> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Consulta a un experto",
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 25),
+        ),
+        leading: MenuWidget(),
+      ),
+      body: SingleChildScrollView(
       child: Column(
         children: [
           Container(
@@ -102,6 +114,7 @@ class _ProfesionalesViewState extends State<ProfesionalesView> {
             )
         ],
       ),
+    ),
     );
   }
 }

@@ -4,6 +4,8 @@ import 'package:gps_baby_care/Controladores/articuloController.dart';
 import 'package:gps_baby_care/Componente/BannerArticuloWidget.dart';
 import 'package:gps_baby_care/Vistas/Usuario/ArticuloView.dart';
 
+import '../../Componente/MenuWidget.dart';
+
 class ArticulosView extends StatefulWidget {
   const ArticulosView({super.key});
 
@@ -35,7 +37,17 @@ class _ArticulosViewState extends State<ArticulosView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            "Baby Care",
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 25),
+          ),
+          leading: MenuWidget(),
+        ),
+        body: Container(
         padding: EdgeInsets.all(1),
         constraints: BoxConstraints.expand(),
         child: ListView.separated(
@@ -60,6 +72,7 @@ class _ArticulosViewState extends State<ArticulosView> {
             }
           },
         ),
+    )
       );
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../../Componente/MenuWidget.dart';
 class Store extends StatefulWidget {
   const Store({Key? key}) : super(key: key);
 
@@ -10,6 +12,15 @@ class _StoreState extends State<Store> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            "Tienda",
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 25),
+          ),
+          leading: MenuWidget(),
+        ),
       body: ListView(
 
         children: [

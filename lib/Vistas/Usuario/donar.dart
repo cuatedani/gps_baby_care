@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../../Componente/MenuWidget.dart';
 class Donar extends StatefulWidget {
   const Donar({Key? key}) : super(key: key);
 
@@ -9,7 +11,17 @@ class Donar extends StatefulWidget {
 class _DonarState extends State<Donar> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Donación",
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 25),
+        ),
+        leading: MenuWidget(),
+      ),
+      body: ListView(
       children: [
         //BANNER PRINCIPAL------------------------------------------------------//////////////////////////////////////////
         Container(
@@ -116,6 +128,7 @@ class _DonarState extends State<Donar> {
           ),
         ),
       ],
+    ),
     );
 
   }

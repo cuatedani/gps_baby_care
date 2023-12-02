@@ -5,6 +5,7 @@ import 'package:gps_baby_care/Controladores/productoController.dart';
 import 'package:gps_baby_care/Modelos/productoModel.dart';
 
 class RegistroProductoForm extends StatefulWidget {
+  const RegistroProductoForm({Key? key}) : super(key: key);
   @override
   _RegistroProductoFormState createState() => _RegistroProductoFormState();
 }
