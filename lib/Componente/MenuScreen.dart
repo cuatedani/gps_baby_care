@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Modelos/usuarioModel.dart';
+import '../Vistas/Generales/BienvenidaView.dart';
 import '../Vistas/Usuario/EditarPerfil.dart';
 
 class MenuItems {
@@ -88,7 +89,25 @@ class MenuScreen extends StatelessWidget {
             ...MenuItems.all
                 .map((item) => buildMenuItem(context, item))
                 .toList(),
-            SizedBox(height: 16)
+            SizedBox(height: 16),
+            InkWell(
+              onTap: () {
+                Navigator.push(context,MaterialPageRoute(builder: (context) => BienvenidaView()));
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Cerrar Sesión',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Icon(Icons.logout),
+                ],
+              ),
+            ),
           ],
         ),
       ),
