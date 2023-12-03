@@ -1,19 +1,23 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:gps_baby_care/Modelos/imagenModel.dart';
-import 'package:gps_baby_care/Modelos/usuarioModel.dart';
-import 'package:gps_baby_care/Controladores/usuarioController.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gps_baby_care/Controladores/usuarioController.dart';
+import 'package:gps_baby_care/Modelos/imagenModel.dart';
+import 'package:gps_baby_care/Modelos/institutoModel.dart';
+import 'package:gps_baby_care/Modelos/profesionalModel.dart';
+import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 
-import 'LoginView.dart';
+class AddInstProff extends StatefulWidget {
+  final Instituto Inst;
+  const AddInstProff({super.key, required this.Inst});
 
-class RegistroView extends StatefulWidget {
   @override
-  _RegistroViewState createState() => _RegistroViewState();
+  State<AddInstProff> createState() => _AddInstProffState();
 }
 
-class _RegistroViewState extends State<RegistroView>
+class _AddInstProffState extends State<AddInstProff>
     with SingleTickerProviderStateMixin {
+  late Instituto Inst;
   final name = TextEditingController();
   final lastname = TextEditingController();
   final email = TextEditingController();
@@ -31,6 +35,7 @@ class _RegistroViewState extends State<RegistroView>
 
   @override
   void initState() {
+    Inst = widget.Inst;
     super.initState();
 
     _animationController =
@@ -89,7 +94,7 @@ class _RegistroViewState extends State<RegistroView>
                         Container(
                           width: double.infinity,
                           child: Text(
-                            'Crea tu cuenta',
+                            'Registra Profesionista',
                             style: GoogleFonts.lobster(
                               textStyle: TextStyle(
                                   fontSize: 40,
@@ -98,41 +103,6 @@ class _RegistroViewState extends State<RegistroView>
                             ),
                           ),
                         ),
-                        Container(
-                            width: double.infinity,
-                            child: Row(children: [
-                              Text(
-                                '¿Ya eres miembro?',
-                                style: GoogleFonts.questrial(
-                                  textStyle: TextStyle(
-                                    fontSize: 17,
-                                    letterSpacing: .5,
-                                    color: Color(0XFF815B51),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => LoginView()),
-                                  );
-                                },
-                                child: Text(
-                                  'Iniciar Sesión',
-                                  style: GoogleFonts.lobster(
-                                    textStyle: TextStyle(
-                                        fontSize: 17,
-                                        letterSpacing: .5,
-                                        color: Color(0XFF7D8B5F)),
-                                  ),
-                                ),
-                              ),
-                            ])),
                         SizedBox(
                           height: 15,
                         ),
@@ -334,18 +304,23 @@ class _RegistroViewState extends State<RegistroView>
 
   //Funcion para el boton Registrar
   void FuncRegistrar() async {
-    Usuario u = Usuario(
-      iduser: 'SinAsignar',
-      name: name.text,
-      lastname: lastname.text,
-      email: email.text,
-      password: password1.text,
-      phone: 'SinEspecificar',
-      address: 'SinEspecificar',
-      role: 'User',
-      isdeleted: false,
-      picture: ImagenModel(name: 'SinRecurso', url: 'SinUrl'),
-    );
+    Usuario u = await UsuarioController.insertUsuario(Usuario(
+        iduser: 'SinAsignar',
+        name: name.text,
+        lastname: lastname.text,
+        email: email.text,
+        password: password1.text,
+        phone: 'SinEspecificar',
+        address: 'SinEspecificar',
+        role: 'Proff',
+        isdeleted: false,
+        picture: ImagenModel(name: 'SinRecurso', url: 'SinUrl')));
+
+    Profesional(
+        idprof: "SinAsignar",
+        iduser: u.iduser,
+        idinstitute: Inst.idinstitute,
+        occupation: 'SinEspecificar');
 
     await UsuarioController.insertUsuario(u);
 

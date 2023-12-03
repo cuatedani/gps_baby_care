@@ -23,8 +23,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
   void initState() {
     super.initState();
     User = widget.User;
-    print(User.iduser);
-    _fetchUsuario(User.iduser);
+    _fetchUsuario(User);
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -123,6 +122,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
         email: email.text,
         phone: phone.text,
         role: User.role,
+        isdeleted: false,
         picture: User.picture,
         password: User.password,
         address: User.address);
@@ -150,9 +150,9 @@ class _EditarPerfilState extends State<EditarPerfil> {
     return null;
   }
 
-  Future<void> _fetchUsuario(String userId) async {
+  Future<void> _fetchUsuario(Usuario u) async {
     // Obtención del usuario de manera asíncrona
-    Usuario usuario = await UsuarioController.getOneUsuarioId(userId);
+    Usuario usuario = await UsuarioController.getOneUsuarioId(u);
     setState(() {
       //user = usuario; // Actualiza el usuario obtenido
       name.text = usuario.name;

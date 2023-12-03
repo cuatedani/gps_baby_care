@@ -69,7 +69,7 @@ class _PerfilViewState extends State<PerfilView> {
   //Zona de Metodos
   //Carga los datos de la BD
   Future<void> cargardatos() async {
-    Usuario temporal = await UsuarioController.getOneUsuarioId(User.iduser);
+    Usuario temporal = await UsuarioController.getOneUsuarioId(User);
     if (mounted) {
       setState(() {
         User = temporal;

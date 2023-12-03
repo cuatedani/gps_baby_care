@@ -1,7 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gps_baby_care/Modelos/imagenModel.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class Usuario {
   String iduser;
@@ -13,6 +10,7 @@ class Usuario {
   String address;
   String role;
   ImagenModel picture;
+  bool isdeleted;
 
   Usuario({
     required this.iduser,
@@ -24,6 +22,7 @@ class Usuario {
     required this.address,
     required this.role,
     required this.picture,
+    required this.isdeleted,
   });
 
   Map<String, dynamic> toMap() {
@@ -36,6 +35,7 @@ class Usuario {
       'address': address,
       'role': role,
       'picture': picture,
+      'isdeleted': isdeleted,
     };
   }
 }

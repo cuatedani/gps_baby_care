@@ -80,6 +80,12 @@ class _InstitutoPageAdminViewState extends State<InstitutoPageAdminView> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+
+        },
+      ),
     );
   }
 
