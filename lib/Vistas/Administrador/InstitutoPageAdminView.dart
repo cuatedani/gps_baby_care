@@ -34,12 +34,10 @@ class _InstitutoPageAdminViewState extends State<InstitutoPageAdminView> {
           children: [
             CircleAvatar(
               radius: 30,
-              backgroundImage:
-              (Inst.logo.url != 'SinUrl')
-                  ? NetworkImage(Inst.logo.url)
-              as ImageProvider<Object>
+              backgroundImage: (Inst.logo.url != 'SinUrl')
+                  ? NetworkImage(Inst.logo.url) as ImageProvider<Object>
                   : AssetImage("assets/images/defaultlogo.png")
-              as ImageProvider<Object>,
+                      as ImageProvider<Object>,
             ),
             Text("${Inst.name}"),
             Divider(),
@@ -48,31 +46,36 @@ class _InstitutoPageAdminViewState extends State<InstitutoPageAdminView> {
             Text("Telefono: ${Inst.address}"),
             Divider(),
             Expanded(
-              child: ListView.builder(
-                itemCount: proffList.length,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      // Navegar a la página InstitutoPageAdminView
-                      /*Navigator.push(
+              child: (proffList.isEmpty)
+                  ? Text("No hay Profesionistas registrados")
+                  : ListView.builder(
+                      itemCount: proffList.length,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            // Navegar a la página InstitutoPageAdminView
+                            /*Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => ProffPageAdminView(Ins: proffList[index]),
                         ),
                       );*/
-                    },
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: (userList[index].picture.url != 'SinUrl')
-                            ? NetworkImage(userList[index].picture.url) as ImageProvider<Object>
-                            : AssetImage("assets/images/defaultlogo.png") as ImageProvider<Object>,
-                      ),
-                      title: Text(userList[index].name),
-                      subtitle: Text(proffList[index].occupation),
+                          },
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundImage: (userList[index].picture.url !=
+                                      'SinUrl')
+                                  ? NetworkImage(userList[index].picture.url)
+                                      as ImageProvider<Object>
+                                  : AssetImage("assets/images/perfil.png")
+                                      as ImageProvider<Object>,
+                            ),
+                            title: Text(userList[index].name),
+                            subtitle: Text(proffList[index].occupation),
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
             )
           ],
         ),
@@ -83,9 +86,13 @@ class _InstitutoPageAdminViewState extends State<InstitutoPageAdminView> {
   //Zona de Metodos
   //Carga los datos inciales
   Future<void> cargardatos() async {
-    List<Profesional> temporal1 = await ProfesionalController.getInstProfesional(Inst);
+    List<Profesional> temporal1 =
+        await ProfesionalController.getInstProfesional(Inst);
     List<Usuario> temporal2 = [];
-    await Future.forEach(temporal1, (proff) async => userList.add(await UsuarioController.getProffUsuario(proff)));
+    await Future.forEach(
+        temporal1,
+        (proff) async =>
+            userList.add(await UsuarioController.getProffUsuario(proff)));
     if (mounted) {
       setState(() {
         proffList = temporal1;
