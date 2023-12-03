@@ -1,3 +1,6 @@
+import 'package:gps_baby_care/Modelos/imagenModel.dart';
+import 'package:gps_baby_care/Modelos/profesionalModel.dart';
+
 import 'firestoreController.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
@@ -5,12 +8,12 @@ import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 class UsuarioController {
   static Future<void> insertUsuario(Usuario u) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
-    await DB.collection('Usuario').add(u.Registrar());
+    await DB.collection('Usuario').add(u.toMap());
   }
 
   static Future<void> updateUsuario(Usuario u) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
-    await DB.collection('Usuario').doc(u.iduser).set(u.Actualizar());
+    await DB.collection('Usuario').doc(u.iduser).set(u.toMap());
   }
 
   static Future<bool> verifEmailUsuario(String email) async {
@@ -56,6 +59,9 @@ class UsuarioController {
     List<Usuario> listaUsuario = [];
 
     await Future.forEach(querySnapshot.docs, (documento) async {
+      ImagenModel picture = ImagenModel(
+          name: documento['picture']['name'], url: documento['picture']['url']);
+
       Usuario oneUser = Usuario(
           iduser: documento.id,
           name: documento['name'],
@@ -64,9 +70,8 @@ class UsuarioController {
           password: documento['password'],
           phone: documento['phone'],
           address: documento['address'],
-          isProf: documento['isProf'],
-          isAdmin: documento['isAdmin'],
-          picture: documento['picture']);
+          role: documento['role'],
+          picture: picture);
 
       listaUsuario.add(oneUser);
     });
@@ -84,6 +89,9 @@ class UsuarioController {
 
       final documento = querySnapshot.docs.first;
 
+    ImagenModel picture = ImagenModel(
+        name: documento['picture']['name'], url: documento['picture']['url']);
+
       return Usuario(
         iduser: documento.id,
         name: documento['name'],
@@ -92,12 +100,12 @@ class UsuarioController {
         password: documento['password'],
         phone: documento['phone'],
         address: documento['address'],
-        isProf: documento['isProf'],
-        isAdmin: documento['isAdmin'],
-        picture: documento['picture'],
+        role: documento['role'],
+        picture: picture,
       );
   }
 
+  //Obtiene un Usuario por su ID
   static Future<Usuario> getOneUsuarioId(String id) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
     DocumentSnapshot<Map<String, dynamic>> documento = await DB
@@ -106,6 +114,9 @@ class UsuarioController {
         .get();
 
     if (documento.exists) {
+      ImagenModel picture = ImagenModel(
+          name: documento['picture']['name'], url: documento['picture']['url']);
+
       return Usuario(
         iduser: documento.id,
         name: documento['name'],
@@ -114,15 +125,43 @@ class UsuarioController {
         password: documento['password'],
         phone: documento['phone'],
         address: documento['address'],
-        isProf: documento['isProf'],
-        isAdmin: documento['isAdmin'],
-        picture: documento['picture'],
+        role: documento['role'],
+        picture: picture,
       );
     } else {
       throw Exception("Documento no encontrado"); // Maneja el caso en el que no se encuentre el documento
     }
   }
 
+  //Obtiene un Usuario por su ID de Profesional
+  static Future<Usuario> getProffUsuario(Profesional p) async {
+    FirebaseFirestore DB = await firestoreController.abrirFireStore();
+    DocumentSnapshot<Map<String, dynamic>> documento = await DB
+        .collection('Usuario')
+        .doc(p.iduser)
+        .get();
+
+    if (documento.exists) {
+      ImagenModel picture = ImagenModel(
+          name: documento['picture']['name'], url: documento['picture']['url']);
+
+      return Usuario(
+        iduser: documento.id,
+        name: documento['name'],
+        lastname: documento['lastname'],
+        email: documento['email'],
+        password: documento['password'],
+        phone: documento['phone'],
+        address: documento['address'],
+        role: documento['role'],
+        picture: picture,
+      );
+    } else {
+      throw Exception("Documento no encontrado"); // Maneja el caso en el que no se encuentre el documento
+    }
+  }
+
+  //Elimina Definitivamente un Usuario
   static Future<void> deleteUsuario(Usuario u) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
     await DB.collection('Usuario').doc(u.iduser).delete();

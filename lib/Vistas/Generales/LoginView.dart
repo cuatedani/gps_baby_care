@@ -249,7 +249,7 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
     await UsuarioController.getOneUsuario(email.text, password.text);
 
 
-    if (User.isProf == true) {
+    if (User.role == "Proff") {
       Profesional Proff =
       await ProfesionalController.getOneProfesional(User.iduser);
 
@@ -259,7 +259,7 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
           MaterialPageRoute(
               builder: (context) => MenuProffView(Proff: Proff, User: User)));
     } else {
-      if (User.isAdmin == true) {
+      if (User.role == "Admin") {
         //Aqui manda al admin junto con un elemento Usuario
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => MenuAdminView(User: User)));

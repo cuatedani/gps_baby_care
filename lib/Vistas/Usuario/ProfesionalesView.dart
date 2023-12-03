@@ -22,7 +22,7 @@ class _ProfesionalesViewState extends State<ProfesionalesView> {
   }
 
   Future<void> _cargarProfesionales() async {
-    List<Profesional> listaProfesionales = await ProfesionalController.getallProfesional();
+    List<Profesional> listaProfesionales = await ProfesionalController.getAllProfesional();
 
     setState(() {
       profesionales = listaProfesionales;

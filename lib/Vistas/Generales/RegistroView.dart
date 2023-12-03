@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:gps_baby_care/Modelos/imagenModel.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 import 'package:gps_baby_care/Controladores/usuarioController.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -339,7 +340,7 @@ class _RegistroViewState extends State<RegistroView>
       lastname: lastname.text,
       email: email.text,
       password: password1.text,
-      phone: 'SinEspecificar',
+      phone: 'SinEspecificar', address: 'SinEspecificar', role: 'User', picture: ImagenModel(name: 'SinRecurso', url: 'SinUrl'),
     );
 
     await UsuarioController.insertUsuario(u);
