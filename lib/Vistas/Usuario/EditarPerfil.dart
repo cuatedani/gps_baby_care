@@ -38,19 +38,14 @@ import 'package:gps_baby_care/Vistas/Usuario/MenuPrincipalView.dart';
       @override
       Widget build(BuildContext context) {
         return Scaffold(
-          backgroundColor: Color(0xffFAF2E7),
+          backgroundColor: Color(0xFFFAF2E7),
           appBar: AppBar(
             title:  Text(
-              'Editar Perfil',
-              style: GoogleFonts.lobster(
-                textStyle: TextStyle(
-                  fontSize: 20,
-                  letterSpacing: .5,
-                 // color: Color(0XFF7D8B5F),
+              'Editar Perfil', style: TextStyle(
+                  fontSize: 25,
+              fontWeight: FontWeight.bold,
                 ),
-              ),
             ),
-            backgroundColor: Color(0xFFC49666),
           ),
           body: SingleChildScrollView(
             child: Container(
@@ -85,7 +80,7 @@ import 'package:gps_baby_care/Vistas/Usuario/MenuPrincipalView.dart';
                       height: 5,
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'phone'),
+                      decoration: InputDecoration(labelText: 'Celular'),
                       controller: phone,
                     ),
                     SizedBox(
@@ -100,7 +95,7 @@ import 'package:gps_baby_care/Vistas/Usuario/MenuPrincipalView.dart';
                         backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.brown),
                       ),
-                      child: Text('Actualizar información'),
+                      child: Text('Actualizar'),
                       onPressed: () async {
                         bool isEmailValid =
                         await UsuarioController.verifEmailUsuario(email.text);

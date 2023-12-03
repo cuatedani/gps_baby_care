@@ -4,6 +4,8 @@ import 'package:gps_baby_care/Controladores/categoriaProductoController.dart';
 import 'package:gps_baby_care/Controladores/productoController.dart';
 import 'package:gps_baby_care/Modelos/productoModel.dart';
 
+import '../../Componente/MenuWidget.dart';
+
 class RegistroProductoForm extends StatefulWidget {
   const RegistroProductoForm({Key? key}) : super(key: key);
   @override
@@ -76,7 +78,10 @@ class _RegistroProductoFormState extends State<RegistroProductoForm> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('Registrar Producto'),
+        title: Text('Registrar Producto', style: TextStyle(
+            fontSize: 23),
+        ),
+        leading: MenuWidget(),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),

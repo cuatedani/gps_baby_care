@@ -37,8 +37,7 @@ class _ProfesionalesViewState extends State<ProfesionalesView> {
         title: const Text(
           "Consulta a un experto",
           style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 25),
+              fontSize: 23),
         ),
         leading: MenuWidget(),
       ),

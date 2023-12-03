@@ -16,8 +16,7 @@ class _StoreState extends State<Store> {
           title: const Text(
             "Tienda",
             style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25),
+                fontSize: 23),
           ),
           leading: MenuWidget(),
         ),

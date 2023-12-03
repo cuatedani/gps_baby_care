@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:gps_baby_care/Vistas/Generales/splash_screen.dart';
 import 'firebase_options.dart';
 import 'Vistas/Generales/BienvenidaView.dart';
@@ -24,8 +25,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.brown,
+        textTheme: GoogleFonts.questrialTextTheme(),
       ),
-     // home: Bienvenida(),
       home: SplashScreen(),
     );
   }

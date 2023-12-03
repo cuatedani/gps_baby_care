@@ -40,10 +40,9 @@ class _ArticulosViewState extends State<ArticulosView> {
     return Scaffold(
         appBar: AppBar(
           title: const Text(
-            "Baby Care",
+            "Consejos & Cuidados",
             style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25),
+                fontSize: 23),
           ),
           leading: MenuWidget(),
         ),

@@ -16,8 +16,7 @@ class _DonarState extends State<Donar> {
         title: const Text(
           "Donación",
           style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 25),
+              fontSize: 23),
         ),
         leading: MenuWidget(),
       ),
