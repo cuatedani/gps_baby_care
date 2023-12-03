@@ -320,6 +320,7 @@ class _AddInstProffState extends State<AddInstProff>
         idprof: "SinAsignar",
         iduser: u.iduser,
         idinstitute: Inst.idinstitute,
+        isdeleted: false,
         occupation: 'SinEspecificar');
 
     await UsuarioController.insertUsuario(u);

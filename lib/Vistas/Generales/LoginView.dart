@@ -251,7 +251,7 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
 
     if (User.role == "Proff") {
       Profesional Proff =
-      await ProfesionalController.getOneProfesional(User.iduser);
+      await ProfesionalController.getOneProfesional(User);
 
       //Aqui debe mandar al profesionista junto con un elemento Usuario y Profesionista
       Navigator.pushReplacement(
