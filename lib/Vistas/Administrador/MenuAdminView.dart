@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:gps_baby_care/Vistas/Administrador/CategoriasView.dart';
 import 'package:gps_baby_care/Vistas/Administrador/IntitutosAdminView.dart';
 import 'package:gps_baby_care/Vistas/Usuario/EditarPerfil.dart';
 import 'package:gps_baby_care/Vistas/Usuario/LobbyView.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
+
+import '../../Componente/MenuScreen.dart';
 
 class MenuAdminView extends StatefulWidget {
   final Usuario User;
@@ -24,7 +27,47 @@ class _MenuAdminViewState extends State<MenuAdminView> {
     User = widget.User;
   }
 
+  MenuItem currentItem = MenuItems.lobbyproff;
   @override
+  Widget build(BuildContext context) {
+    return ZoomDrawer(
+      mainScreen: getScreen(),
+      menuScreen: Builder(
+        builder: (context)=>MenuScreen(
+          currentItem: currentItem,
+          onSelectedItem: (item){
+            setState(() =>
+            currentItem=item
+            );
+            ZoomDrawer.of(context)!.close();
+          }, user: User,  ),
+      ),
+      borderRadius: 24,
+      showShadow: true,
+      angle: 0,
+      menuBackgroundColor: Colors.brown,
+      slideWidth: MediaQuery.of(context).size.width *
+          (Directionality.of(context) == TextDirection.rtl ? 0.45 : 0.65),
+      openCurve: Curves.fastOutSlowIn,
+      closeCurve: Curves.bounceIn,
+    );
+  }
+
+  Widget getScreen() {
+    switch (currentItem) {
+      case MenuItems.lobbyproff:
+        return LobbyView();
+      case MenuItems.institutoView:
+        return InstitutosAdminView();
+      case MenuItems.categoriasView:
+        return CategoriasView();
+      default:
+      // Add a default case to handle any unexpected values
+        throw Exception("Unhandled MenuItems case: $currentItem");
+    }
+  }
+
+  /*@override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -119,7 +162,7 @@ class _MenuAdminViewState extends State<MenuAdminView> {
       ),
       body: Pantallas(),
     );
-  }
+  }*/
 
   Widget Pantallas() {
     switch (_index) {
