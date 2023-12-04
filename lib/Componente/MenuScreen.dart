@@ -20,7 +20,8 @@ class MenuItems {
   //admin
   static const lobby = MenuItem("Inicio", Icons.home);
   static const institutoView = MenuItem("Institutos", Icons.business_outlined);
-  static const categoriasView = MenuItem("Categorias", Icons.add_circle_outlined);
+  static const categoriasView =
+      MenuItem("Categorias", Icons.add_circle_outlined);
 }
 
 class MenuItem {
@@ -85,7 +86,6 @@ RoleMenu getRoleMenu(Usuario user) {
   }
 }
 
-
 class MenuScreen extends StatelessWidget {
   final MenuItem currentItem;
   final ValueChanged<MenuItem> onSelectedItem;
@@ -113,10 +113,19 @@ class MenuScreen extends StatelessWidget {
               DrawerHeader(
                 child: Column(
                   children: [
-                    CircleAvatar(
-                      backgroundImage: AssetImage("assets/images/perfil.png"),
-                      maxRadius: 40,
-                      backgroundColor: Colors.brown,
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PerfilView(User: user)),
+                        );
+                      },
+                      child: CircleAvatar(
+                        backgroundImage: AssetImage("assets/images/perfil.png"),
+                        maxRadius: 40,
+                        backgroundColor: Colors.brown,
+                      ),
                     ),
                     Text(
                       user.name,
@@ -128,7 +137,7 @@ class MenuScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => PerfilView(User: user)),
+                              builder: (context) => EditarPerfil(User: user)),
                         );
                       },
                       child: Row(
