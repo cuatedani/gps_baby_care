@@ -4,6 +4,7 @@ import 'package:gps_baby_care/Controladores/usuarioController.dart';
 import 'package:gps_baby_care/Modelos/institutoModel.dart';
 import 'package:gps_baby_care/Modelos/profesionalModel.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
+import 'package:gps_baby_care/Vistas/Administrador/AddInstProffView.dart';
 
 class InstitutoPageAdminView extends StatefulWidget {
   final Instituto Ins;
@@ -83,7 +84,12 @@ class _InstitutoPageAdminViewState extends State<InstitutoPageAdminView> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddInstProff(Inst: Inst),
+            ),
+          ).then((value) => cargardatos());
         },
       ),
     );

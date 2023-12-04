@@ -28,7 +28,7 @@ class _ArticulosProffViewState extends State<ArticulosProffView> {
 
   Future<void> cargarArticulos() async {
     List<Articulo> articulos =
-        await ArticuloController.getProfArticulo(Proff.idprof);
+        await ArticuloController.getProfArticulo(Proff);
     if (mounted) {
       setState(() {
         if (articulos.length == 0) {

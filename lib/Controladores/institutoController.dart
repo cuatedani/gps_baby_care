@@ -1,16 +1,15 @@
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:gps_baby_care/Modelos/imagenModel.dart';
+import 'package:gps_baby_care/Modelos/profesionalModel.dart';
 import 'firestoreController.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gps_baby_care/Modelos/institutoModel.dart';
 
 class InstitutoController {
-
   //Metodo para insertar un Instituto
   static Future<Instituto> insertInstituto(Instituto i) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
     DocumentReference docRef = await DB.collection('Instituto').add(i.toMap());
-    try{
+    try {
       // Obtener el ID asignado por Firebase
       i.idinstitute = docRef.id;
 
@@ -31,8 +30,10 @@ class InstitutoController {
   //Metodo para Obtener todos los Insitutos que no estan Eliminados
   static Future<List<Instituto>> getAllInstituto() async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
-    QuerySnapshot querySnapshot =
-    await DB.collection('Instituto').where('isdeleted', isEqualTo: false).get();
+    QuerySnapshot querySnapshot = await DB
+        .collection('Instituto')
+        .where('isdeleted', isEqualTo: false)
+        .get();
     List<Instituto> listaInstituto = [];
 
     await Future.forEach(querySnapshot.docs, (documento) async {
@@ -58,11 +59,33 @@ class InstitutoController {
   //Metodo para Obtener un Instituto por ID
   static Future<Instituto> getOneInstituto(Instituto i) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
-    DocumentSnapshot doc = await DB.collection('Instituto').doc(i.idinstitute).get();
-    List<Instituto> listaInstituto = [];
+    DocumentSnapshot doc =
+        await DB.collection('Instituto').doc(i.idinstitute).get();
 
-    ImagenModel InsLogo = ImagenModel(
-        name: doc['logo']['name'], url: doc['logo']['url']);
+    ImagenModel InsLogo =
+        ImagenModel(name: doc['logo']['name'], url: doc['logo']['url']);
+
+    Instituto oneInstituto = Instituto(
+      idinstitute: doc.id,
+      name: doc['name'],
+      phone: doc['phone'],
+      address: doc['address'],
+      description: doc['description'],
+      logo: InsLogo,
+      isdeleted: doc['isdeleted'],
+    );
+
+    return oneInstituto;
+  }
+
+  //Metodo para Obtener un Instituto por Profesional
+  static Future<Instituto> getOneProfInstituto(Profesional p) async {
+    FirebaseFirestore DB = await firestoreController.abrirFireStore();
+    DocumentSnapshot doc =
+        await DB.collection('Instituto').doc(p.idinstitute).get();
+
+    ImagenModel InsLogo =
+        ImagenModel(name: doc['logo']['name'], url: doc['logo']['url']);
 
     Instituto oneInstituto = Instituto(
       idinstitute: doc.id,

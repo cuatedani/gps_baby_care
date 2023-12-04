@@ -3,7 +3,7 @@ import 'package:gps_baby_care/Modelos/categoriaModel.dart';
 import 'package:gps_baby_care/Modelos/imagenModel.dart';
 import 'package:gps_baby_care/Modelos/articuloModel.dart';
 import 'package:gps_baby_care/Controladores/firestoreController.dart';
-import 'package:gps_baby_care/Controladores/imagenController.dart';
+import 'package:gps_baby_care/Modelos/profesionalModel.dart';
 
 class ArticuloController {
   //Insertar un articulo en la base de datos
@@ -175,11 +175,11 @@ class ArticuloController {
   }
 
   //Obtener una lista con todos lo articulos de un profecionista en especifico
-  static Future<List<Articulo>> getProfArticulo(String idprof) async {
+  static Future<List<Articulo>> getProfArticulo(Profesional prof) async {
     FirebaseFirestore firestore = await firestoreController.abrirFireStore();
     QuerySnapshot querySnapshot = await firestore
         .collection('Articulo')
-        .where('idprof', isEqualTo: idprof)
+        .where('idprof', isEqualTo: prof.idprof)
         .get();
 
     List<Articulo> listaArticulo = [];
