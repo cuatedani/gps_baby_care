@@ -7,15 +7,15 @@ import 'package:gps_baby_care/Modelos/articuloModel.dart';
 import 'package:gps_baby_care/Modelos/institutoModel.dart';
 import 'package:gps_baby_care/Modelos/profesionalModel.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
-class ProffPageView extends StatefulWidget {
+class ProffPageAdminView extends StatefulWidget {
   final Profesional Proff;
-  const ProffPageView({super.key, required this.Proff});
+  const ProffPageAdminView({super.key, required this.Proff});
 
   @override
-  State<ProffPageView> createState() => _ProffPageViewState();
+  State<ProffPageAdminView> createState() => _ProffPageAdminViewState();
 }
 
-class _ProffPageViewState extends State<ProffPageView> {
+class _ProffPageAdminViewState extends State<ProffPageAdminView> {
   late Profesional Proff;
   late Instituto Inst;
   late Usuario User;
@@ -30,7 +30,26 @@ class _ProffPageViewState extends State<ProffPageView> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Padding(
+        padding: EdgeInsets.all(5),
+        child: Column(
+          children: [
+            CircleAvatar(
+              radius: 30,
+              backgroundImage: (User.picture.url != 'SinUrl')
+                  ? NetworkImage(User.picture.url) as ImageProvider<Object>
+                  : AssetImage("assets/images/defaultlogo.png")
+              as ImageProvider<Object>,
+            ),
+            Text("${User.name} ${User.lastname}"),
+            Text("${Proff.occupation}"),
+            Divider(),
+            Text("${Inst.name}"),
+          ],
+        ),
+      ),
+    );
   }
 
   //Zona de Metodos

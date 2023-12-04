@@ -5,6 +5,7 @@ import 'package:gps_baby_care/Modelos/institutoModel.dart';
 import 'package:gps_baby_care/Modelos/profesionalModel.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 import 'package:gps_baby_care/Vistas/Administrador/AddInstProffView.dart';
+import 'package:gps_baby_care/Vistas/Administrador/ProffPageAdminView.dart';
 
 class InstitutoPageAdminView extends StatefulWidget {
   final Instituto Ins;
@@ -54,13 +55,14 @@ class _InstitutoPageAdminViewState extends State<InstitutoPageAdminView> {
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
-                            // Navegar a la página InstitutoPageAdminView
-                            /*Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ProffPageAdminView(Ins: proffList[index]),
-                        ),
-                      );*/
+                            // Navegar a la página ProffPageView
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ProffPageAdminView(Proff: proffList[index]),
+                              ),
+                            );
                           },
                           child: ListTile(
                             leading: CircleAvatar(
