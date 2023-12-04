@@ -1,5 +1,4 @@
 import 'package:gps_baby_care/Modelos/imagenModel.dart';
-import 'package:gps_baby_care/Modelos/profesionalModel.dart';
 import 'firestoreController.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gps_baby_care/Modelos/institutoModel.dart';
@@ -57,32 +56,10 @@ class InstitutoController {
   }
 
   //Metodo para Obtener un Instituto por ID
-  static Future<Instituto> getOneInstituto(Instituto i) async {
+  static Future<Instituto> getOneInstituto(String id) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
     DocumentSnapshot doc =
-        await DB.collection('Instituto').doc(i.idinstitute).get();
-
-    ImagenModel InsLogo =
-        ImagenModel(name: doc['logo']['name'], url: doc['logo']['url']);
-
-    Instituto oneInstituto = Instituto(
-      idinstitute: doc.id,
-      name: doc['name'],
-      phone: doc['phone'],
-      address: doc['address'],
-      description: doc['description'],
-      logo: InsLogo,
-      isdeleted: doc['isdeleted'],
-    );
-
-    return oneInstituto;
-  }
-
-  //Metodo para Obtener un Instituto por Profesional
-  static Future<Instituto> getOneProfInstituto(Profesional p) async {
-    FirebaseFirestore DB = await firestoreController.abrirFireStore();
-    DocumentSnapshot doc =
-        await DB.collection('Instituto').doc(p.idinstitute).get();
+        await DB.collection('Instituto').doc(id).get();
 
     ImagenModel InsLogo =
         ImagenModel(name: doc['logo']['name'], url: doc['logo']['url']);

@@ -244,12 +244,12 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
 
   void FuncLogin() async {
     Usuario User =
-    await UsuarioController.getOneUsuario(email.text, password.text);
+    await UsuarioController.getOneUsuarioAuth(email.text, password.text);
 
 
     if (User.role == "Proff") {
       Profesional Proff =
-      await ProfesionalController.getOneProfesional(User);
+      await ProfesionalController.getOneUserProfesional(User.iduser);
 
       //Aqui debe mandar al profesionista junto con un elemento Usuario y Profesionista
       Navigator.pushReplacement(

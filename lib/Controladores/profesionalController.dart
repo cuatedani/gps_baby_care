@@ -1,6 +1,4 @@
 import 'package:gps_baby_care/Modelos/institutoModel.dart';
-import 'package:gps_baby_care/Modelos/usuarioModel.dart';
-
 import 'firestoreController.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gps_baby_care/Modelos/profesionalModel.dart';
@@ -65,12 +63,31 @@ class ProfesionalController {
     return listaProfesional;
   }
 
-  //Obtiene un Profesional por su Usuario
-  static Future<Profesional> getOneProfesional(Usuario u) async {
+  //Obtiene un Profesional por su ID
+  static Future<Profesional> getOneProfesional(String id) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
     QuerySnapshot querySnapshot = await DB
         .collection('Profesional')
-        .where('iduser', isEqualTo: u.iduser)
+        .where('idprof', isEqualTo: id)
+        .where('isdeleted', isEqualTo: false)
+        .get();
+
+    final documento = querySnapshot.docs.first;
+
+    return Profesional(
+        idprof: documento.id,
+        iduser: documento['iduser'],
+        idinstitute: documento['idinstitute'],
+        occupation: documento['occupation'],
+        isdeleted: documento['isdeleted']);
+  }
+
+  //Obtiene un Profesional por su ID de Usuario
+  static Future<Profesional> getOneUserProfesional(String id) async {
+    FirebaseFirestore DB = await firestoreController.abrirFireStore();
+    QuerySnapshot querySnapshot = await DB
+        .collection('Profesional')
+        .where('iduser', isEqualTo: id)
         .where('isdeleted', isEqualTo: false)
         .get();
 

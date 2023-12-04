@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:gps_baby_care/Modelos/profesionalModel.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 
-class PerfilProffView extends StatefulWidget {
+class EditarPerfilProffView extends StatefulWidget {
   final Profesional Proff;
   final Usuario User;
-  const PerfilProffView({Key? key, required this.Proff, required this.User}) : super(key: key);
+  const EditarPerfilProffView({Key? key, required this.Proff, required this.User}) : super(key: key);
 
   @override
-  State<PerfilProffView> createState() => _PerfilProffViewState();
+  State<EditarPerfilProffView> createState() => _EditarPerfilProffViewState();
 }
 
-class _PerfilProffViewState extends State<PerfilProffView> {
+class _EditarPerfilProffViewState extends State<EditarPerfilProffView> {
   late Profesional Proff;
   late Usuario User;
 

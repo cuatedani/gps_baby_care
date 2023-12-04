@@ -100,7 +100,7 @@ class UsuarioController {
   }
 
   //Obtiene un Usuario por Email y Contraseña
-  static Future<Usuario> getOneUsuario(String email, String password) async {
+  static Future<Usuario> getOneUsuarioAuth(String email, String password) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
     QuerySnapshot querySnapshot = await DB
         .collection('Usuario')
@@ -129,10 +129,10 @@ class UsuarioController {
   }
 
   //Obtiene un Usuario por su ID
-  static Future<Usuario> getOneUsuarioId(Usuario u) async {
+  static Future<Usuario> getOneUsuario(String id) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
     DocumentSnapshot<Map<String, dynamic>> documento =
-        await DB.collection('Usuario').doc(u.iduser).get();
+        await DB.collection('Usuario').doc(id).get();
 
     if (documento.exists) {
       ImagenModel picture = ImagenModel(

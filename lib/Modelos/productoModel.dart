@@ -1,11 +1,13 @@
-//import 'package:gps_baby_care/Modelos/categoriaModel.dart';
+import 'package:gps_baby_care/Modelos/categoriaModel.dart';
+import 'package:gps_baby_care/Modelos/imagenModel.dart';
+
 class Producto {
   String? idproduct;
   String name;
   double price;
   String description;
-  List<String>? gallery;
-  String category;
+  List<Categoria>? categories;
+  List<ImagenModel>? gallery;
   int quantity;
 
   Producto({
@@ -13,30 +15,17 @@ class Producto {
     required this.name,
     required this.price,
     required this.description,
-    required this.category,
-    this.gallery,
     required this.quantity,
+    this.categories,
+    this.gallery,
   });
 
-  Map<String, dynamic> Registrar() {
+  Map<String, dynamic> toMap() {
     return {
       'name': name,
       'price': price,
       'description': description,
-      'galery':gallery,
-      'category':category,
       'quantity': quantity,
-    };
-  }
-
-  Map<String, dynamic> Actualizar() {
-    return {
-      'idproduct': idproduct,
-      'nombre': name,
-      'precio': price,
-      'descripcion': description,
-      'galeria':gallery,
-      'cantidad': quantity,
     };
   }
 }

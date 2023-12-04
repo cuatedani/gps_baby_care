@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gps_baby_care/Modelos/articuloModel.dart';
 import 'package:gps_baby_care/Controladores/articuloController.dart';
 import 'package:gps_baby_care/Componente/BannerArticuloWidget.dart';
-import 'package:gps_baby_care/Vistas/Usuario/ArticuloView.dart';
+import 'package:gps_baby_care/Vistas/Usuario/ArticuloPageView.dart';
 
 import '../../Componente/MenuWidget.dart';
 
@@ -15,24 +15,13 @@ class ArticulosView extends StatefulWidget {
 
 class _ArticulosViewState extends State<ArticulosView> {
   late List<Articulo> ListaArticulos = [];
-  var info = "";
+
+  //Seria necesario solo añadir filtros
 
   @override
   void initState() {
     super.initState();
     cargarArticulos();
-  }
-
-  Future<void> cargarArticulos() async {
-    List<Articulo> articulos = await ArticuloController.getAllArticulo();
-    if (mounted) {
-      setState(() {
-        if (articulos.length == 0) {
-          info = "No hay articulos que mostrar";
-        }
-        ListaArticulos = articulos;
-      });
-    }
   }
 
   @override
@@ -41,37 +30,51 @@ class _ArticulosViewState extends State<ArticulosView> {
         appBar: AppBar(
           title: const Text(
             "Consejos & Cuidados",
-            style: TextStyle(
-                fontSize: 23),
+            style: TextStyle(fontSize: 23),
           ),
           leading: MenuWidget(),
         ),
-        body: Container(
-        padding: EdgeInsets.all(1),
-        constraints: BoxConstraints.expand(),
-        child: ListView.separated(
-          itemCount: ListaArticulos.length + 1,
-          separatorBuilder: (context, index) => Divider(),
-          itemBuilder: (context, index) {
-            if (index == ListaArticulos.length) {
-              return Center(child: Text(info));
-            } else {
-              return InkWell(
-                onTap: () {
-                  print("Abriendo Pagina Individual Articulo");
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ArticuloView(articulo: ListaArticulos[index]),
-                    ),
-                  );
-                },
-                child: BannerArticulo(ListaArticulos[index]),
-              );
-            }
-          },
-        ),
-    )
-      );
+        body: Padding(
+          padding: EdgeInsets.all(5),
+          child: Column(
+            children: [
+              Center(child: Text("Filtros"),),
+              Divider(),
+              Container(
+                child: (ListaArticulos.isNotEmpty)
+                    ? Text("POR EL MOMENTO NO HAY ARTICULOS QUE MOSTRAR")
+                    : ListView.builder(
+                        itemCount: ListaArticulos.length,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      ArticuloPageView(
+                                    Art: ListaArticulos[index],
+                                  ),
+                                ),
+                              );
+                            },
+                            child: BannerArticulo(ListaArticulos[index]),
+                          );
+                        },
+                      ),
+              )
+            ],
+          ),
+        ));
+  }
+
+  //Zona de Metodos
+  //Cargar Articulos de la Base de datos
+  Future<void> cargarArticulos() async {
+    List<Articulo> articulos = await ArticuloController.getAllArticulo();
+    if (mounted) {
+      setState(() {
+        ListaArticulos = articulos;
+      });
+    }
   }
 }

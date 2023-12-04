@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:gps_baby_care/Controladores/usuarioController.dart';
+import 'package:gps_baby_care/Modelos/productoModel.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
-import 'package:gps_baby_care/Vistas/Usuario/EditarPerfil.dart';
-import 'package:gps_baby_care/Vistas/Usuario/EditarPerfilPassView.dart';
-class PerfilView extends StatefulWidget {
+class UserPageView extends StatefulWidget {
   final Usuario User;
-  const PerfilView({super.key, required this.User});
+  const UserPageView({super.key, required this.User});
 
   @override
-  State<PerfilView> createState() => _PerfilViewState();
+  State<UserPageView> createState() => _UserPageViewState();
 }
 
-class _PerfilViewState extends State<PerfilView> {
+class _UserPageViewState extends State<UserPageView> {
   late Usuario User;
+  List<Producto> Pro = [];
 
-  //Esto se debe eliminar, su funcionalidad se cambio a EditarPerfil,
-  //Sera utilizado para perfil de Usuario y Administrador
+  //Este es el prefil publico de Usuario, debe de mostrar su informacion publica y
+  // y sus productos
 
   @override
   void initState() {
@@ -46,24 +46,6 @@ class _PerfilViewState extends State<PerfilView> {
             Text("Email: ${User.email}"),
             Text("Telefono: ${User.phone}"),
             Text("Direccion: ${User.address}"),
-            ElevatedButton(onPressed: (){
-              //Enviar a Pantalla de Cambiar Contraseña
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EditarPass(User: User),
-                ),
-              ).then((value) => cargardatos());
-            }, child: const Text("Cambiar Contraseña")),
-            ElevatedButton(onPressed: (){
-              //Enviar a Pantalla de Editar Perfil
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EditarPerfil(User: User),
-                ),
-              ).then((value) => cargardatos());
-            }, child: const Text("Editar Perfil")),
           ],
         ),
       ),

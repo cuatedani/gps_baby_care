@@ -3,7 +3,6 @@ import 'package:gps_baby_care/Modelos/categoriaProductoModel.dart';
 import 'package:gps_baby_care/Controladores/categoriaProductoController.dart';
 import 'package:gps_baby_care/Controladores/productoController.dart';
 import 'package:gps_baby_care/Modelos/productoModel.dart';
-
 import '../../Componente/MenuWidget.dart';
 
 class RegistroProductoForm extends StatefulWidget {
@@ -19,6 +18,9 @@ class _RegistroProductoFormState extends State<RegistroProductoForm> {
   final TextEditingController precio = TextEditingController();
   final TextEditingController descripcion = TextEditingController();
   final TextEditingController cantidad = TextEditingController();
+
+  //Este Codigo debe de estar similar al de Crear Articulo
+
   //late List<String> _galeria = [];
   double? _precio;
   int? _cantidad; // Cambiado a int, ya que es la cantidad de productos
@@ -34,7 +36,7 @@ class _RegistroProductoFormState extends State<RegistroProductoForm> {
       price: 0,
       description: '',
       gallery: [],
-      category: '',
+      categories: [],
       quantity: 0,
     );
     super.initState();
@@ -64,7 +66,7 @@ class _RegistroProductoFormState extends State<RegistroProductoForm> {
       }
 
       if (selectedCategoria != null) {
-        nuevoProducto.category = selectedCategoria!.nombre; // Asignando el nombre de la categoría seleccionada
+        //nuevoProducto.categories.add(selectedCategoria!); // Asignando el nombre de la categoría seleccionada
       }
 
       await ProductoController.insertProducto(nuevoProducto);

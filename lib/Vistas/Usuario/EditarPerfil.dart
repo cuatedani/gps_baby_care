@@ -209,7 +209,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
   //Zona de Metodos
   //Carga los datos inciales
   Future<void> cargardatos() async {
-    Usuario tempUser = await UsuarioController.getOneUsuarioId(User);
+    Usuario tempUser = await UsuarioController.getOneUsuario(User.iduser);
     if (mounted) {
       setState(() {
         User = tempUser;

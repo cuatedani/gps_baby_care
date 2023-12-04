@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../Componente/MenuWidget.dart';
 class Store extends StatefulWidget {
   const Store({Key? key}) : super(key: key);

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import '../../Componente/MenuWidget.dart';
-import 'MenuPrincipalView.dart';
 
 class LobbyView extends StatefulWidget {
   const LobbyView({Key? key}) : super(key: key);
@@ -10,9 +8,10 @@ class LobbyView extends StatefulWidget {
   State<LobbyView> createState() => _LobbyViewState();
 }
 
-
-
 class _LobbyViewState extends State<LobbyView> {
+
+  //Informacion de la App
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

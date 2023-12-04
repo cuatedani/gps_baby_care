@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:gps_baby_care/Vistas/Profesional/LobbyProffView.dart';
-import 'package:gps_baby_care/Vistas/Profesional/PerfilProffView.dart';
 import 'package:gps_baby_care/Vistas/Profesional/ArticulosProffView.dart';
 import 'package:gps_baby_care/Vistas/Usuario/ArticulosView.dart';
-import 'package:gps_baby_care/Vistas/Usuario/consejos.dart';
-import 'package:gps_baby_care/Vistas/Generales/BienvenidaView.dart';
 import 'package:gps_baby_care/Modelos/profesionalModel.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 

@@ -5,7 +5,6 @@ import 'package:gps_baby_care/Controladores/articuloController.dart';
 import 'package:gps_baby_care/Componente/BannerArticuloWidget.dart';
 import 'package:gps_baby_care/Vistas/Profesional/AddArticuloView.dart';
 import 'package:gps_baby_care/Vistas/Profesional/ArticuloPageProffView.dart';
-
 import '../../Componente/MenuWidget.dart';
 
 class ArticulosProffView extends StatefulWidget {

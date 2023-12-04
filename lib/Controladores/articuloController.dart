@@ -235,5 +235,54 @@ class ArticuloController {
     return listaArticulo;
   }
 
-  //Falta Filtrado para Usuario y Profesional
+  //Obtener un Articulo por su ID
+  static Future<Articulo> getOneArticulo(String id) async {
+    FirebaseFirestore firestore = await firestoreController.abrirFireStore();
+    QuerySnapshot querySnapshot = await firestore.collection('Articulo').where('idprof', isEqualTo: id).get();
+
+    final documento = querySnapshot.docs.first;
+
+    List<Categoria> categories = [];
+    List<ImagenModel> gallery = [];
+
+      QuerySnapshot categoriaSnapshot = await firestore
+          .collection('Articulo')
+          .doc(documento.id)
+          .collection('categories')
+          .get();
+
+      QuerySnapshot galeriaSnapshot = await firestore
+          .collection('Articulo')
+          .doc(documento.id)
+          .collection('gallery')
+          .get();
+
+      categories = categoriaSnapshot.docs.map((categoriaDoc) {
+        return Categoria(
+          idcategory: categoriaDoc.id,
+          name: categoriaDoc.get('name'),
+          type: categoriaDoc.get('type'),
+        );
+      }).toList();
+
+      gallery = galeriaSnapshot.docs.map((ImagenDoc) {
+        return ImagenModel(
+          idimagen: ImagenDoc.id,
+          name: ImagenDoc.get('name'),
+          url: ImagenDoc.get('url'),
+        );
+      }).toList();
+
+      Articulo oneArticulo = Articulo(
+        idarticle: documento.id,
+        idprof: documento['idprof'],
+        date: documento['date'],
+        title: documento['title'],
+        content: documento['content'],
+        categories: categories,
+        gallery: gallery,
+      );
+
+      return oneArticulo;
+  }
 }
