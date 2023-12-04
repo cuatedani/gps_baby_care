@@ -17,18 +17,18 @@ class _BienvenidaViewState extends State<BienvenidaView> {
   List<Map<String, String>> splashData = [
     {
       "text":
-          "¡Bienvenido a Baby Care! La solución perfecta para padres preocupados por el crecimiento rápido de sus bebés.",
+          "¡Bienvenido a Baby Care!\n\n La solución perfecta para padres preocupados por el crecimiento rápido de sus bebés.",
       "image": "assets/images/OnboardingS1.png"
     },
     {
       "text":
-          "¡Dale una segunda vida a la ropa de tu bebé! Contribuye a la economía circular mientras ahorras dinero.",
-      "image": "assets/images/OnboardingS2.png"
+          "¡Dale una segunda vida a la ropa de tu bebé!\n Contribuye a la economía circular mientras ahorras dinero.",
+      "image": "assets/images/OnboardingS3.png"
     },
     {
       "text":
-          "Conéctate con expertos en cuidado infantil.Obtén consejos valiosos de pediatras y profesionales.",
-      "image": "assets/images/OnboardingS3.png"
+          "Contacta con expertos en cuidado infantil.\n Obtén consejos valiosos de pediatras y profesionales.",
+      "image": "assets/images/OnboardingS2.png"
     },
   ];
   @override

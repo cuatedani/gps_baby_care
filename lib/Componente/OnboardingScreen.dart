@@ -27,10 +27,13 @@ class _SplashContentState extends State<OnboardingScreen> {
           ),
         ),
         Spacer(),
-        Text(
-          widget.text!,
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20),
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 20.0),
+          child: Text(
+            widget.text!,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20),
+          ),
         ),
         const Spacer(flex: 2),
         Image.asset(
