@@ -34,7 +34,7 @@ class Usuario {
       'phone': phone,
       'address': address,
       'role': role,
-      'picture': picture,
+      'picture': picture.toMap(),
       'isdeleted': isdeleted,
     };
   }
