@@ -176,7 +176,7 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
                           child: Text(
                             "Ingresar",
                             style:
-                            TextStyle(fontFamily: 'NerkoOne', fontSize: 20),
+                            TextStyle(fontSize: 20),
                           ),
                         ),
                         SizedBox(height: 80),
@@ -186,13 +186,11 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
                             Row(children: [
                               Text(
                                 '¿Aún no tienes cuenta?',
-                                style: GoogleFonts.questrial(
-                                  textStyle: TextStyle(
+                                style: TextStyle(
                                     fontSize: 18,
                                     letterSpacing: .5,
                                     color: Color(0XFF815B51),
                                   ),
-                                ),
                               ),
                               SizedBox(width: 5,),
                               TextButton(
