@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gps_baby_care/Modelos/profesionalModel.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 
+import '../../Componente/MenuWidget.dart';
+
 class LobbyProffView extends StatefulWidget {
   final Profesional Proff;
   final Usuario User;
@@ -25,7 +27,13 @@ class _LobbyProffViewState extends State<LobbyProffView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Scaffold(
+        backgroundColor: Color(0xFFFAF2E7),
+    appBar: AppBar(
+    title: const Text("Institutos"),
+      leading: MenuWidget(),
+    ),
+      body: Container(
       padding: EdgeInsets.all(1),
       child: Column(
         children: [
@@ -33,6 +41,7 @@ class _LobbyProffViewState extends State<LobbyProffView> {
           // Agrega más widgets aquí
         ],
       ),
+    ),
     );
   }
 }

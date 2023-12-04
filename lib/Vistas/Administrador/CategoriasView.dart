@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gps_baby_care/Controladores/categoriaController.dart';
 import 'package:gps_baby_care/Modelos/categoriaModel.dart';
 
+import '../../Componente/MenuWidget.dart';
+
 class CategoriasView extends StatefulWidget {
   const CategoriasView({Key? key}) : super(key: key);
 
@@ -21,6 +23,11 @@ class _CategoriasViewState extends State<CategoriasView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+          backgroundColor: Color(0xFFFAF2E7),
+          appBar: AppBar(
+            title: const Text("Categorias"),
+            leading: MenuWidget(),
+          ),
       body: Padding(
         padding: EdgeInsets.all(5),
         child: Column(

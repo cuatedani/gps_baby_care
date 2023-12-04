@@ -30,6 +30,10 @@ class _InstitutoPageAdminViewState extends State<InstitutoPageAdminView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFFAF2E7),
+      appBar: AppBar(
+        title: const Text("Institutos"),
+      ),
       body: Padding(
         padding: EdgeInsets.all(5),
         child: Column(

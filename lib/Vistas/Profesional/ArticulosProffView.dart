@@ -6,6 +6,8 @@ import 'package:gps_baby_care/Componente/BannerArticuloWidget.dart';
 import 'package:gps_baby_care/Vistas/Profesional/AddArticuloView.dart';
 import 'package:gps_baby_care/Vistas/Profesional/ArticuloPageProffView.dart';
 
+import '../../Componente/MenuWidget.dart';
+
 class ArticulosProffView extends StatefulWidget {
   final Profesional Proff;
   const ArticulosProffView({Key? key, required this.Proff}) : super(key: key);
@@ -42,6 +44,11 @@ class _ArticulosProffViewState extends State<ArticulosProffView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFFAF2E7),
+      appBar: AppBar(
+        title: const Text("Mis Articulos", style: TextStyle(fontSize: 23),),
+        leading: MenuWidget(),
+      ),
       body: Padding(
         padding: EdgeInsets.all(10),
         child: ListView.separated(

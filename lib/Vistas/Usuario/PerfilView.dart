@@ -23,6 +23,7 @@ class _PerfilViewState extends State<PerfilView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFFAF2E7),
       appBar: AppBar(
         title: const Text("Mi Perfil"),
       ),
@@ -34,7 +35,7 @@ class _PerfilViewState extends State<PerfilView> {
               radius: 30,
               backgroundImage: (User.picture.url != 'SinUrl')
                   ? NetworkImage(User.picture.url) as ImageProvider<Object>
-                  : AssetImage("assets/images/perfil")
+                  : AssetImage("assets/images/perfil.png")
               as ImageProvider<Object>,
             ),
             Text("${User.name} ${User.lastname}"),

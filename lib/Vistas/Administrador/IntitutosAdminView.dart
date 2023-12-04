@@ -4,6 +4,8 @@ import 'package:gps_baby_care/Modelos/institutoModel.dart';
 import 'package:gps_baby_care/Vistas/Administrador/AddInstitutoView.dart';
 import 'package:gps_baby_care/Vistas/Administrador/InstitutoPageAdminView.dart';
 
+import '../../Componente/MenuWidget.dart';
+
 class InstitutosAdminView extends StatefulWidget {
   const InstitutosAdminView({super.key});
 
@@ -23,6 +25,11 @@ class _InstitutosAdminViewState extends State<InstitutosAdminView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+          backgroundColor: Color(0xFFFAF2E7),
+          appBar: AppBar(
+            title: const Text("Institutos"),
+            leading: MenuWidget(),
+          ),
       body: Padding(
           padding: EdgeInsets.all(5),
           child: Column(children: [
