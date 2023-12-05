@@ -65,12 +65,12 @@ class _ArticuloPageViewState extends State<ArticuloPageView> {
             InkWell(
               child: ListTile(
                 leading: CircleAvatar(
-                  backgroundImage: (User!.picture.url != 'SinUrl')
-                      ? NetworkImage(User!.picture.url) as ImageProvider<Object>
+                  backgroundImage: (User.picture.url != 'SinUrl')
+                      ? NetworkImage(User.picture.url) as ImageProvider<Object>
                       : AssetImage("assets/images/perfil.png")
                           as ImageProvider<Object>,
                 ),
-                title: Text("${User!.name} ${User!.lastname}"),
+                title: Text("${User.name} ${User.lastname}"),
                 subtitle: Text(Proff.occupation),
               ),
               onTap: () {
@@ -92,7 +92,7 @@ class _ArticuloPageViewState extends State<ArticuloPageView> {
                         : AssetImage("assets/images/defaultlogo.png")
                             as ImageProvider<Object>,
                   ),
-                  title: Text("${Inst!.name}"),
+                  title: Text("${Inst.name}"),
                   subtitle: Inst.description.length < 40
                       ? Text(
                           '${Inst.description}',
@@ -137,7 +137,7 @@ class _ArticuloPageViewState extends State<ArticuloPageView> {
     Usuario tempUser = await UsuarioController.getOneUsuario(tempProff!.iduser);
 
     Instituto? tempInst =
-        await InstitutoController.getOneInstituto(tempProff!.idinstitute);
+        await InstitutoController.getOneInstituto(tempProff.idinstitute);
 
     if (mounted) {
       setState(() {

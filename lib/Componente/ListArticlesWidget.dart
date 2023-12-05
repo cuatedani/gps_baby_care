@@ -33,7 +33,7 @@ Widget ListArticlesWidget(BuildContext context, List<Articulo> articles) {
                         await InstitutoController.getOneInstituto(
                             tempProff!.idinstitute);
                     Usuario tempUser = await UsuarioController.getOneUsuario(
-                        tempProff!.iduser);
+                        tempProff.iduser);
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (BuildContext context) => ArticuloPageView(

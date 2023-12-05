@@ -81,7 +81,7 @@ class _ArticulosViewState extends State<ArticulosView> {
 
                               Usuario tempUser =
                                   await UsuarioController.getOneUsuario(
-                                      tempProff!.iduser);
+                                      tempProff.iduser);
 
                               if (tempInst != null) {
                                 // Hacer algo con el profesional encontrado
