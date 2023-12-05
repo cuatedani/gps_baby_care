@@ -243,34 +243,36 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
   }
 
   void FuncLogin() async {
-    Usuario User =
-    await UsuarioController.getOneUsuarioAuth(email.text, password.text);
+    Usuario user = await UsuarioController.getOneUsuarioAuth(email.text, password.text);
 
-
-    if (User.role == "Proff") {
-      Profesional Proff =
-      await ProfesionalController.getOneUserProfesional(User.iduser);
-
-      //Aqui debe mandar al profesionista junto con un elemento Usuario y Profesionista
-      Navigator.pushReplacement(
+      if (user.role == "Proff") {
+        Profesional proff = await ProfesionalController.getOneUserProfesional(user.iduser);
+        Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-              builder: (context) => MenuProffView(Proff: Proff, User: User)));
-    } else {
-      if (User.role == "Admin") {
-        //Aqui manda al admin junto con un elemento Usuario
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => MenuAdminView(User: User)));
+            builder: (context) => MenuProffView(Proff: proff, User: user),
+          ),
+              (route) => false,
+        );
+      } else if (user.role == "Admin") {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MenuAdminView(User: user),
+          ),
+              (route) => false,
+        );
       } else {
-        //Aqui se manda a los usuarios normales con un elemento Usuario
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => MenuPrincipalView(
-                    User: User))); //Aqui debe de mandar el usuario
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MenuPrincipalView(User: user),
+          ),
+              (route) => false,
+        );
       }
-    }
   }
+
 
   // Función para validar el correo electrónico de manera asíncrona
   String? validateEmail(String? value) {

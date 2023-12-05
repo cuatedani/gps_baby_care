@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gps_baby_care/Modelos/productoModel.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 class MisProductosView extends StatefulWidget {
   final Usuario User;
@@ -10,6 +11,7 @@ class MisProductosView extends StatefulWidget {
 
 class _MisProductosViewState extends State<MisProductosView> {
   late Usuario User;
+  List<Producto> products = [];
 
   //Debe mostar todos los Productos en base al id de usuario,
   //de alli al hacer click pasa a una vista de producto donde
@@ -25,4 +27,6 @@ class _MisProductosViewState extends State<MisProductosView> {
   Widget build(BuildContext context) {
     return const Placeholder();
   }
+
+  //Zona de Metodos
 }
