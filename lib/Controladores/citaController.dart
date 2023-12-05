@@ -59,4 +59,15 @@ class CitaController {
 
     return listaCitas;
   }
+
+  static Future<void> deleteCita(String citaId) async {
+    try {
+      FirebaseFirestore DB = FirebaseFirestore.instance;
+      await DB.collection('Citas').doc(citaId).delete();
+    } catch (e) {
+      print("Error al eliminar la cita: $e");
+      // Puedes manejar el error de acuerdo a tu lógica de la aplicación
+      throw e;
+    }
+  }
 }
