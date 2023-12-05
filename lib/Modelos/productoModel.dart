@@ -3,6 +3,7 @@ import 'package:gps_baby_care/Modelos/imagenModel.dart';
 
 class Producto {
   String? idproduct;
+  String iduser;
   String name;
   double price;
   String description;
@@ -12,6 +13,7 @@ class Producto {
 
   Producto({
     this.idproduct,
+    required this.iduser,
     required this.name,
     required this.price,
     required this.description,
@@ -22,6 +24,7 @@ class Producto {
 
   Map<String, dynamic> toMap() {
     return {
+      'iduser': iduser,
       'name': name,
       'price': price,
       'description': description,

@@ -37,7 +37,7 @@ class _RegistroProductoFormState extends State<RegistroProductoForm> {
       description: '',
       gallery: [],
       categories: [],
-      quantity: 0,
+      quantity: 0, iduser: '',
     );
     super.initState();
   }
