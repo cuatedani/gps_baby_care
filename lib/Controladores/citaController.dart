@@ -39,4 +39,24 @@ class CitaController {
 
     return listaCitas;
   }
+  static Future<List<Cita>> getCitasByUserId(String idUsuario) async {
+    FirebaseFirestore DB = await firestoreController.abrirFireStore();
+    QuerySnapshot querySnapshot = await DB.collection('Citas').where('idUsuario', isEqualTo: idUsuario).get();
+
+    List<Cita> listaCitas = [];
+
+    querySnapshot.docs.forEach((documento) {
+      Cita cita = Cita(
+          idCita: documento.id,
+          idProfesional: documento['idProfesional'],
+          idUsuario: documento['idUsuario'],
+          fecha: DateTime.parse(documento['fecha']),
+          motivo: documento['motivo']
+      );
+
+      listaCitas.add(cita);
+    });
+
+    return listaCitas;
+  }
 }
