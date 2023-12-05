@@ -44,6 +44,21 @@ class _ArticulosViewState extends State<ArticulosView> {
           padding: EdgeInsets.all(5),
           child: Column(
             children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Color(0xffF9F3E5),
+                ),
+                padding: EdgeInsets.all(16),
+                child: Text(
+                  'Todos los articulos presentados han sido revisados y certificados por profesionales.',
+                  style: TextStyle(
+                    fontWeight: FontWeight.normal,
+                    fontSize: 18,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
               Center(
                 child: Text("Filtros"),
               ),

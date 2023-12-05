@@ -7,6 +7,7 @@ class ProductoController {
   //Inserta un Producto
   static Future<Producto> insertProducto(Producto p) async {
     FirebaseFirestore DB = FirebaseFirestore.instance;
+    print("hola");
 
     try {
       DocumentReference docRef =
@@ -14,6 +15,7 @@ class ProductoController {
 
       // Asignar el ID al objeto Articulo
       p.idproduct = docRef.id;
+      print("hola tiene id");
 
       if (p.categories!.isNotEmpty) {
         // Insertar categorías en la subcolección 'categories'
@@ -23,6 +25,7 @@ class ProductoController {
       }
 
       // Retornar el objeto Articulo con el ID asignado
+      print("hola retorna");
       return p;
     } catch (e) {
       print("Aparecio el Error: ${e.toString()}");
@@ -145,6 +148,7 @@ class ProductoController {
           .collection('Productos')
           .doc(documento.id)
           .collection('categories')
+          .where('quantity', isGreaterThan: 0)
           .get();
 
       QuerySnapshot galeriaSnapshot = await DB
@@ -189,7 +193,10 @@ class ProductoController {
   //Obtiene todos los Productos de un Usuario
   static Future<List<Producto>> getAllUserProductos(String userid) async {
     FirebaseFirestore DB = FirebaseFirestore.instance;
-    QuerySnapshot querySnapshot = await DB.collection('Productos').where("iduser", isEqualTo: userid).get();
+    QuerySnapshot querySnapshot = await DB
+        .collection('Productos')
+        .where("iduser", isEqualTo: userid)
+        .get();
     List<Producto> products = [];
 
     await Future.forEach(querySnapshot.docs, (documento) async {

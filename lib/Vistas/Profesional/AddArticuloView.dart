@@ -23,6 +23,7 @@ class _AddArticuloViewState extends State<AddArticuloView> {
   List<Categoria> categorieslist = [];
   List<Categoria> selectedCategories = [];
   Categoria? selectedCategory;
+
   final TextEditingController titleController = TextEditingController();
   final TextEditingController contentController = TextEditingController();
   List<XFile> ImgsGal = [];
@@ -193,7 +194,7 @@ class _AddArticuloViewState extends State<AddArticuloView> {
     }
   }
 
-  //Muestra la confirmacion de Editar
+  //Muestra la confirmacion de Agregar
   Future<void> showConfirmation(BuildContext context) async {
     return showDialog(
       context: context,
