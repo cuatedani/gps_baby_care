@@ -6,11 +6,13 @@ import 'package:gps_baby_care/Modelos/institutoModel.dart';
 import 'package:gps_baby_care/Modelos/profesionalModel.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 import 'package:gps_baby_care/Vistas/Usuario/ProfesionalPageView.dart';
+import 'package:gps_baby_care/Vistas/Usuario/FormularioCita.dart';
 
 import '../../Componente/MenuWidget.dart';
 
 class ProfesionalesView extends StatefulWidget {
-  const ProfesionalesView({Key? key}) : super(key: key);
+  final Usuario User;
+  const ProfesionalesView({Key? key, required this.User}) : super(key: key);
 
   @override
   State<ProfesionalesView> createState() => _ProfesionalesViewState();
@@ -19,9 +21,11 @@ class ProfesionalesView extends StatefulWidget {
 class _ProfesionalesViewState extends State<ProfesionalesView> {
   List<Profesional> profflist = [];
   List<Usuario> userlist = [];
+  late Usuario User;
 
   @override
   void initState() {
+    User = widget.User;
     cargardatos();
     super.initState();
   }
@@ -92,6 +96,21 @@ class _ProfesionalesViewState extends State<ProfesionalesView> {
                       ),
                       title: Text("${userlist[index].name} ${userlist[index].lastname}"),
                       subtitle: Text(profflist[index].occupation),
+                      trailing: ElevatedButton(
+                        onPressed: () {
+                          // Navegar a FormularioCita con el profesional correspondiente
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => FormularioCita(
+                                idProfesional: profflist[index].idprof,
+                                idUsuario: User.iduser,
+                              ),
+                            ),
+                          );
+                        },
+                        child: Text('Agendar Cita'),
+                      ),
                     ),
                   );
                 },

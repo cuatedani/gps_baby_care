@@ -22,7 +22,7 @@ class MenuPrincipalView extends StatefulWidget {
 
 class _MenuPrincipalViewState extends State<MenuPrincipalView> {
   late Usuario User;
-  int _index = 0;
+  //int _index = 0;
 
   @override
   void initState() {
@@ -65,7 +65,7 @@ class _MenuPrincipalViewState extends State<MenuPrincipalView> {
       case MenuItems.donacion:
         return Donar();
       case MenuItems.consulta:
-        return ProfesionalesView();
+        return ProfesionalesView(User: User);
       case MenuItems.institutoView:
         return InstitutosView();
       case MenuItems.misproductos:

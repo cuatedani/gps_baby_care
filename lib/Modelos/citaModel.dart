@@ -4,7 +4,7 @@ class Cita {
   String idUsuario;
   DateTime fecha;
   String motivo;
-  bool? status;
+  String? status;
 
   Cita({
     required this.idCita,
@@ -22,7 +22,7 @@ class Cita {
       'idUsuario': idUsuario,
       'fecha': fecha.toIso8601String(), // Convertir la fecha a un formato de texto
       'motivo': motivo,
-      'status':true,
+      'status':status,
     };
   }
 
