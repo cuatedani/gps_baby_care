@@ -13,6 +13,8 @@ class MenuItems {
   static const donacion = MenuItem("Donación", Icons.favorite);
   static const consulta = MenuItem("Consulta a un experto", Icons.help_outline);
   static const articuloadd = MenuItem("Añadir un producto", Icons.sell);
+  static const miscitas = MenuItem("Mis citas", Icons.local_hospital);
+  static const misproductos = MenuItem("Mis productos", Icons.smart_toy_outlined);
   // proff
   static const articulos = MenuItem("Articulos", Icons.book);
   static const mis_articulos = MenuItem("Mis articulos", Icons.bookmark_remove);
@@ -50,6 +52,8 @@ class RoleMenus {
       MenuItems.donacion,
       MenuItems.consulta,
       MenuItems.articuloadd,
+      MenuItems.institutoView,
+
     ],
     initialSelectedItem: MenuItems.Inicio,
   );

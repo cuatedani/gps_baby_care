@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 import 'package:gps_baby_care/Vistas/Usuario/ArticulosView.dart';
+import 'package:gps_baby_care/Vistas/Usuario/InstitutosView.dart';
+import 'package:gps_baby_care/Vistas/Usuario/MisCitasView.dart';
+import 'package:gps_baby_care/Vistas/Usuario/MisProductosView.dart';
 import 'package:gps_baby_care/Vistas/Usuario/store.dart';
 import 'package:gps_baby_care/Vistas/Usuario/donar.dart';
 import 'package:gps_baby_care/Vistas/Usuario/LobbyView.dart';
@@ -63,6 +66,14 @@ class _MenuPrincipalViewState extends State<MenuPrincipalView> {
         return Donar();
       case MenuItems.consulta:
         return ProfesionalesView();
+      case MenuItems.institutoView:
+        return InstitutosView();
+      case MenuItems.misproductos:
+        return MisProductosView(User: User);
+      case MenuItems.miscitas:
+        return MisCitasView(User: User);
+
+
       case MenuItems.articuloadd:
         return RegistroProductoForm();
       default:
