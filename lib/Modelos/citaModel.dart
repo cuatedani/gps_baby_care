@@ -4,6 +4,7 @@ class Cita {
   String idUsuario;
   DateTime fecha;
   String motivo;
+  bool? status;
 
   Cita({
     required this.idCita,
@@ -11,6 +12,7 @@ class Cita {
     required this.idUsuario,
     required this.fecha,
     required this.motivo,
+    this.status,
   });
 
   Map<String, dynamic> toMap() {
@@ -20,6 +22,7 @@ class Cita {
       'idUsuario': idUsuario,
       'fecha': fecha.toIso8601String(), // Convertir la fecha a un formato de texto
       'motivo': motivo,
+      'status':true,
     };
   }
 
@@ -30,6 +33,7 @@ class Cita {
       idUsuario: map['idUsuario'],
       fecha: DateTime.parse(map['fecha']), // Convertir el texto de la fecha a DateTime
       motivo: map['motivo'],
+      status: map['status'],
     );
   }
 }
