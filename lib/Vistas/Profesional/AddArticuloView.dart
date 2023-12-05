@@ -51,7 +51,7 @@ class _AddArticuloViewState extends State<AddArticuloView> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
+        child: ListView(
           children: [
             TextFormField(
               controller: titleController,
