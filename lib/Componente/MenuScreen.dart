@@ -53,6 +53,8 @@ class RoleMenus {
       MenuItems.consulta,
       MenuItems.articuloadd,
       MenuItems.institutoView,
+      MenuItems.misproductos,
+      MenuItems.miscitas
 
     ],
     initialSelectedItem: MenuItems.Inicio,
@@ -163,7 +165,6 @@ class MenuScreen extends StatelessWidget {
                   .map((item) => buildMenuItem(context, item))
                   .toList(),
               Divider(),
-              SizedBox(height: 26),
               InkWell(
                 onTap: () {
                   Navigator.pushAndRemoveUntil(

@@ -72,8 +72,6 @@ class _MenuPrincipalViewState extends State<MenuPrincipalView> {
         return MisProductosView(User: User);
       case MenuItems.miscitas:
         return MisCitasView(User: User);
-
-
       case MenuItems.articuloadd:
         return RegistroProductoForm();
       default:
