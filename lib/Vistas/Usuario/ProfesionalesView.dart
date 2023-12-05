@@ -36,7 +36,8 @@ class _ProfesionalesViewState extends State<ProfesionalesView> {
         ),
         leading: MenuWidget(),
       ),
-      body: SingleChildScrollView(
+      body: Padding(
+        padding: EdgeInsets.all(5),
         child: Column(
           children: [
             Container(
