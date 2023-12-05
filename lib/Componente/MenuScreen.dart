@@ -166,10 +166,16 @@ class MenuScreen extends StatelessWidget {
               SizedBox(height: 26),
               InkWell(
                 onTap: () {
-                  Navigator.push(
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BienvenidaView()),
+                        (route) => false,
+                  );
+                 /* Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => BienvenidaView()));
+                          builder: (context) => BienvenidaView()));*/
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
