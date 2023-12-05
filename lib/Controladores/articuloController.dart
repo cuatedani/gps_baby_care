@@ -50,8 +50,13 @@ class ArticuloController {
       await DB.collection('Articulo').doc(a.idarticle).set(a.toMap());
 
       // Eliminar documentos viejos de la subcolección 'gallery'
-      await DB.collection('Articulo').doc(a.idarticle).collection('gallery').get().then(
-            (snapshot) async {
+      await DB
+          .collection('Articulo')
+          .doc(a.idarticle)
+          .collection('gallery')
+          .get()
+          .then(
+        (snapshot) async {
           for (QueryDocumentSnapshot doc in snapshot.docs) {
             await doc.reference.delete();
           }
@@ -61,13 +66,22 @@ class ArticuloController {
       // Insertar nuevas imágenes en la subcolección 'gallery'
       if (a.gallery!.isNotEmpty) {
         await Future.forEach(a.gallery!, (imagen) async {
-          await DB.collection('Articulo').doc(a.idarticle).collection('gallery').add(imagen.toMap());
+          await DB
+              .collection('Articulo')
+              .doc(a.idarticle)
+              .collection('gallery')
+              .add(imagen.toMap());
         });
       }
 
       // Eliminar documentos viejos de la subcolección 'categories'
-      await DB.collection('Articulo').doc(a.idarticle).collection('categories').get().then(
-            (snapshot) {
+      await DB
+          .collection('Articulo')
+          .doc(a.idarticle)
+          .collection('categories')
+          .get()
+          .then(
+        (snapshot) {
           for (QueryDocumentSnapshot doc in snapshot.docs) {
             doc.reference.delete();
           }
@@ -77,7 +91,11 @@ class ArticuloController {
       // Insertar nuevas categorías en la subcolección 'categories'
       if (a.categories!.isNotEmpty) {
         await Future.forEach(a.categories!, (categoria) async {
-          await DB.collection('Articulo').doc(a.idarticle).collection('categories').add(categoria.toMap());
+          await DB
+              .collection('Articulo')
+              .doc(a.idarticle)
+              .collection('categories')
+              .add(categoria.toMap());
         });
       }
     } catch (e) {
@@ -87,7 +105,7 @@ class ArticuloController {
   }
 
   //Eliminar un articulo de la base de datos
-  static Future<void> deleteArticulo(Articulo a) async{
+  static Future<void> deleteArticulo(Articulo a) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
     try {
       //Eliminar Imagenes
@@ -97,8 +115,13 @@ class ArticuloController {
       await DB.collection('Articulo').doc(a.idarticle).delete();
 
       // Eliminar documentos viejos de la subcolección 'gallery'
-      await DB.collection('Articulo').doc(a.idarticle).collection('gallery').get().then(
-            (snapshot) {
+      await DB
+          .collection('Articulo')
+          .doc(a.idarticle)
+          .collection('gallery')
+          .get()
+          .then(
+        (snapshot) {
           for (QueryDocumentSnapshot doc in snapshot.docs) {
             doc.reference.delete();
           }
@@ -106,14 +129,18 @@ class ArticuloController {
       );
 
       // Eliminar documentos viejos de la subcolección 'categories'
-      await DB.collection('Articulo').doc(a.idarticle).collection('categories').get().then(
-            (snapshot) {
+      await DB
+          .collection('Articulo')
+          .doc(a.idarticle)
+          .collection('categories')
+          .get()
+          .then(
+        (snapshot) {
           for (QueryDocumentSnapshot doc in snapshot.docs) {
             doc.reference.delete();
           }
         },
       );
-
     } catch (e) {
       print("Apareció el Error: ${e.toString()}");
     }
@@ -195,7 +222,6 @@ class ArticuloController {
           .get();
 
       await Future.forEach(categoriaSnapshot.docs, (cat) async {
-
         Categoria onecategoria = Categoria(
           idcategory: cat.id,
           name: cat.get('name'),
@@ -211,7 +237,6 @@ class ArticuloController {
           .get();
 
       await Future.forEach(galeriaSnapshot.docs, (ImagenDoc) async {
-
         ImagenModel oneimagen = ImagenModel(
           idimagen: ImagenDoc.id,
           name: ImagenDoc.get('name'),
@@ -238,51 +263,54 @@ class ArticuloController {
   //Obtener un Articulo por su ID
   static Future<Articulo> getOneArticulo(String id) async {
     FirebaseFirestore firestore = await firestoreController.abrirFireStore();
-    QuerySnapshot querySnapshot = await firestore.collection('Articulo').where('idprof', isEqualTo: id).get();
+    QuerySnapshot querySnapshot = await firestore
+        .collection('Articulo')
+        .where('idarticle', isEqualTo: id)
+        .get();
 
     final documento = querySnapshot.docs.first;
 
     List<Categoria> categories = [];
     List<ImagenModel> gallery = [];
 
-      QuerySnapshot categoriaSnapshot = await firestore
-          .collection('Articulo')
-          .doc(documento.id)
-          .collection('categories')
-          .get();
+    QuerySnapshot categoriaSnapshot = await firestore
+        .collection('Articulo')
+        .doc(documento.id)
+        .collection('categories')
+        .get();
 
-      QuerySnapshot galeriaSnapshot = await firestore
-          .collection('Articulo')
-          .doc(documento.id)
-          .collection('gallery')
-          .get();
+    QuerySnapshot galeriaSnapshot = await firestore
+        .collection('Articulo')
+        .doc(documento.id)
+        .collection('gallery')
+        .get();
 
-      categories = categoriaSnapshot.docs.map((categoriaDoc) {
-        return Categoria(
-          idcategory: categoriaDoc.id,
-          name: categoriaDoc.get('name'),
-          type: categoriaDoc.get('type'),
-        );
-      }).toList();
-
-      gallery = galeriaSnapshot.docs.map((ImagenDoc) {
-        return ImagenModel(
-          idimagen: ImagenDoc.id,
-          name: ImagenDoc.get('name'),
-          url: ImagenDoc.get('url'),
-        );
-      }).toList();
-
-      Articulo oneArticulo = Articulo(
-        idarticle: documento.id,
-        idprof: documento['idprof'],
-        date: documento['date'],
-        title: documento['title'],
-        content: documento['content'],
-        categories: categories,
-        gallery: gallery,
+    categories = categoriaSnapshot.docs.map((categoriaDoc) {
+      return Categoria(
+        idcategory: categoriaDoc.id,
+        name: categoriaDoc.get('name'),
+        type: categoriaDoc.get('type'),
       );
+    }).toList();
 
-      return oneArticulo;
+    gallery = galeriaSnapshot.docs.map((ImagenDoc) {
+      return ImagenModel(
+        idimagen: ImagenDoc.id,
+        name: ImagenDoc.get('name'),
+        url: ImagenDoc.get('url'),
+      );
+    }).toList();
+
+    Articulo oneArticulo = Articulo(
+      idarticle: documento.id,
+      idprof: documento['idprof'],
+      date: documento['date'],
+      title: documento['title'],
+      content: documento['content'],
+      categories: categories,
+      gallery: gallery,
+    );
+
+    return oneArticulo;
   }
 }

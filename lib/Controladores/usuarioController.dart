@@ -135,6 +135,7 @@ class UsuarioController {
         await DB.collection('Usuario').doc(id).get();
 
     if (documento.exists) {
+      print("Encontro Usuario");
       ImagenModel picture = ImagenModel(
           name: documento['picture']['name'], url: documento['picture']['url']);
 

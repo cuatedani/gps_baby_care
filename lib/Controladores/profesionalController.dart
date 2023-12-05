@@ -64,22 +64,26 @@ class ProfesionalController {
   }
 
   //Obtiene un Profesional por su ID
-  static Future<Profesional> getOneProfesional(String id) async {
+  static Future<Profesional?> getOneProfesional(String id) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
-    QuerySnapshot querySnapshot = await DB
-        .collection('Profesional')
-        .where('idprof', isEqualTo: id)
-        .where('isdeleted', isEqualTo: false)
-        .get();
+    DocumentSnapshot documento =
+        await DB.collection('Profesional').doc(id).get();
 
-    final documento = querySnapshot.docs.first;
+    if (documento.exists) {
+      print("Se encontró Profesional con el ID: $id");
 
-    return Profesional(
+      return Profesional(
         idprof: documento.id,
         iduser: documento['iduser'],
         idinstitute: documento['idinstitute'],
         occupation: documento['occupation'],
-        isdeleted: documento['isdeleted']);
+        isdeleted: documento['isdeleted'],
+      );
+    } else {
+      // Handle the case when no document is found (return null, throw an exception, etc.)
+      print("No se encontró ningún Profesional con el ID: $id");
+      return null; // You may want to return an instance with default values or null
+    }
   }
 
   //Obtiene un Profesional por su ID de Usuario

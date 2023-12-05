@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gps_baby_care/Componente/CategoriasWidget.dart';
 import 'package:gps_baby_care/Modelos/articuloModel.dart';
-import 'package:gps_baby_care/Modelos/categoriaModel.dart';
 
 Widget BannerArticulo(Articulo Art) {
   return Container(
@@ -25,7 +24,7 @@ Widget BannerArticulo(Articulo Art) {
               fit: BoxFit.cover,
               image: (Art.gallery != null && Art.gallery!.isNotEmpty)
                   ? NetworkImage(Art.gallery![0].url) as ImageProvider<Object>
-                  : AssetImage("assets/images/img_5.png")
+                  : AssetImage("assets/images/defaultarticle.png")
                       as ImageProvider<Object>,
             ),
           ),
@@ -51,7 +50,7 @@ Widget BannerArticulo(Articulo Art) {
               SizedBox(height: 16),
               (Art.categories != null && Art.categories!.isNotEmpty)
                   ? CategoriasWidget(Art.categories!)
-                  : Text('Sin Clasificar'),
+                  : const Text('Sin Categorias Asignadas'),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
                 child: Art.content.length < 40

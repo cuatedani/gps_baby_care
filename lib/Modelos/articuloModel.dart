@@ -26,7 +26,11 @@ class Articulo {
       'idprof': idprof,
       'date': date,
       'title': title,
-      'content': content
+      'content': content,
     };
+  }
+
+  DateTime getDate() {
+    return DateTime.fromMillisecondsSinceEpoch(date.millisecondsSinceEpoch);
   }
 }

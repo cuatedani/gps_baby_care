@@ -4,6 +4,7 @@ import 'package:gps_baby_care/Componente/GaleriaWidget.dart';
 import 'package:gps_baby_care/Controladores/articuloController.dart';
 import 'package:gps_baby_care/Controladores/institutoController.dart';
 import 'package:gps_baby_care/Controladores/profesionalController.dart';
+import 'package:gps_baby_care/Controladores/usuarioController.dart';
 import 'package:gps_baby_care/Modelos/articuloModel.dart';
 import 'package:gps_baby_care/Modelos/categoriaModel.dart';
 import 'package:gps_baby_care/Modelos/imagenModel.dart';
@@ -15,7 +16,15 @@ import 'package:gps_baby_care/Vistas/Usuario/ProfesionalPageView.dart';
 
 class ArticuloPageView extends StatefulWidget {
   final Articulo Art;
-  const ArticuloPageView({super.key, required this.Art});
+  final Profesional Proff;
+  final Usuario User;
+  final Instituto Inst;
+  const ArticuloPageView(
+      {super.key,
+      required this.Art,
+      required this.Proff,
+      required this.User,
+      required this.Inst});
 
   @override
   State<ArticuloPageView> createState() => _ArticuloPageViewState();
@@ -36,35 +45,40 @@ class _ArticuloPageViewState extends State<ArticuloPageView> {
     Art = widget.Art;
     categories = Art.categories!;
     gallery = Art.gallery!;
-    cargardatos();
+    User = widget.User;
+    Inst = widget.Inst;
+    Proff = widget.Proff;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text("Articulo")),
       body: Padding(
         padding: EdgeInsets.all(5),
         child: Column(
           children: [
-            Text("${Art.title}"),
-            Text("${Art.date}"),
+            Text("Titulo: ${Art.title}"),
+            Text("Fecha: ${Art.getDate()}"),
             Divider(),
             InkWell(
               child: ListTile(
                 leading: CircleAvatar(
-                  backgroundImage: (User.picture.url != 'SinUrl')
-                      ? NetworkImage(User.picture.url) as ImageProvider<Object>
+                  backgroundImage: (User!.picture.url != 'SinUrl')
+                      ? NetworkImage(User!.picture.url) as ImageProvider<Object>
                       : AssetImage("assets/images/perfil.png")
                           as ImageProvider<Object>,
                 ),
-                title: Text("${User.name} ${User.lastname}"),
+                title: Text("${User!.name} ${User!.lastname}"),
                 subtitle: Text(Proff.occupation),
               ),
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (BuildContext context) => ProfesionalPageView(Proff: Proff,),
+                    builder: (BuildContext context) => ProfesionalPageView(
+                      Proff: Proff, User: User, Inst: Inst
+                    ),
                   ),
                 );
               },
@@ -78,7 +92,7 @@ class _ArticuloPageViewState extends State<ArticuloPageView> {
                         : AssetImage("assets/images/defaultlogo.png")
                             as ImageProvider<Object>,
                   ),
-                  title: Text("${User.name} ${User.lastname}"),
+                  title: Text("${Inst!.name}"),
                   subtitle: Inst.description.length < 40
                       ? Text(
                           '${Inst.description}',
@@ -91,12 +105,19 @@ class _ArticuloPageViewState extends State<ArticuloPageView> {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (BuildContext context) => InstitutoPageView(Inst: Inst,),
+                    builder: (BuildContext context) => InstitutoPageView(
+                      Inst: Inst,
+                    ),
                   ),
                 );
               },
             ),
-            CategoriasWidget(categories),
+            Divider(),
+            const Text("Categorias: "),
+              (categories.isNotEmpty)?
+            CategoriasWidget(categories): const Text("Sin Categorias Asignadas"),
+            Divider(),
+            const Text("Contenido: "),
             Text(Art.content),
             if (Art.gallery!.isNotEmpty) GaleriaWidget(imagenes: Art.gallery),
           ],
@@ -109,17 +130,23 @@ class _ArticuloPageViewState extends State<ArticuloPageView> {
   //Cargar Articulos de la Base de datos
   Future<void> cargardatos() async {
     Articulo tempArt = await ArticuloController.getOneArticulo(Art.idprof);
-    Profesional tempProff =
+
+    Profesional? tempProff =
         await ProfesionalController.getOneProfesional(Proff.idprof);
-    Instituto tempInst =
-        await InstitutoController.getOneInstituto(Proff.idinstitute);
+
+    Usuario tempUser = await UsuarioController.getOneUsuario(tempProff!.iduser);
+
+    Instituto? tempInst =
+        await InstitutoController.getOneInstituto(tempProff!.idinstitute);
+
     if (mounted) {
       setState(() {
         Art = tempArt;
         categories = Art.categories!;
         gallery = Art.gallery!;
+        User = tempUser;
         Proff = tempProff;
-        Inst = tempInst;
+        Inst = tempInst!;
       });
     }
   }

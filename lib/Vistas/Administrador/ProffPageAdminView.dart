@@ -56,14 +56,14 @@ class _ProffPageAdminViewState extends State<ProffPageAdminView> {
   //Cargar datos de la BD
   Future<void> cargardatos() async {
     Usuario tempUser = await UsuarioController.getProffUsuario(Proff);
-    Instituto tempInst = await InstitutoController.getOneInstituto(Proff.idinstitute);
-    Profesional tempProff = await ProfesionalController.getOneProfesional(Proff.idprof);
-    List<Articulo> tempArt = await ArticuloController.getProfArticulo(tempProff);
+    Instituto? tempInst = await InstitutoController.getOneInstituto(Proff.idinstitute);
+    Profesional? tempProff = await ProfesionalController.getOneProfesional(Proff.idprof);
+    List<Articulo> tempArt = await ArticuloController.getProfArticulo(tempProff!);
     if (mounted) {
       setState(() {
         Proff = tempProff;
         User = tempUser;
-        Inst = tempInst;
+        Inst = tempInst!;
         articulosList = tempArt;
       });
     }

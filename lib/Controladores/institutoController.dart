@@ -56,25 +56,30 @@ class InstitutoController {
   }
 
   //Metodo para Obtener un Instituto por ID
-  static Future<Instituto> getOneInstituto(String id) async {
+  static Future<Instituto?> getOneInstituto(String id) async {
     FirebaseFirestore DB = await firestoreController.abrirFireStore();
-    DocumentSnapshot doc =
-        await DB.collection('Instituto').doc(id).get();
+    DocumentSnapshot doc = await DB.collection('Instituto').doc(id).get();
 
-    ImagenModel InsLogo =
-        ImagenModel(name: doc['logo']['name'], url: doc['logo']['url']);
+    if (doc.exists) {
+      ImagenModel InsLogo =
+          ImagenModel(name: doc['logo']['name'], url: doc['logo']['url']);
 
-    Instituto oneInstituto = Instituto(
-      idinstitute: doc.id,
-      name: doc['name'],
-      phone: doc['phone'],
-      address: doc['address'],
-      description: doc['description'],
-      logo: InsLogo,
-      isdeleted: doc['isdeleted'],
-    );
+      Instituto oneInstituto = Instituto(
+        idinstitute: doc.id,
+        name: doc['name'],
+        phone: doc['phone'],
+        address: doc['address'],
+        description: doc['description'],
+        logo: InsLogo,
+        isdeleted: doc['isdeleted'],
+      );
 
-    return oneInstituto;
+      return oneInstituto;
+    } else {
+      // Handle the case when no document is found (return null, throw an exception, etc.)
+      print("No se encontró ningún Instituto con el ID: $id");
+      return null; // You may want to return an instance with default values or null
+    }
   }
 
   //Metodo para Borrar un Instituto Definitivamente

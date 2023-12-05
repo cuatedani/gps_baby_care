@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:gps_baby_care/Controladores/institutoController.dart';
+import 'package:gps_baby_care/Controladores/profesionalController.dart';
+import 'package:gps_baby_care/Controladores/usuarioController.dart';
 import 'package:gps_baby_care/Modelos/articuloModel.dart';
 import 'package:gps_baby_care/Controladores/articuloController.dart';
 import 'package:gps_baby_care/Componente/BannerArticuloWidget.dart';
+import 'package:gps_baby_care/Modelos/institutoModel.dart';
+import 'package:gps_baby_care/Modelos/profesionalModel.dart';
+import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 import 'package:gps_baby_care/Vistas/Usuario/ArticuloPageView.dart';
 
 import '../../Componente/MenuWidget.dart';
@@ -20,8 +26,8 @@ class _ArticulosViewState extends State<ArticulosView> {
 
   @override
   void initState() {
-    super.initState();
     cargarArticulos();
+    super.initState();
   }
 
   @override
@@ -49,13 +55,50 @@ class _ArticulosViewState extends State<ArticulosView> {
                         itemCount: ListaArticulos.length,
                         itemBuilder: (context, index) {
                           return InkWell(
-                            onTap: () {
+                            onTap: () async {
+                              Profesional? tempProff =
+                                  await ProfesionalController.getOneProfesional(
+                                      ListaArticulos[index].idprof);
+                              if (tempProff != null) {
+                                // Hacer algo con el profesional encontrado
+                                print("Profesional encontrado: ${tempProff.idprof}");
+                              } else {
+                                // Manejar el caso en que no se encontró ningún profesional
+                                print("No se encontró ningún Profesional con el ID proporcionado.");
+                              }
+
+                              Instituto? tempInst =
+                                  await InstitutoController.getOneInstituto(
+                                      tempProff!.idinstitute);
+
+                              if (tempInst != null) {
+                                // Hacer algo con el profesional encontrado
+                                print("Insituto encontrado: ${tempInst.idinstitute}");
+                              } else {
+                                // Manejar el caso en que no se encontró ningún profesional
+                                print("No se encontró ningún Insituto con el ID proporcionado.");
+                              }
+
+                              Usuario tempUser =
+                                  await UsuarioController.getOneUsuario(
+                                      tempProff!.iduser);
+
+                              if (tempInst != null) {
+                                // Hacer algo con el profesional encontrado
+                                print("Usuario encontrado: ${tempUser.iduser}");
+                              } else {
+                                // Manejar el caso en que no se encontró ningún profesional
+                                print("No se encontró ningún Usuario con el ID proporcionado.");
+                              }
+
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (BuildContext context) =>
                                       ArticuloPageView(
-                                    Art: ListaArticulos[index],
-                                  ),
+                                          Art: ListaArticulos[index],
+                                          Proff: tempProff,
+                                          User: tempUser,
+                                          Inst: tempInst!),
                                 ),
                               );
                             },
@@ -73,7 +116,6 @@ class _ArticulosViewState extends State<ArticulosView> {
   //Cargar Articulos de la Base de datos
   Future<void> cargarArticulos() async {
     List<Articulo> articulos = await ArticuloController.getAllArticulo();
-    print("Hola Como estas ${articulos.length}");
     if (mounted) {
       setState(() {
         ListaArticulos = articulos;

@@ -49,7 +49,7 @@ class _InstitutoPageAdminViewState extends State<InstitutoPageAdminView> {
             Divider(),
             Text("${Inst.description}"),
             Text("Telefono: ${Inst.phone}"),
-            Text("Telefono: ${Inst.address}"),
+            Text("Direccion: ${Inst.address}"),
             Divider(),
             Expanded(
               child: (proffList.isEmpty)
