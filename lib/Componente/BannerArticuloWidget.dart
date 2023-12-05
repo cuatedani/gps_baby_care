@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gps_baby_care/Componente/CategoriasWidget.dart';
 import 'package:gps_baby_care/Modelos/articuloModel.dart';
 import 'package:gps_baby_care/Modelos/categoriaModel.dart';
 
@@ -24,14 +25,16 @@ Widget BannerArticulo(Articulo Art) {
               fit: BoxFit.cover,
               image: (Art.gallery != null && Art.gallery!.isNotEmpty)
                   ? NetworkImage(Art.gallery![0].url) as ImageProvider<Object>
-                  : AssetImage("assets/images/img_5.png") as ImageProvider<Object>,
+                  : AssetImage("assets/images/img_5.png")
+                      as ImageProvider<Object>,
             ),
           ),
         ),
         Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start, // Alinea el texto a la izquierda
+            crossAxisAlignment:
+                CrossAxisAlignment.start, // Alinea el texto a la izquierda
             children: [
               Container(
                 padding: EdgeInsets.all(5),
@@ -46,20 +49,21 @@ Widget BannerArticulo(Articulo Art) {
                 ),
               ),
               SizedBox(height: 16),
-              Art.categories != null && Art.categories!.isNotEmpty
-                  ? Wrap(
-                children: Art.categories!.map((Categoria category) {
-                  return Chip(
-                    label: Text(category.name),
-                  );
-                }).toList(),
-              )
+              (Art.categories != null && Art.categories!.isNotEmpty)
+                  ? CategoriasWidget(Art.categories!)
                   : Text('Sin Clasificar'),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                child: Art.content.length < 40 ? Text('${Art.content}', style: TextStyle(fontSize: 15),) :Text('${Art.content.substring(0,40)} ...', style: TextStyle(fontSize: 15),),
-
-                ),
+                child: Art.content.length < 40
+                    ? Text(
+                        '${Art.content}',
+                        style: TextStyle(fontSize: 15),
+                      )
+                    : Text(
+                        '${Art.content.substring(0, 40)} ...',
+                        style: TextStyle(fontSize: 15),
+                      ),
+              ),
             ],
           ),
         ),

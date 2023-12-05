@@ -38,10 +38,12 @@ class _ArticulosViewState extends State<ArticulosView> {
           padding: EdgeInsets.all(5),
           child: Column(
             children: [
-              Center(child: Text("Filtros"),),
+              Center(
+                child: Text("Filtros"),
+              ),
               Divider(),
-              Container(
-                child: (ListaArticulos.isNotEmpty)
+              Expanded(
+                child: (ListaArticulos.isEmpty)
                     ? Text("POR EL MOMENTO NO HAY ARTICULOS QUE MOSTRAR")
                     : ListView.builder(
                         itemCount: ListaArticulos.length,
@@ -71,6 +73,7 @@ class _ArticulosViewState extends State<ArticulosView> {
   //Cargar Articulos de la Base de datos
   Future<void> cargarArticulos() async {
     List<Articulo> articulos = await ArticuloController.getAllArticulo();
+    print("Hola Como estas ${articulos.length}");
     if (mounted) {
       setState(() {
         ListaArticulos = articulos;
