@@ -17,6 +17,7 @@ class StoreView extends StatefulWidget {
 class _StoreViewState extends State<StoreView> {
   List<Producto> products = [];
   List<Categoria> categories = [];
+  final text = TextEditingController();
 
   @override
   void initState() {
@@ -55,6 +56,10 @@ class _StoreViewState extends State<StoreView> {
                         height: 50,
                         width: 200,
                         child: TextFormField(
+                          controller: text,
+                          onChanged: (valor) async {
+                            await filtrartexto();
+                          },
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: "Buscar aquí...",
@@ -120,6 +125,17 @@ class _StoreViewState extends State<StoreView> {
       setState(() {
         products = tempproducts;
         categories = tempcategories;
+      });
+    }
+  }
+
+  //Filtra por texto
+  Future<void> filtrartexto() async {
+    List<Producto> tempproducts = await ProductoController.filtrarAllProductos(text.text);
+    await CategoriaController.getProductoCategoria();
+    if (mounted) {
+      setState(() {
+        products = tempproducts;
       });
     }
   }

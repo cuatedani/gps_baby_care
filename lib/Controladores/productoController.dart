@@ -190,6 +190,64 @@ class ProductoController {
     return products;
   }
 
+  //Obtiene todos los Productos
+  static Future<List<Producto>> filtrarAllProductos(String text) async {
+    FirebaseFirestore DB = FirebaseFirestore.instance;
+    QuerySnapshot querySnapshot = await DB.collection('Productos').get();
+    List<Producto> products = [];
+
+    await Future.forEach(querySnapshot.docs, (documento) async {
+      List<Categoria> categories = [];
+      List<ImagenModel> gallery = [];
+
+      QuerySnapshot categoriaSnapshot = await DB
+          .collection('Productos')
+          .doc(documento.id)
+          .collection('categories')
+          .where('quantity', isGreaterThan: 0)
+          .get();
+
+      QuerySnapshot galeriaSnapshot = await DB
+          .collection('Productos')
+          .doc(documento.id)
+          .collection('gallery')
+          .get();
+
+      categories = categoriaSnapshot.docs.map((categoriaDoc) {
+        return Categoria(
+          idcategory: categoriaDoc.id,
+          name: categoriaDoc.get('name'),
+          type: categoriaDoc.get('type'),
+        );
+      }).toList();
+
+      gallery = galeriaSnapshot.docs.map((ImagenDoc) {
+        return ImagenModel(
+          idimagen: ImagenDoc.id,
+          name: ImagenDoc.get('name'),
+          url: ImagenDoc.get('url'),
+        );
+      }).toList();
+
+      Producto oneProduct = Producto(
+        idproduct: documento.id,
+        iduser: documento['iduser'],
+        name: documento['name'],
+        price: documento['price'],
+        description: documento['description'],
+        quantity: documento['quantity'],
+        categories: categories,
+        gallery: gallery,
+      );
+
+      if(oneProduct.name.contains(text) || oneProduct.description.contains(text)){
+        products.add(oneProduct);
+      }
+    });
+
+    return products;
+  }
+
   //Obtiene todos los Productos de un Usuario
   static Future<List<Producto>> getAllUserProductos(String userid) async {
     FirebaseFirestore DB = FirebaseFirestore.instance;
