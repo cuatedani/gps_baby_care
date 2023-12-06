@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gps_baby_care/Controladores/usuarioController.dart';
 import 'package:gps_baby_care/Vistas/Usuario/PerfilView.dart';
 import '../Modelos/usuarioModel.dart';
 import '../Vistas/Generales/BienvenidaView.dart';
@@ -141,8 +142,8 @@ class _MenuScreenState extends State<MenuScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => PerfilView(User: user)),
-                        );
+                              builder: (context) => EditarPerfil(User: user)),
+                        ).then((value) => cargardatos());
                       },
                       child: CircleAvatar(
                         backgroundImage: (user.picture.url != 'SinUrl')
@@ -164,7 +165,7 @@ class _MenuScreenState extends State<MenuScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => EditarPerfil(User: user)),
-                        );
+                        ).then((value) => cargardatos());
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -242,4 +243,15 @@ class _MenuScreenState extends State<MenuScreen> {
         ),
         onTap: () => onSelectedItem(item),
       );
+
+  //Zona de Metodos
+  //Carga los datos de la BD
+  Future<void> cargardatos() async {
+    Usuario temporal = await UsuarioController.getOneUsuario(user.iduser);
+    if (mounted) {
+      setState(() {
+        user = temporal;
+      });
+    }
+  }
 }
