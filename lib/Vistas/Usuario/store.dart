@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gps_baby_care/Componente/CategoriasWidget.dart';
 import 'package:gps_baby_care/Componente/MenuWidget.dart';
-import 'package:gps_baby_care/Componente/ProductsUserWidget.dart';
 import 'package:gps_baby_care/Componente/ProductsWidget.dart';
 import 'package:gps_baby_care/Controladores/categoriaController.dart';
 import 'package:gps_baby_care/Controladores/productoController.dart';
 import 'package:gps_baby_care/Modelos/categoriaModel.dart';
 import 'package:gps_baby_care/Modelos/productoModel.dart';
-import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 
 class StoreView extends StatefulWidget {
   const StoreView({super.key});
