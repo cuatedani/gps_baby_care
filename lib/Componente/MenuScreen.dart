@@ -14,7 +14,8 @@ class MenuItems {
   static const consulta = MenuItem("Consulta a un experto", Icons.help_outline);
   static const articuloadd = MenuItem("Añadir un producto", Icons.sell);
   static const miscitas = MenuItem("Mis citas", Icons.local_hospital);
-  static const misproductos = MenuItem("Mis productos", Icons.smart_toy_outlined);
+  static const misproductos =
+      MenuItem("Mis productos", Icons.smart_toy_outlined);
   // proff
   static const articulos = MenuItem("Articulos", Icons.book);
   static const mis_articulos = MenuItem("Mis articulos", Icons.bookmark_remove);
@@ -55,7 +56,6 @@ class RoleMenus {
       MenuItems.institutoView,
       MenuItems.misproductos,
       MenuItems.miscitas
-
     ],
     initialSelectedItem: MenuItems.Inicio,
   );
@@ -92,16 +92,33 @@ RoleMenu getRoleMenu(Usuario user) {
   }
 }
 
-class MenuScreen extends StatelessWidget {
+class MenuScreen extends StatefulWidget {
   final MenuItem currentItem;
   final ValueChanged<MenuItem> onSelectedItem;
   final Usuario user;
+
   const MenuScreen(
-      {Key? key,
+      {super.key,
       required this.currentItem,
       required this.onSelectedItem,
-      required this.user})
-      : super(key: key);
+      required this.user});
+
+  @override
+  State<MenuScreen> createState() => _MenuScreenState();
+}
+
+class _MenuScreenState extends State<MenuScreen> {
+  late MenuItem currentItem;
+  late ValueChanged<MenuItem> onSelectedItem;
+  late Usuario user;
+
+  @override
+  void initState() {
+    user = widget.user;
+    currentItem = widget.currentItem;
+    onSelectedItem = widget.onSelectedItem;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +146,8 @@ class MenuScreen extends StatelessWidget {
                       },
                       child: CircleAvatar(
                         backgroundImage: (user.picture.url != 'SinUrl')
-                            ? NetworkImage(user.picture.url) as ImageProvider<Object>
+                            ? NetworkImage(user.picture.url)
+                                as ImageProvider<Object>
                             : AssetImage("assets/images/perfil.png"),
                         maxRadius: 40,
                         backgroundColor: Colors.brown,
@@ -171,11 +189,10 @@ class MenuScreen extends StatelessWidget {
                 onTap: () {
                   Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => BienvenidaView()),
-                        (route) => false,
+                    MaterialPageRoute(builder: (context) => BienvenidaView()),
+                    (route) => false,
                   );
-                 /* Navigator.push(
+                  /* Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => BienvenidaView()));*/
