@@ -37,6 +37,7 @@ class _MisProductosViewState extends State<MisProductosView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFFAF2E7),
         appBar: AppBar(
           title: const Text(
             "Mi Tienda",
@@ -49,7 +50,6 @@ class _MisProductosViewState extends State<MisProductosView> {
             Container(
               padding: EdgeInsets.only(top: 15),
               decoration: BoxDecoration(
-                color: Color(0xFfEADFB4),
               ),
               child: Column(
                 children: [

@@ -27,9 +27,9 @@ class _StoreViewState extends State<StoreView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFFAF2E7),
       appBar: AppBar(
-        title: const Text(
-          "Mi Tienda",
+        title: const Text("Tienda",
           style: TextStyle(fontSize: 23),
         ),
         leading: MenuWidget(),
@@ -38,9 +38,6 @@ class _StoreViewState extends State<StoreView> {
         children: [
           Container(
             padding: EdgeInsets.only(top: 15),
-            decoration: BoxDecoration(
-              color: Color(0xFfEADFB4),
-            ),
             child: Column(
               children: [
                 Container(

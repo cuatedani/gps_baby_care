@@ -54,6 +54,7 @@ class _ArticuloPageViewState extends State<ArticuloPageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFFAF2E7),
       appBar: AppBar(title: const Text("Articulo")),
       body: Padding(
         padding: EdgeInsets.all(5),

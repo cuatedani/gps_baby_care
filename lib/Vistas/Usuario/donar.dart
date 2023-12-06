@@ -14,11 +14,10 @@ class _DonarState extends State<Donar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFFAF2E7),
       appBar: AppBar(
-        title: const Text(
-          "Donación",
-          style: TextStyle(
-              fontSize: 23),
+        title: const Text("Donación",
+          style: TextStyle(fontSize: 23),
         ),
         leading: MenuWidget(),
       ),
@@ -40,7 +39,6 @@ class _DonarState extends State<Donar> {
               Expanded(
                 child:
                 Column(
-
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
@@ -75,7 +73,7 @@ class _DonarState extends State<Donar> {
           child: Text("Opciones",style: TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.bold,
-            color: Color(0xff5522A2),),
+          color: Colors.brown),
           ),
         ),
         Container(
@@ -101,7 +99,7 @@ class _DonarState extends State<Donar> {
           child: Text("También puedes acudir a tu sitio más cercano en:",style: TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.bold,
-            color: Color(0xff5522A2),),
+            color: Colors.brown),
           ),
         ),
         Container(

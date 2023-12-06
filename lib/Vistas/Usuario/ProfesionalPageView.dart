@@ -48,6 +48,7 @@ class _ProfesionalPageViewState extends State<ProfesionalPageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFFAF2E7),
       appBar: AppBar(
         title: const Text("Profesional"),
       ),
