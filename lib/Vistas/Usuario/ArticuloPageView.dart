@@ -56,34 +56,55 @@ class _ArticuloPageViewState extends State<ArticuloPageView> {
     return Scaffold(
       backgroundColor: Color(0xFFFAF2E7),
       appBar: AppBar(title: const Text("Articulo")),
-      body: Padding(
-        padding: EdgeInsets.all(5),
+      body: SingleChildScrollView(
+        child: Padding(
+        padding: EdgeInsets.all(10),
         child: Column(
           children: [
-            Text("Titulo: ${Art.title}"),
-            Text("Fecha: ${Art.getDate()}"),
-            Divider(),
-            InkWell(
-              child: ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: (User.picture.url != 'SinUrl')
-                      ? NetworkImage(User.picture.url) as ImageProvider<Object>
-                      : AssetImage("assets/images/perfil.png")
-                          as ImageProvider<Object>,
-                ),
-                title: Text("${User.name} ${User.lastname}"),
-                subtitle: Text(Proff.occupation),
-              ),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => ProfesionalPageView(
-                      Proff: Proff, User: User, Inst: Inst
-                    ),
-                  ),
-                );
-              },
+            SizedBox(
+              height: 20,
             ),
+            Text(
+              "${Art.title}",
+              style: TextStyle(fontSize: 28),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => ProfesionalPageView(
+                          Proff: Proff,
+                          User: User,
+                          Inst: Inst,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Text("${User.name} ${User.lastname}", style: TextStyle(fontWeight: FontWeight.w600, color:Color(0XFF7D8B5F)), ),
+                ),
+                Text("${Art.getDate()}"),
+              ],
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                Proff.occupation,
+              ),
+            ),
+            SizedBox(height: 30,),
+            Text(Art.content, textAlign: TextAlign.justify ,style: TextStyle(fontSize: 17),),
+            SizedBox(height: 30,),
+            if (Art.gallery!.isNotEmpty) GaleriaWidget(imagenes: Art.gallery),
+            SizedBox(height: 30,),
+            (categories.isNotEmpty)
+                ? CategoriasWidget(categories)
+                : const Text("Sin Categorias Asignadas"),
             Divider(),
             InkWell(
               child: ListTile(
@@ -91,18 +112,18 @@ class _ArticuloPageViewState extends State<ArticuloPageView> {
                     backgroundImage: (Inst.logo.url != 'SinUrl')
                         ? NetworkImage(Inst.logo.url) as ImageProvider<Object>
                         : AssetImage("assets/images/defaultlogo.png")
-                            as ImageProvider<Object>,
+                    as ImageProvider<Object>,
                   ),
                   title: Text("${Inst.name}"),
                   subtitle: Inst.description.length < 40
                       ? Text(
-                          '${Inst.description}',
-                          style: TextStyle(fontSize: 15),
-                        )
+                    '${Inst.description}',
+                    style: TextStyle(fontSize: 15),
+                  )
                       : Text(
-                          '${Inst.description.substring(0, 40)} ...',
-                          style: TextStyle(fontSize: 15),
-                        )),
+                    '${Inst.description.substring(0, 40)} ...',
+                    style: TextStyle(fontSize: 15),
+                  )),
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -113,17 +134,10 @@ class _ArticuloPageViewState extends State<ArticuloPageView> {
                 );
               },
             ),
-            Divider(),
-            const Text("Categorias: "),
-              (categories.isNotEmpty)?
-            CategoriasWidget(categories): const Text("Sin Categorias Asignadas"),
-            Divider(),
-            const Text("Contenido: "),
-            Text(Art.content),
-            if (Art.gallery!.isNotEmpty) GaleriaWidget(imagenes: Art.gallery),
           ],
         ),
       ),
+    ),
     );
   }
 

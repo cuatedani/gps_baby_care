@@ -73,8 +73,6 @@ class _MenuPrincipalViewState extends State<MenuPrincipalView> {
         return MisProductosView(User: User);
       case MenuItems.miscitas:
         return MisCitasView(User: User);
-      case MenuItems.articuloadd:
-        return RegistroProductoForm(Auth: User);
       default:
       // Add a default case to handle any unexpected values
         throw Exception("Unhandled MenuItems case: $currentItem");

@@ -78,7 +78,7 @@ class _MisProductosViewState extends State<MisProductosView> {
                         Icon(
                           Icons.search,
                           size: 30,
-                          color: Colors.blueAccent,
+                          color: Colors.brown,
                         )
                       ],
                     ),
@@ -93,7 +93,7 @@ class _MisProductosViewState extends State<MisProductosView> {
                       style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xff5522A2),
+                        color: Colors.brown,
                       ),
                     ),
                   ),
@@ -108,7 +108,7 @@ class _MisProductosViewState extends State<MisProductosView> {
                       style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xff5522A2),
+                        color: Colors.brown,
                       ),
                     ),
                   ),

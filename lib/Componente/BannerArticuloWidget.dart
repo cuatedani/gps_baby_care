@@ -4,17 +4,18 @@ import 'package:gps_baby_care/Modelos/articuloModel.dart';
 
 Widget BannerArticulo(Articulo Art) {
   return Container(
+    margin: EdgeInsets.all(10.0),
     height: 200,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(20),
-      color: Color(0xff9BDBE7),
+      color: Colors.brown.shade300,
+
     ),
     child: Row(
       children: [
         Container(
-          width: 200,
-          height: double
-              .infinity, // Asegura que la imagen tenga la misma altura que el contenedor
+          width: 160,
+          height: double.infinity, // Asegura que la imagen tenga la misma altura que el contenedor
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
@@ -32,8 +33,6 @@ Widget BannerArticulo(Articulo Art) {
         Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment:
-                CrossAxisAlignment.start, // Alinea el texto a la izquierda
             children: [
               Container(
                 padding: EdgeInsets.all(5),
@@ -42,15 +41,12 @@ Widget BannerArticulo(Articulo Art) {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 18,
-                    color: Colors.black,
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
               SizedBox(height: 16),
-              (Art.categories != null && Art.categories!.isNotEmpty)
-                  ? CategoriasWidget(Art.categories!)
-                  : const Text('Sin Categorias Asignadas'),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
                 child: Art.content.length < 40
@@ -63,10 +59,15 @@ Widget BannerArticulo(Articulo Art) {
                         style: TextStyle(fontSize: 15),
                       ),
               ),
+              SizedBox(height: 30),
+              (Art.categories != null && Art.categories!.isNotEmpty)
+                  ? CategoriasWidget(Art.categories!)
+                  : const Text('Sin Categorias Asignadas'),
             ],
           ),
         ),
       ],
     ),
+
   );
 }

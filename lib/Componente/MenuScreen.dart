@@ -12,7 +12,6 @@ class MenuItems {
   static const tienda = MenuItem("Tienda en linea", Icons.shopping_cart);
   static const donacion = MenuItem("Donación", Icons.favorite);
   static const consulta = MenuItem("Consulta a un experto", Icons.help_outline);
-  static const articuloadd = MenuItem("Añadir un producto", Icons.sell);
   static const miscitas = MenuItem("Mis citas", Icons.local_hospital);
   static const misproductos =
       MenuItem("Mis productos", Icons.smart_toy_outlined);
@@ -52,7 +51,6 @@ class RoleMenus {
       MenuItems.tienda,
       MenuItems.donacion,
       MenuItems.consulta,
-      MenuItems.articuloadd,
       MenuItems.institutoView,
       MenuItems.misproductos,
       MenuItems.miscitas
@@ -227,8 +225,9 @@ class _MenuScreenState extends State<MenuScreen> {
   Widget buildMenuItem(BuildContext context, MenuItem item) => ListTile(
         selectedColor: Colors.white,
         selectedTileColor: Colors.black26,
-        selected: currentItem == item,
-        minLeadingWidth: 20,
+    selected: currentItem== item,
+
+    minLeadingWidth: 20,
         leading: Icon(item.icon),
         title: Text(
           item.title,
@@ -240,12 +239,14 @@ class _MenuScreenState extends State<MenuScreen> {
             ),
           ),
         ),
-        onTap: (){
-          setState(() {
-            onSelectedItem(item);
-          });
-          },
-      );
+    onTap: () {
+      setState(() {
+        onMenuItemSelected(item);
+        onSelectedItem(item);
+      });
+    },
+
+  );
 
   //Zona de Metodos
   //Carga los datos de la BD
@@ -257,4 +258,11 @@ class _MenuScreenState extends State<MenuScreen> {
       });
     }
   }
+
+  void onMenuItemSelected(MenuItem item) {
+    setState(() {
+      currentItem = item;
+    });
+  }
+
 }

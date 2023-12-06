@@ -11,7 +11,7 @@ Widget CategoriasWidget(List<Categoria> categoriesList) {
             margin: EdgeInsets.symmetric(horizontal: 10),
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.white70,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Row(
@@ -19,9 +19,8 @@ Widget CategoriasWidget(List<Categoria> categoriesList) {
                 Text(
                   "${category.name}",
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
                     fontSize: 16,
-                    color: Colors.blueAccent,
+                    color: Colors.blueAccent
                   ),
                 ),
               ],

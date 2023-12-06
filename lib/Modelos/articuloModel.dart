@@ -30,7 +30,9 @@ class Articulo {
     };
   }
 
-  DateTime getDate() {
-    return DateTime.fromMillisecondsSinceEpoch(date.millisecondsSinceEpoch);
+  String getDate() {
+    DateTime tuFecha = DateTime.fromMillisecondsSinceEpoch(date.millisecondsSinceEpoch);
+
+    return tuFecha.year.toString()+"-"+tuFecha.month.toString()+"-"+tuFecha.day.toString();
   }
 }

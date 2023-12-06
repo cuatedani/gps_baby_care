@@ -22,7 +22,7 @@ Widget ProductsWidget(BuildContext context, List<Producto> products) {
           padding: EdgeInsets.only(left: 15, right: 15, top: 10),
           margin: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
           decoration: BoxDecoration(
-            color: Colors.white70,
+            color: Colors.white54,
             borderRadius: BorderRadius.circular(20),
           ),
           child: InkWell(
@@ -89,7 +89,7 @@ Widget ProductsWidget(BuildContext context, List<Producto> products) {
                     products[i].name,
                     style: TextStyle(
                         fontSize: 18,
-                        color: Color(0xFF0066CB),
+                        color: Colors.brown,
                         fontWeight: FontWeight.bold),
                   ),
                 ),

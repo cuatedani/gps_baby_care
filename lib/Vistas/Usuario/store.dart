@@ -70,7 +70,7 @@ class _StoreViewState extends State<StoreView> {
                       Icon(
                         Icons.search,
                         size: 30,
-                        color: Colors.blueAccent,
+                        color: Colors.brown,
                       )
                     ],
                   ),
@@ -85,7 +85,7 @@ class _StoreViewState extends State<StoreView> {
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xff5522A2),
+                      color: Colors.brown,
                     ),
                   ),
                 ),
@@ -100,7 +100,7 @@ class _StoreViewState extends State<StoreView> {
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xff5522A2),
+                      color: Colors.brown
                     ),
                   ),
                 ),
