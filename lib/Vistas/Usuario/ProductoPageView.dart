@@ -49,7 +49,7 @@ class _ProductoPageViewState extends State<ProductoPageView> {
             (categories.isNotEmpty)?
             CategoriasWidget(categories): const Text("Sin Categorias Asignadas"),
             Divider(),
-            if (gallery!.isNotEmpty) GaleriaWidget(imagenes: gallery),
+            if (gallery.isNotEmpty) GaleriaWidget(imagenes: gallery),
             Divider(),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [Text("Unidades: ${Prod.quantity}"),Text("\$${Prod.price}")],),

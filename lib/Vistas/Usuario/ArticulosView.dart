@@ -77,7 +77,7 @@ class _ArticulosViewState extends State<ArticulosView> {
 
                               Instituto? tempInst =
                                   await InstitutoController.getOneInstituto(
-                                      tempProff!.idinstitute);
+                                      tempProff.idinstitute);
 
                               Usuario tempUser =
                                   await UsuarioController.getOneUsuario(

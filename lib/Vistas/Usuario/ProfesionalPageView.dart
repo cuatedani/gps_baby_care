@@ -130,7 +130,7 @@ class _ProfesionalPageViewState extends State<ProfesionalPageView> {
                                     articles[index].idprof);
                             Instituto? tempInst =
                                 await InstitutoController.getOneInstituto(
-                                    tempProff!.idinstitute);
+                                    tempProff.idinstitute);
                             Usuario tempUser =
                                 await UsuarioController.getOneUsuario(
                                     tempProff.iduser);

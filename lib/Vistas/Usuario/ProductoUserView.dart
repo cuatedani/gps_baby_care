@@ -53,7 +53,7 @@ class _ProductoUserViewState extends State<ProductoUserView> {
                   ? CategoriasWidget(categories)
                   : const Text("Sin Categorias Asignadas"),
               Divider(),
-              if (gallery!.isNotEmpty) GaleriaWidget(imagenes: gallery),
+              if (gallery.isNotEmpty) GaleriaWidget(imagenes: gallery),
               Divider(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
