@@ -74,37 +74,14 @@ class _ArticulosViewState extends State<ArticulosView> {
                               Profesional? tempProff =
                                   await ProfesionalController.getOneProfesional(
                                       ListaArticulos[index].idprof);
-                              if (tempProff != null) {
-                                // Hacer algo con el profesional encontrado
-                                print("Profesional encontrado: ${tempProff.idprof}");
-                              } else {
-                                // Manejar el caso en que no se encontró ningún profesional
-                                print("No se encontró ningún Profesional con el ID proporcionado.");
-                              }
 
                               Instituto? tempInst =
                                   await InstitutoController.getOneInstituto(
                                       tempProff!.idinstitute);
 
-                              if (tempInst != null) {
-                                // Hacer algo con el profesional encontrado
-                                print("Insituto encontrado: ${tempInst.idinstitute}");
-                              } else {
-                                // Manejar el caso en que no se encontró ningún profesional
-                                print("No se encontró ningún Insituto con el ID proporcionado.");
-                              }
-
                               Usuario tempUser =
                                   await UsuarioController.getOneUsuario(
                                       tempProff.iduser);
-
-                              if (tempInst != null) {
-                                // Hacer algo con el profesional encontrado
-                                print("Usuario encontrado: ${tempUser.iduser}");
-                              } else {
-                                // Manejar el caso en que no se encontró ningún profesional
-                                print("No se encontró ningún Usuario con el ID proporcionado.");
-                              }
 
                               Navigator.of(context).push(
                                 MaterialPageRoute(

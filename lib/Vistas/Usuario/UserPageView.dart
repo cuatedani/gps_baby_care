@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gps_baby_care/Controladores/usuarioController.dart';
+import 'package:gps_baby_care/Componente/ProductsWidget.dart';
+import 'package:gps_baby_care/Controladores/productoController.dart';
 import 'package:gps_baby_care/Modelos/productoModel.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 class UserPageView extends StatefulWidget {
@@ -12,10 +13,7 @@ class UserPageView extends StatefulWidget {
 
 class _UserPageViewState extends State<UserPageView> {
   late Usuario User;
-  List<Producto> Pro = [];
-
-  //Este es el prefil publico de Usuario, debe de mostrar su informacion publica y
-  // y sus productos
+  List<Producto> products = [];
 
   @override
   void initState() {
@@ -28,7 +26,7 @@ class _UserPageViewState extends State<UserPageView> {
     return Scaffold(
       backgroundColor: Color(0xFFFAF2E7),
       appBar: AppBar(
-        title: const Text("Mi Perfil"),
+        title: const Text("Usuario"),
       ),
       body: Padding(
         padding: EdgeInsets.all(5),
@@ -46,6 +44,11 @@ class _UserPageViewState extends State<UserPageView> {
             Text("Email: ${User.email}"),
             Text("Telefono: ${User.phone}"),
             Text("Direccion: ${User.address}"),
+            Divider(),
+            const Text("Productos: "),
+            (products.isEmpty)
+                ? Text("No cuenta con productos a la venta")
+                : ProductsWidget(context, products),
           ],
         ),
       ),
@@ -55,10 +58,10 @@ class _UserPageViewState extends State<UserPageView> {
   //Zona de Metodos
   //Carga los datos de la BD
   Future<void> cargardatos() async {
-    Usuario temporal = await UsuarioController.getOneUsuario(User.iduser);
+    List<Producto> tempproducts = await ProductoController.getAllUserProductos(User.iduser);
     if (mounted) {
       setState(() {
-        User = temporal;
+        products = tempproducts;
       });
     }
   }

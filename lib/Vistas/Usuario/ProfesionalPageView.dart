@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gps_baby_care/Componente/BannerArticuloWidget.dart';
+import 'package:gps_baby_care/Componente/ProductsWidget.dart';
 import 'package:gps_baby_care/Controladores/articuloController.dart';
 import 'package:gps_baby_care/Controladores/institutoController.dart';
 import 'package:gps_baby_care/Controladores/productoController.dart';
@@ -111,10 +112,9 @@ class _ProfesionalPageViewState extends State<ProfesionalPageView> {
             ),
             Divider(),
             const Text("Productos: "),
-            //Se ocupa hacer un WidgetProducto y aqui mostrar los productos asi como se muestras las categorias
-            (products.isNotEmpty)
-                ? Text("Tiene Productos xd")
-                : Text("No hay Productos en Venta"),
+            (products.isEmpty)
+                ? Text("No cuenta con productos a la venta")
+                : ProductsWidget(context, products),
             Divider(),
             const Text("Articulos: "),
             Expanded(

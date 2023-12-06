@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gps_baby_care/Componente/CategoriasWidget.dart';
 import 'package:gps_baby_care/Componente/MenuWidget.dart';
-import 'package:gps_baby_care/Componente/ProductsWidget.dart';
+import 'package:gps_baby_care/Componente/ProductsUserWidget.dart';
 import 'package:gps_baby_care/Controladores/categoriaController.dart';
 import 'package:gps_baby_care/Controladores/productoController.dart';
 import 'package:gps_baby_care/Controladores/usuarioController.dart';
@@ -114,7 +114,7 @@ class _MisProductosViewState extends State<MisProductosView> {
                   ),
                   (products.isEmpty)
                       ? Text("Actualmente no cuentas con productos a la venta")
-                      : ProductsWidget(products),
+                      : ProductsUserWidget(context, products),
                 ],
               ),
             ),
@@ -128,7 +128,7 @@ class _MisProductosViewState extends State<MisProductosView> {
               MaterialPageRoute(
                 builder: (BuildContext context) => RegistroProductoForm(Auth: tempuser,),
               ),
-            );
+            ).then((value) => cargardatos());
           } catch (e, stackTrace) {
             print('Error: $e');
             print('StackTrace: $stackTrace');

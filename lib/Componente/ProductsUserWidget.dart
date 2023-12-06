@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gps_baby_care/Controladores/institutoController.dart';
-import 'package:gps_baby_care/Controladores/profesionalController.dart';
 import 'package:gps_baby_care/Controladores/usuarioController.dart';
-import 'package:gps_baby_care/Modelos/institutoModel.dart';
 import 'package:gps_baby_care/Modelos/productoModel.dart';
-import 'package:gps_baby_care/Modelos/profesionalModel.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
-import 'package:gps_baby_care/Vistas/Usuario/ProductoPageView.dart';
-import 'package:gps_baby_care/Vistas/Usuario/ProductoProffPageView.dart';
+import 'package:gps_baby_care/Vistas/Usuario/ProductoUserView.dart';
 
-Widget ProductsWidget(BuildContext context, List<Producto> products) {
+Widget ProductsUserWidget(BuildContext context, List<Producto> products) {
   return GridView.count(
     childAspectRatio: .62,
     physics: NeverScrollableScrollPhysics(),
@@ -28,34 +23,14 @@ Widget ProductsWidget(BuildContext context, List<Producto> products) {
           child: InkWell(
             onTap: () async {
               Usuario tempUser =
-                  await UsuarioController.getOneUsuario(products[i].iduser);
+              await UsuarioController.getOneUsuario(products[i].iduser);
 
-              if (tempUser.role == "Proff") {
-                Profesional tempProff =
-                    await ProfesionalController.getOneUserProfesional(
-                        products[i].iduser);
-
-                Instituto? tempInst = await InstitutoController.getOneInstituto(
-                    tempProff.idinstitute);
-
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => ProductoProffPageView(
-                      User: tempUser,
-                      Proff: tempProff,
-                      Prod: products[i],
-                      Inst: tempInst!,
-                    ),
-                  ),
-                );
-              } else {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) =>
-                        ProductoPageView(User: tempUser, Prod: products[i]),
-                  ),
-                );
-              }
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      ProductoUserView(User: tempUser, Prod: products[i]),
+                ),
+              );
             },
             child: Column(
               children: [
@@ -75,11 +50,11 @@ Widget ProductsWidget(BuildContext context, List<Producto> products) {
                     image: DecorationImage(
                       fit: BoxFit.cover,
                       image: (products[i].gallery != null &&
-                              products[i].gallery!.isNotEmpty)
+                          products[i].gallery!.isNotEmpty)
                           ? NetworkImage(products[i].gallery![0].url)
-                              as ImageProvider<Object>
+                      as ImageProvider<Object>
                           : AssetImage("assets/images/defaultarticle.png")
-                              as ImageProvider<Object>,
+                      as ImageProvider<Object>,
                     ),
                   ),
                 ),
