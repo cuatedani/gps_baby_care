@@ -240,7 +240,11 @@ class _MenuScreenState extends State<MenuScreen> {
             ),
           ),
         ),
-        onTap: () => onSelectedItem(item),
+        onTap: (){
+          setState(() {
+            onSelectedItem(item);
+          });
+          },
       );
 
   //Zona de Metodos

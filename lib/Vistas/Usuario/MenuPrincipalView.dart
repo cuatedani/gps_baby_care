@@ -54,6 +54,7 @@ class _MenuPrincipalViewState extends State<MenuPrincipalView> {
         closeCurve: Curves.bounceIn,
     );
   }
+
   Widget getScreen() {
     switch (currentItem) {
       case MenuItems.Inicio:
