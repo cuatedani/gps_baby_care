@@ -128,7 +128,9 @@ class MenuScreen extends StatelessWidget {
                         );
                       },
                       child: CircleAvatar(
-                        backgroundImage: AssetImage("assets/images/perfil.png"),
+                        backgroundImage: (user.picture.url != 'SinUrl')
+                            ? NetworkImage(user.picture.url) as ImageProvider<Object>
+                            : AssetImage("assets/images/perfil.png"),
                         maxRadius: 40,
                         backgroundColor: Colors.brown,
                       ),

@@ -294,8 +294,7 @@ class _RegistroViewState extends State<RegistroView>
                             ),
                             child: Text(
                               "Registrarse",
-                              style: TextStyle(
-                                  fontFamily: 'NerkoOne', fontSize: 20),
+                              style: TextStyle(fontSize: 20),
                             ),
                           ),
                         ),
