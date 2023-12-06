@@ -1,29 +1,44 @@
 import 'package:flutter/material.dart';
-import '../../Componente/MenuWidget.dart';
-class Store extends StatefulWidget {
-  const Store({Key? key}) : super(key: key);
+import 'package:gps_baby_care/Componente/CategoriasWidget.dart';
+import 'package:gps_baby_care/Componente/MenuWidget.dart';
+import 'package:gps_baby_care/Componente/ProductsUserWidget.dart';
+import 'package:gps_baby_care/Componente/ProductsWidget.dart';
+import 'package:gps_baby_care/Controladores/categoriaController.dart';
+import 'package:gps_baby_care/Controladores/productoController.dart';
+import 'package:gps_baby_care/Modelos/categoriaModel.dart';
+import 'package:gps_baby_care/Modelos/productoModel.dart';
+import 'package:gps_baby_care/Modelos/usuarioModel.dart';
+
+class StoreView extends StatefulWidget {
+  const StoreView({super.key});
 
   @override
-  State<Store> createState() => _StoreState();
+  State<StoreView> createState() => _StoreViewState();
 }
 
-class _StoreState extends State<Store> {
+class _StoreViewState extends State<StoreView> {
+  List<Producto> products = [];
+  List<Categoria> categories = [];
+
+  @override
+  void initState() {
+    cargardatos();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            "Tienda",
-            style: TextStyle(
-                fontSize: 23),
-          ),
-          leading: MenuWidget(),
+      appBar: AppBar(
+        title: const Text(
+          "Mi Tienda",
+          style: TextStyle(fontSize: 23),
         ),
+        leading: MenuWidget(),
+      ),
       body: ListView(
-
         children: [
           Container(
-
             padding: EdgeInsets.only(top: 15),
             decoration: BoxDecoration(
               color: Color(0xFfEADFB4),
@@ -64,15 +79,18 @@ class _StoreState extends State<Store> {
                 Container(
                   height: 50,
                   alignment: Alignment.centerLeft,
-                  margin: EdgeInsets.symmetric(vertical: 20,horizontal: 10),
-                  child: Text("Categorias",style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff5522A2),),
+                  margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                  child: Text(
+                    "Categorias",
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff5522A2),
+                    ),
                   ),
                 ),
                 //CATEGORIAS ------------------------------------------------------------------------------------------------
-                CategoriasWidget(),
+                CategoriasWidget(categories),
                 //PRODUCTOS ---------------------------------------------------------------
                 Container(
                   alignment: Alignment.centerLeft,
@@ -86,113 +104,28 @@ class _StoreState extends State<Store> {
                     ),
                   ),
                 ),
-                ItemsWidget(),
+                (products.isEmpty)
+                    ? Text("Actualmente no cuentas con productos a la venta")
+                    : ProductsWidget(context, products),
               ],
             ),
           ),
-        ],
-      )
-    );
-
-
-
-  }
-  Widget CategoriasWidget() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          for(int i=1;i<8;i++)
-            Container(
-              margin:EdgeInsets.symmetric(horizontal: 10,),
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Row(
-                children: [
-                  Image.asset("assets/images/img_1.png",width: 40,height: 40,),
-                  Text("Calzado",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.blueAccent),)
-
-                ],
-              ),
-            ),
         ],
       ),
     );
   }
 
-  Widget ItemsWidget() {
-
-    return GridView.count(
-
-      childAspectRatio:  .62,
-      physics: NeverScrollableScrollPhysics(),
-      crossAxisCount: 2,
-      shrinkWrap: true,
-
-      children: [
-        for(int i=11;i<15;i++)
-          Container(
-            height: 100,
-            padding: EdgeInsets.only(left: 15,right: 15,top: 10),
-            margin: EdgeInsets.symmetric(vertical: 8,horizontal: 10),
-            decoration: BoxDecoration(
-              color: Colors.white70,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        color: Colors.blueAccent,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Text("-50%",style: TextStyle(fontSize: 14,color: Colors.white,fontWeight: FontWeight.bold),),
-                    ),
-                    Icon(
-                      Icons.favorite_border,
-                      color: Colors.red,
-                    ),
-                  ],
-                ),
-                InkWell(
-                  onTap: (){},
-                  child: Container(
-                    margin: EdgeInsets.all(5),
-                    child: Image.asset("assets/images/img_$i.png",height: 120,width: 120,),
-                  ),
-                ),
-                Container(
-                  //padding: EdgeInsets.only(bottom: 5),
-                  alignment: Alignment.centerLeft,
-                  child: Text("Titulo",style: TextStyle(fontSize: 18,color: Color(0xFF0066CB),fontWeight: FontWeight.bold),),
-                ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text("descripción del producto extensa",style: TextStyle(fontSize: 15),),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("\$55",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,color: Colors.indigo),
-                      ),
-                      Icon(Icons.shopping_cart_checkout,color: Colors.black,)
-                    ],
-                  ),
-                )
-              ],
-            ),
-          )
-      ],
-
-    );
+  //Zona de Metodos
+  //Carga los datos inciales
+  Future<void> cargardatos() async {
+    List<Producto> tempproducts = await ProductoController.getAllProductos();
+    List<Categoria> tempcategories =
+        await CategoriaController.getProductoCategoria();
+    if (mounted) {
+      setState(() {
+        products = tempproducts;
+        categories = tempcategories;
+      });
+    }
   }
 }

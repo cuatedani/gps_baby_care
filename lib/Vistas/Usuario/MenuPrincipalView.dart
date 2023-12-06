@@ -61,7 +61,7 @@ class _MenuPrincipalViewState extends State<MenuPrincipalView> {
       case MenuItems.consejos:
         return ArticulosView();
       case MenuItems.tienda:
-        return Store();
+        return StoreView();
       case MenuItems.donacion:
         return Donar();
       case MenuItems.consulta:
