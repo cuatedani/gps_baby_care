@@ -60,7 +60,8 @@ class _BienvenidaViewState extends State<BienvenidaView> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
-                    children: <Widget>[
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
                       const Spacer(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -81,6 +82,8 @@ class _BienvenidaViewState extends State<BienvenidaView> {
                         ),
                       ),
                       const Spacer(flex: 3),
+                      Expanded(
+                        child:
                       Row(
                         children: [
                           OutlinedButton(
@@ -94,7 +97,7 @@ class _BienvenidaViewState extends State<BienvenidaView> {
                             child: Padding(
                               padding: EdgeInsets.all(8),
                               child: Text(
-                                ' Registrate ',
+                                'Registrate',
                                 style: GoogleFonts.lobster(
                                   textStyle: TextStyle(
                                       fontSize: 20,
@@ -122,7 +125,7 @@ class _BienvenidaViewState extends State<BienvenidaView> {
                             child: Padding(
                               padding: EdgeInsets.all(8),
                               child: Text(
-                                ' Iniciar Sesión ',
+                                'Iniciar Sesión',
                                 style: GoogleFonts.lobster(
                                   textStyle: TextStyle(
                                     fontSize: 20,
@@ -139,6 +142,7 @@ class _BienvenidaViewState extends State<BienvenidaView> {
                           ),
                         ],
                       ),
+                ),
                       const Spacer(),
                     ],
                   ),
