@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gps_baby_care/Controladores/usuarioController.dart';
-import 'package:gps_baby_care/Vistas/Usuario/PerfilView.dart';
 import '../Modelos/usuarioModel.dart';
 import '../Vistas/Generales/BienvenidaView.dart';
 import '../Vistas/Usuario/EditarPerfil.dart';
