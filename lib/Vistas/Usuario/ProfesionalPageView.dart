@@ -13,7 +13,6 @@ import 'package:gps_baby_care/Modelos/profesionalModel.dart';
 import 'package:gps_baby_care/Modelos/usuarioModel.dart';
 import 'package:gps_baby_care/Vistas/Usuario/ArticuloPageView.dart';
 import 'package:gps_baby_care/Vistas/Usuario/InstitutoPageView.dart';
-import 'package:gps_baby_care/Vistas/Usuario/FormularioCita.dart';
 
 class ProfesionalPageView extends StatefulWidget {
   final Profesional Proff;
@@ -64,24 +63,6 @@ class _ProfesionalPageViewState extends State<ProfesionalPageView> {
             ),
             Text("${User.name} ${User.lastname}"),
             Text("Ocupacion: ${Proff.occupation}"),
-            Divider(),
-            Center(
-              child: ElevatedButton(
-                child: const Text("Agendar una Cita"),
-                onPressed: () {
-                  String idUsuario = User.iduser; // Obtener el idUsuario del parámetro User
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => FormularioCita(
-                        idProfesional: Proff.idprof,
-                        idUsuario: idUsuario,
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
             Divider(),
             InkWell(
               child: ListTile(
